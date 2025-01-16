@@ -1,0 +1,49 @@
+{
+    "language": "English",
+    "screens": {
+        "loginScreen": {
+            "title": "LoginScreen",
+            "text": {
+                "phoneErrorMessage": "Please enter a valid mobile number",
+                "SignIn": "Sign In",
+                "Welcome": "Welcome back! Please enter your details.",
+                "placeholderEmail": "Email Address",
+                "placeholderPassword": "Password",
+                "forgotPassword": "Forgot Password?",
+                "buttonSignUp": "Sign up",
+                "dontHaveAnAccount": "Don't have an account?",
+                "ContinuePhoneNumber": "Continue with Phone Number",
+                "ContinueGoogle": "Continue with Google",
+                "ContinueFacebook": "Continue with Facebook",
+                "ContinueApple": "Continue with Apple",
+                "next": "Next",
+                "skip": "Skip",
+                "placeholderPhone": "Mobile Number",
+                "NoWorries": "No worries, we'll send an otp on your registered mobile number for verification.",
+                "verifyOTP": "Verify OTP",
+                "placeholderFirstName": "First Name",
+                "placeholderLastName": "Last Name",
+                "placeholderDateOfBirth": "Date of Birth",
+                "confirmPassword": "Confirm Password",
+                "buttonLogin": "Login",
+                "alreadyHaveAccount": "Already have an account?",
+                "HomeScreen": "HomeScreen",
+                "AddPayment": "Add Payment",
+                "Settings": "Settings",
+                "Language": "Language",
+                "Appearance": "Appearance",
+                "Logout": "LogOut",
+                "selectLanguage": "Select Language",
+                "close": "Close",
+                "AddShipment": "Add Shipment1",
+                "oTPVerification": "OTP Verification",
+                "sentMobileNumber": "Enter the 4-digit code sent to your mobile number",
+                "number": "+1 (4**) *** *732",
+                "didNotReceive": "Didn't receive the code?",
+                "successfully": "Successfully",
+                "successfullyVerified": "Your mobile number has been successfully verified.",
+                "buttonResend": "Resend"
+            }
+        }
+    }
+}

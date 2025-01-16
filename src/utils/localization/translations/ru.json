@@ -1,0 +1,49 @@
+{
+    "language": "Russian",
+    "screens": {
+        "loginScreen": {
+            "title": "Экран входа",
+            "text": {
+                "phoneErrorMessage": "Пожалуйста, введите действительный номер мобильного телефона",
+                "SignIn": "Войти",
+                "Welcome": "С возвращением! Пожалуйста, введите свои данные.",
+                "placeholderEmail": "Адрес электронной почты",
+                "placeholderPassword": "Пароль",
+                "forgotPassword": "Забыли пароль?",
+                "buttonSignUp": "Зарегистрироваться",
+                "dontHaveAnAccount": "Нет аккаунта?",
+                "ContinuePhoneNumber": "Продолжить с номером телефона",
+                "ContinueGoogle": "Продолжить с Google",
+                "ContinueFacebook": "Продолжить с Facebook",
+                "ContinueApple": "Продолжить с Apple",
+                "next": "Далее",
+                "skip": "Пропустить",
+                "placeholderPhone": "Номер мобильного телефона",
+                "NoWorries": "Не волнуйтесь, мы отправим OTP на ваш зарегистрированный номер для проверки.",
+                "verifyOTP": "Подтвердить OTP",
+                "placeholderFirstName": "Имя",
+                "placeholderLastName": "Фамилия",
+                "placeholderDateOfBirth": "Дата рождения",
+                "confirmPassword": "Подтвердите пароль",
+                "buttonLogin": "Войти",
+                "alreadyHaveAccount": "Уже есть аккаунт?",
+                "HomeScreen": "Главный экран",
+                "AddPayment": "Добавить оплату",
+                "Settings": "Настройки",
+                "Language": "Язык",
+                "Appearance": "Внешний вид",
+                "Logout": "Выйти",
+                "selectLanguage": "Выбрать язык",
+                "close": "Закрыть",
+                "AddShipment": "Добавить отправление",
+                "oTPVerification": "Подтверждение OTP",
+                "sentMobileNumber": "Введите 4-значный код, отправленный на ваш номер телефона",
+                "number": "+7 (4**) *** *732",
+                "didNotReceive": "Не получили код?",
+                "successfully": "Успешно",
+                "successfullyVerified": "Ваш номер мобильного телефона успешно подтвержден.",
+                "buttonResend": "Отправить снова"
+            }
+        }
+    }
+}

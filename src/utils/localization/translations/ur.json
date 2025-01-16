@@ -1,0 +1,49 @@
+{
+    "language": "اردو",
+    "screens": {
+        "loginScreen": {
+            "title": "لاگ ان اسکرین",
+            "text": {
+                "phoneErrorMessage": "براہ کرم ایک درست موبائل نمبر درج کریں",
+                "SignIn": "سائن ان کریں",
+                "Welcome": "واپسی پر خوش آمدید! براہ کرم اپنی تفصیلات درج کریں۔",
+                "placeholderEmail": "ای میل پتہ",
+                "placeholderPassword": "پاس ورڈ",
+                "forgotPassword": "پاس ورڈ بھول گئے؟",
+                "buttonSignUp": "سائن اپ کریں",
+                "dontHaveAnAccount": "کیا آپ کا اکاؤنٹ نہیں ہے؟",
+                "ContinuePhoneNumber": "فون نمبر کے ساتھ جاری رکھیں",
+                "ContinueGoogle": "گوگل کے ساتھ جاری رکھیں",
+                "ContinueFacebook": "فیس بک کے ساتھ جاری رکھیں",
+                "ContinueApple": "ایپل کے ساتھ جاری رکھیں",
+                "next": "اگلا",
+                "skip": "چھوڑ دیں",
+                "placeholderPhone": "موبائل نمبر",
+                "NoWorries": "فکر نہ کریں، ہم آپ کے رجسٹرڈ موبائل نمبر پر توثیق کے لیے OTP بھیجیں گے۔",
+                "verifyOTP": "OTP کی توثیق کریں",
+                "placeholderFirstName": "پہلا نام",
+                "placeholderLastName": "آخری نام",
+                "placeholderDateOfBirth": "تاریخ پیدائش",
+                "confirmPassword": "پاس ورڈ کی تصدیق کریں",
+                "buttonLogin": "لاگ ان کریں",
+                "alreadyHaveAccount": "کیا آپ کے پاس پہلے سے اکاؤنٹ ہے؟",
+                "HomeScreen": "ہوم اسکرین",
+                "AddPayment": "ادائیگی شامل کریں",
+                "Settings": "ترتیبات",
+                "Language": "زبان",
+                "Appearance": "ظاہری شکل",
+                "Logout": "لاگ آؤٹ",
+                "selectLanguage": "زبان منتخب کریں",
+                "close": "بند کریں",
+                "AddShipment": "شپمنٹ شامل کریں",
+                "oTPVerification": "OTP کی توثیق",
+                "sentMobileNumber": "اپنے موبائل نمبر پر بھیجا گیا 4 عددی کوڈ درج کریں",
+                "number": "+92 (4**) *** *732",
+                "didNotReceive": "کوڈ موصول نہیں ہوا؟",
+                "successfully": "کامیابی کے ساتھ",
+                "successfullyVerified": "آپ کا موبائل نمبر کامیابی کے ساتھ تصدیق ہوگیا ہے۔",
+                "buttonResend": "دوبارہ بھیجیں"
+            }
+        }
+    }
+}

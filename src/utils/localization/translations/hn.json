@@ -1,0 +1,49 @@
+{
+    "language": "Hindi",
+    "screens": {
+        "loginScreen": {
+            "title": "लॉगिन स्क्रीन",
+            "text": {
+                "phoneErrorMessage": "कृपया एक मान्य मोबाइल नंबर दर्ज करें",
+                "SignIn": "साइन इन करें",
+                "Welcome": "वापसी पर स्वागत है! कृपया अपने विवरण दर्ज करें।",
+                "placeholderEmail": "ईमेल पता",
+                "placeholderPassword": "पासवर्ड",
+                "forgotPassword": "पासवर्ड भूल गए?",
+                "buttonSignUp": "साइन अप करें",
+                "dontHaveAnAccount": "क्या आपके पास खाता नहीं है?",
+                "ContinuePhoneNumber": "फ़ोन नंबर के साथ जारी रखें",
+                "ContinueGoogle": "Google के साथ जारी रखें",
+                "ContinueFacebook": "Facebook के साथ जारी रखें",
+                "ContinueApple": "Apple के साथ जारी रखें",
+                "next": "आगे",
+                "skip": "छोड़ें",
+                "placeholderPhone": "मोबाइल नंबर",
+                "NoWorries": "कोई चिंता नहीं, हम आपके पंजीकृत मोबाइल नंबर पर सत्यापन के लिए ओटीपी भेजेंगे।",
+                "verifyOTP": "ओटीपी सत्यापित करें",
+                "placeholderFirstName": "पहला नाम",
+                "placeholderLastName": "अंतिम नाम",
+                "placeholderDateOfBirth": "जन्मतिथि",
+                "confirmPassword": "पासवर्ड की पुष्टि करें",
+                "buttonLogin": "लॉग इन करें",
+                "alreadyHaveAccount": "क्या आपके पास पहले से खाता है?",
+                "HomeScreen": "मुख्य स्क्रीन",
+                "AddPayment": "भुगतान जोड़ें",
+                "Settings": "सेटिंग्स",
+                "Language": "भाषा",
+                "Appearance": "दिखावट",
+                "Logout": "लॉग आउट",
+                "selectLanguage": "भाषा चुनें",
+                "close": "बंद करें",
+                "AddShipment": "शिपमेंट जोड़ें",
+                "oTPVerification": "ओटीपी सत्यापन",
+                "sentMobileNumber": "अपने मोबाइल नंबर पर भेजा गया 4-अंकीय कोड दर्ज करें",
+                "number": "+91 (4**) *** *732",
+                "didNotReceive": "कोड प्राप्त नहीं हुआ?",
+                "successfully": "सफलतापूर्वक",
+                "successfullyVerified": "आपका मोबाइल नंबर सफलतापूर्वक सत्यापित हो गया है।",
+                "buttonResend": "फिर से भेजें"
+            }
+        }
+    }
+}

@@ -1,0 +1,49 @@
+{
+    "language": "French",
+    "screens": {
+        "loginScreen": {
+            "title": "Écran de connexion",
+            "text": {
+                "phoneErrorMessage": "Veuillez entrer un numéro de mobile valide",
+                "SignIn": "Se connecter",
+                "Welcome": "Content de te revoir ! Veuillez entrer vos informations.",
+                "placeholderEmail": "Adresse e-mail",
+                "placeholderPassword": "Mot de passe",
+                "forgotPassword": "Mot de passe oublié ?",
+                "buttonSignUp": "S'inscrire",
+                "dontHaveAnAccount": "Vous n'avez pas de compte ?",
+                "ContinuePhoneNumber": "Continuer avec le numéro de téléphone",
+                "ContinueGoogle": "Continuer avec Google",
+                "ContinueFacebook": "Continuer avec Facebook",
+                "ContinueApple": "Continuer avec Apple",
+                "next": "Suivant",
+                "skip": "Passer",
+                "placeholderPhone": "Numéro de mobile",
+                "NoWorries": "Pas de souci, nous enverrons un OTP sur votre numéro de mobile enregistré pour vérification.",
+                "verifyOTP": "Vérifier l'OTP",
+                "placeholderFirstName": "Prénom",
+                "placeholderLastName": "Nom de famille",
+                "placeholderDateOfBirth": "Date de naissance",
+                "confirmPassword": "Confirmer le mot de passe",
+                "buttonLogin": "Connexion",
+                "alreadyHaveAccount": "Vous avez déjà un compte ?",
+                "HomeScreen": "Écran d'accueil",
+                "AddPayment": "Ajouter un paiement",
+                "Settings": "Paramètres",
+                "Language": "Langue",
+                "Appearance": "Apparence",
+                "Logout": "Se déconnecter",
+                "selectLanguage": "Choisir une langue",
+                "close": "Fermer",
+                "AddShipment": "Ajouter une expédition",
+                "oTPVerification": "Vérification OTP",
+                "sentMobileNumber": "Entrez le code à 4 chiffres envoyé à votre numéro de mobile",
+                "number": "+33 (4**) *** *732",
+                "didNotReceive": "Vous n'avez pas reçu le code ?",
+                "successfully": "Avec succès",
+                "successfullyVerified": "Votre numéro de mobile a été vérifié avec succès.",
+                "buttonResend": "Renvoyer"
+            }
+        }
+    }
+}
