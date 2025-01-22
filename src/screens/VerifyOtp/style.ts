@@ -119,7 +119,7 @@ export const getStyles = (theme: Theme) => {
         },
         timerText: {
             textAlign: 'center',
-            color: 'blue'
+            color: theme.textColor
         },
         modalContainer: {
             flex: 1,

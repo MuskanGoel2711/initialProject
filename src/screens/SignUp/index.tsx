@@ -164,8 +164,7 @@ const SignUp = ({ navigation }: SignUpProps) => {
     !validateName(firstName) ||
     !validateName(lastName) ||
     !validateEmail(email) ||
-    !validatePassword(password) ||
-    !handleConfirmPasswordChange;
+    !validatePassword(password);
   return (
     <KeyboardAwareScrollView
       bounces={false}
