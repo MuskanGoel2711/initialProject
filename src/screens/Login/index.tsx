@@ -154,7 +154,6 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
               keyboardType="default"
               errorText="Please enter at least one uppercase, lowercase, digit, special character and 8 characters long"
               returnKeyType="done"
-              onSubmitEditing={handleNext}
             />
             <TouchableOpacity
               style={styles.forgotPass}
