@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import CustomImage from '../../components/CustomArrow';
@@ -8,8 +8,15 @@ import TopTabs from '../../navigation/TopTabNavigation/index';
 import { useThemeColors } from '../../utils/theme/theme';
 import { getStyles } from './style';
 import strings from '../../utils/strings';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-const AddShipment = ({ navigation }) => {
+type RootStackParamList = {
+    AddShipment: undefined;
+};
+
+type AddShipmentScreenProps = NativeStackScreenProps<RootStackParamList, 'AddShipment'>;
+
+const AddShipment: React.FC<AddShipmentScreenProps> = ({ navigation }) => {
     const insets = useSafeAreaInsets();
     const theme = useThemeColors();
     const styles = getStyles(theme);
@@ -18,7 +25,7 @@ const AddShipment = ({ navigation }) => {
         navigation.goBack();
     }
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { paddingTop: insets.top + 10 }]}>
             <View style={styles.topHeader}>
                 <CustomImage source={images.back} onPress={onBack} imageStyle={styles.icon} />
                 <Text style={styles.text}>{strings.AddShipment()}</Text>

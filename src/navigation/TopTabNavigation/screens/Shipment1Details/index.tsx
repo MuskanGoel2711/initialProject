@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Modal, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Modal, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import React, { useState } from 'react'
 import CustomInputBox from '../../../../components/CustomInput';
 import { images } from '../../../../assets';
@@ -7,34 +7,41 @@ import CustomDown from '../../../../components/CustomDown';
 import CustomButton from '../../../../components/CustomButton';
 import { getStyles } from './style';
 import { useThemeColors } from '../../../../utils/theme/theme';
+import { validateName, validatePhoneNumber } from '../../../../utils/validations';
+import { MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
 
-const Shipment1Details = ({ navigation }) => {
-  const [lastName, setLastName] = useState('');
-  const [lastNameError, setLastNameError] = useState('');
+interface Shipment1DetailsProps {
+  navigation: MaterialTopTabBarProps;
+}
+
+const Shipment1Details: React.FC<Shipment1DetailsProps> = ({ navigation }) => {
+  const [id, setId] = useState('');
+  const [idError, setIdError] = useState<boolean>(false);
   const [value, setValue] = useState('');
   const [cost, setCost] = useState('');
   const [serviceTime, setServiceTime] = useState('');
-  const [dob, setDob] = useState(undefined);
+  const [dob, setDob] = useState('');
   const [dobError, setDobError] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [options] = useState(['High', 'Medium', 'Low']);
+  const [options] = useState<string[]>(['High', 'Medium', 'Low']);
+  const [startTime, setStartTime] = useState('');
 
   const theme = useThemeColors();
   const styles = getStyles(theme);
 
-  const handleLastNameChange = (text) => {
-    setLastName(text);
+  const handleId = (text: string) => {
+    setId(text);
     if (text === '') {
-      setLastNameError(false);
-    } else if (validateName(text)) {
-      setLastNameError(false);
+      setIdError(false);
+    } else if (validatePhoneNumber(text)) {
+      setIdError(false);
     } else {
-      setLastNameError(true);
+      setIdError(true);
     }
   };
 
-  const handleDateChange = (selectedDate) => {
+  const handleDateChange = (selectedDate: any) => {
     setDob(selectedDate);
     if (selectedDate) {
       setDobError(false);
@@ -43,7 +50,7 @@ const Shipment1Details = ({ navigation }) => {
     }
   };
 
-  const handleOptionSelect = (option) => {
+  const handleOptionSelect = (option: string) => {
     setInputValue(option);
     setIsModalVisible(false);
     switch (option) {
@@ -70,7 +77,7 @@ const Shipment1Details = ({ navigation }) => {
     }
   };
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }: { item: string }) => (
     <TouchableOpacity
       style={styles.option}
       onPress={() => handleOptionSelect(item)}
@@ -80,19 +87,19 @@ const Shipment1Details = ({ navigation }) => {
   )
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <CustomInputBox
-        name={lastName}
+        name={id}
         label={'Shipment1 Number*'}
         maxLength={25}
         keyboardType="name-phone-pad"
-        onChangeText={handleLastNameChange}
-        setName={setLastName}
-      // Error={lastNameError}
-      // setError={setLastNameError}
-      // errorText={
-      //   'Please use only alphabetical letters and minimum length is 3 characters.'
-      // }
+        onChangeText={handleId}
+        setName={setId}
+        Error={idError}
+        setError={setIdError}
+        errorText={
+          'Number should be min 5 digit and max 13 digit.'
+        }
       />
       <DOBPicker
         label="shipment1 Date*"
@@ -131,8 +138,8 @@ const Shipment1Details = ({ navigation }) => {
       />
       <CustomButton
         title='Next'
-        onPress={() => navigation.navigate('PickUpDetails')}
-        isButtonDisabled={!dob}
+        onPress={() => navigation.jumpTo('PickUpDetails')}
+        isButtonDisabled={!(dob && id)}
       />
       <Modal
         visible={isModalVisible}
@@ -156,7 +163,7 @@ const Shipment1Details = ({ navigation }) => {
           </View>
         </TouchableOpacity>
       </Modal>
-    </View>
+    </ScrollView>
   )
 }
 

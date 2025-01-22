@@ -7,38 +7,63 @@ import {
     Dimensions,
     TouchableOpacity,
 } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { CommonActions } from '@react-navigation/native'; 
+import { markTutorial } from '../../redux/config/AuthSlice';
 import styles from './style';
 import tutorialData from '../../assets/tutorialData';
 import strings from '../../utils/strings'
 import Colors from '../../utils/colors';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 const { width } = Dimensions.get('window');
 
-const TutorialScreen = ({ navigation }) => {
+type TutorialItem = {
+    key: string;
+    image: string;
+    title: string;
+    description: string;
+};
+
+type RootStackParamList = {
+    Tutorial: undefined;
+    Login: undefined
+};
+
+type TutorialScreenProps = NativeStackScreenProps<RootStackParamList, 'Tutorial'>;
+
+const Tutorial: React.FC<TutorialScreenProps> = ({ navigation }) => {
+    const dispatch = useDispatch();
     const [currentIndex, setCurrentIndex] = useState(0);
-    const flatListRef = useRef(null);
+    const flatListRef = useRef<FlatList<TutorialItem>>(null);
 
     const handleNext = () => {
         const nextIndex = currentIndex + 1;
         if (nextIndex < tutorialData.length) {
-            flatListRef.current.scrollToIndex({ index: nextIndex });
+            flatListRef.current?.scrollToIndex({ index: nextIndex });
             setCurrentIndex(nextIndex);
         } else {
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'Login' }],
-            });
+            dispatch(markTutorial());
+            navigation.dispatch(
+                CommonActions.reset({
+                    index: 0,
+                    routes: [{ name: 'Login' }],
+                })
+            );
         }
     };
 
     const handleSkip = () => {
-        navigation.reset({
-            index: 0,
-            routes: [{ name: 'Login' }],
-        });
+        dispatch(markTutorial());
+        navigation.dispatch(
+            CommonActions.reset({
+                index: 0,
+                routes: [{ name: 'Login' }],
+            })
+        );
     }
 
-    const renderItem = ({ item }) => (
+    const renderItem = ({ item }: { item: TutorialItem }) => (
         <View style={styles.slide}>
             <Image style={styles.image} source={{ uri: item.image }} />
             <Text style={styles.title}>{item.title}</Text>
@@ -92,4 +117,4 @@ const TutorialScreen = ({ navigation }) => {
     );
 };
 
-export default TutorialScreen;
+export default Tutorial;

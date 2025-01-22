@@ -11,14 +11,16 @@ export const lightThemeColors = {
     backgroundColor: '#FFFFFF',
     textColor: '#000000',
     tintColor: '#000000',
-    borderColor: '#000000'
+    borderColor: '#000000',
+    shadowColor: "#000000"
 }
 
 export const darkThemeColors = {
     backgroundColor: '#000000',
     textColor: '#FFFFFF',
     tintColor: '#FFFFFF',
-    borderColor: '#FFFFFF'
+    borderColor: '#FFFFFF',
+    shadowColor: "'#FFFFFF"
 }
 
 export default Colors;

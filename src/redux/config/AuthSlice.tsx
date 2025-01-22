@@ -2,10 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 interface AuthState {
     isLoggedIn: boolean;
+    isTutorialSeen: boolean;
 }
 
 const initialState: AuthState = {
     isLoggedIn: false, 
+    isTutorialSeen: false
 };
 
 const authSlice = createSlice({
@@ -18,9 +20,12 @@ const authSlice = createSlice({
         logout(state) {
             state.isLoggedIn = false;
         },
+        markTutorial(state){
+            state.isTutorialSeen = true;
+        },
     },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout, markTutorial } = authSlice.actions;
 
 export default authSlice.reducer;

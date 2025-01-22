@@ -18,8 +18,4 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// const rootReducer = (state: any, action: any) => {
-//   return RootReducer(state, action);
-// };
-
 export default persistedReducer;

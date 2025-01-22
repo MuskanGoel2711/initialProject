@@ -1,16 +1,15 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet, useColorScheme, Image, View} from 'react-native';
+import {TouchableOpacity, Text, StyleSheet, useColorScheme, Image, View, ImageSourcePropType, ViewStyle, StyleProp, TextStyle} from 'react-native';
 import {vh} from '../../utils/Dimensions';
-
 
 interface CustomButtonProps {
   title: string;
   onPress: () => void;
   isButtonDisabled?: boolean;
-  iconSource?: any;
-  style?: any;
+  iconSource?: ImageSourcePropType;
+  style?: StyleProp<ViewStyle>;
   key?: any;
-  textStyle?: any
+  textStyle?: StyleProp<TextStyle>
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
@@ -52,8 +51,8 @@ const CustomButton: React.FC<CustomButtonProps> = ({
 const Styles = (theme: any) =>
   StyleSheet.create({
     disabledButton: {
-      backgroundColor: theme === 'dark' ? '#000' : '#FFF',
-      shadowColor: theme === 'dark' ? '#FFF' : '#000',
+      backgroundColor: 'white',
+      shadowColor: theme.shadowColor,
       shadowOffset: {width: 0, height: 2},
       shadowOpacity: 0.8,
       shadowRadius: 3,

@@ -9,10 +9,10 @@ import {
   useColorScheme,
   ScrollView,
 } from 'react-native';
-import React, {useState} from 'react';
-import {getStyles} from './style';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {CountryCode} from 'react-native-country-picker-modal';
+import React, { useState } from 'react';
+import { getStyles } from './style';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Country, CountryCode } from 'react-native-country-picker-modal';
 import CustomMobileInputBox from '../../components/CustomMobile';
 import CustomInputBox from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
@@ -22,26 +22,25 @@ import {
   validateName,
   validatePassword,
 } from '../../utils/validations';
-import {images} from '../../assets/index';
+import { images } from '../../assets/index';
 import DOBPicker from '../../components/CustomDOB';
 import { useThemeColors } from '../../utils/theme/theme';
 import strings from '../../utils/strings';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-interface SignUpProps {
-  onClose?: any;
-  navigation: any;
-}
+type RootStackParamList = {
+  SignUp: undefined;
+  VerifyOtp: undefined;
+  Login: undefined;
+};
 
-const SignUp = ({navigation}: SignUpProps) => {
+type SignUpProps = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
+
+const SignUp = ({ navigation }: SignUpProps) => {
   const theme = useThemeColors();
   const styles = getStyles(theme);
 
   const [modalVisible, setModalVisible] = useState(false);
-
-  const toggleModal = () => {
-    setModalVisible(!modalVisible);
-  };
-
   const [countryCode, setCountryCode] = useState<CountryCode>('IN');
   const [callingCode, setCallingCode] = useState('+91');
   const [firstName, setFirstName] = useState('');
@@ -58,9 +57,12 @@ const SignUp = ({navigation}: SignUpProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
-  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
-    useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
 
   const handleDateChange = (date: Date | undefined) => {
     setSelectedDate(date);
@@ -95,7 +97,7 @@ const SignUp = ({navigation}: SignUpProps) => {
     setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
   };
 
-  const onSelect = (country: any) => {
+  const onSelect = (country: Country) => {
     setCountryCode(country.cca2);
     setCallingCode(`+${country.callingCode[0]}`);
     setPickerVisible(false);
@@ -135,7 +137,10 @@ const SignUp = ({navigation}: SignUpProps) => {
 
   const handleNext = () => {
     if (!error) {
-      navigation.navigate('SignUpVerify', {phoneNumber});
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'VerifyOtp' }]
+      })
     }
   };
 
@@ -153,7 +158,7 @@ const SignUp = ({navigation}: SignUpProps) => {
     <>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <SafeAreaView style={styles.mainContainer}>
-          <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+          <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
             <StatusBar
               backgroundColor={'transparent'}
               barStyle={'dark-content'}
@@ -265,7 +270,7 @@ const SignUp = ({navigation}: SignUpProps) => {
                 onPress={() =>
                   navigation.reset({
                     index: 0,
-                    routes: [{name: 'Login'}],
+                    routes: [{ name: 'Login' }],
                   })
                 }>
                 <Text style={styles.loginText}>{strings.buttonLogin()}</Text>

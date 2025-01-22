@@ -4,7 +4,8 @@ const styles = StyleSheet.create({
     container: { 
         flex: 1, 
         backgroundColor: 'black',
-        alignItems: 'center'
+        alignItems: 'center',
+        padding: 20
     },
     viewContainer: { 
         flexDirection: 'row',
@@ -19,6 +20,7 @@ const styles = StyleSheet.create({
         tintColor: 'white' 
     },
     text: { fontSize: 24, fontWeight: 'bold', color:'white', textAlign: 'center', width: '90%' },
+    viewCont: { flex: 0.7,alignItems: 'center', justifyContent: 'center' },
     buttonContainer: { 
         flexDirection: 'row', 
         padding: 15, 

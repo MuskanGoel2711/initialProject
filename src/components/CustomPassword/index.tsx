@@ -6,9 +6,10 @@ import {
   Text,
   ImageSourcePropType,
   useColorScheme,
+  KeyboardTypeOptions,
 } from 'react-native';
 import { TextInput } from 'react-native-paper';
-import { Styles } from './style';
+import { styles } from './style';
 import { images } from '../../assets/index';
 
 interface CustomPasswordInputProps {
@@ -20,7 +21,7 @@ interface CustomPasswordInputProps {
   Error?: boolean;
   errorText?: string;
   maxLength?: number;
-  keyboardType: any;
+  keyboardType: KeyboardTypeOptions;
   onChangeText: (text: string) => void;
 }
 
@@ -36,9 +37,6 @@ const CustomPasswordInputBox = ({
   keyboardType,
   onChangeText,
 }: CustomPasswordInputProps) => {
-  const theme = useColorScheme();
-  const styles = Styles(theme);
-
   return (
     <View>
       <TextInput
@@ -48,7 +46,7 @@ const CustomPasswordInputBox = ({
         value={name}
         maxLength={maxLength}
         secureTextEntry={!isPasswordVisible}
-        textColor={theme === 'dark' ? '#FFF' : '#000'}
+        textColor={'black'}
         onChangeText={onChangeText}
         mode="outlined"
         underlineStyle={{
@@ -56,7 +54,7 @@ const CustomPasswordInputBox = ({
         }}
         theme={{
           colors: {
-            primary: 'gray',
+            primary: Error ? 'red' : 'gray',
             placeholder: 'grey',
             background: 'transparent',
             disabled: 'transparent',

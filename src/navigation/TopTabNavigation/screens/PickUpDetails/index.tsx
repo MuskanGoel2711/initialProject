@@ -1,31 +1,45 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import CustomInputBox from '../../../../components/CustomInput';
-import { validateEmail, validateName } from '../../../../utils/validations';
+import { validateEmail, validateName, validatePhoneNumber } from '../../../../utils/validations';
 import DOBPicker from '../../../../components/CustomDOB';
 import { images } from '../../../../assets';
 import { getStyles } from './style';
 import { useThemeColors } from '../../../../utils/theme/theme';
 import CustomButton from '../../../../components/CustomButton';
+import { MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
 
-const PickUpDetails = () => {
-  const [name, setName] = useState('');
-  const [nameError, setNameError] = useState('');
-  const [id, setId] = useState('');
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState(false);
-  const [number,setNumber] = useState('');
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
+interface PickUpDetailsProps {
+  navigation: MaterialTopTabBarProps;
+}
+
+const PickUpDetails: React.FC<PickUpDetailsProps> = ({ navigation }) => {
+  const [name, setName] = useState<string>('');
+  const [nameError, setNameError] = useState<boolean>(false);
+  const [id, setId] = useState<string>('');
+  const [idError, setIdError] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>('');
+  const [emailError, setEmailError] = useState<boolean>(false);
+  const [numberError, setNumberError] = useState<boolean>(false);
+  const [number, setNumber] = useState<string>('');
+  const [startTime, setStartTime] = useState<string>('');
+  const [endTime, setEndTime] = useState<string>('');
 
   const theme = useThemeColors();
   const styles = getStyles(theme);
 
-  const handleIdChange = (text) => {
+  const handleIdChange = (text: string) => {
     setId(text);
+    if (text === '') {
+      setIdError(false);
+    } else if (validatePhoneNumber(text)) {
+      setIdError(false);
+    } else {
+      setIdError(true);
+    }
   }
 
-  const handleNameChange = (text) => {
+  const handleNameChange = (text: string) => {
     setName(text);
     if (text === '') {
       setNameError(false);
@@ -36,7 +50,7 @@ const PickUpDetails = () => {
     }
   };
 
-  const handleEmailChange = (text) => {
+  const handleEmailChange = (text: string) => {
     setEmail(text);
     if (text === '') {
       setEmailError(false);
@@ -47,11 +61,18 @@ const PickUpDetails = () => {
     }
   };
 
-  const handleNumberChange = (text) => {
+  const handleNumberChange = (text: string) => {
     setNumber(text);
+    if (text === '') {
+      setNumberError(false);
+    } else if (validatePhoneNumber(text)) {
+      setNumberError(false);
+    } else {
+      setNumberError(true);
+    }
   }
 
-  const handleStartChange = (selectedDate) => {
+  const handleStartChange = (selectedDate: any) => {
     setStartTime(selectedDate);
     // if (selectedDate) {
     //   setDobError(false);
@@ -59,7 +80,7 @@ const PickUpDetails = () => {
     //   setDobError(true);
     // }
   };
-  const handleEndChange = (selectedDate) => {
+  const handleEndChange = (selectedDate: any) => {
     setEndTime(selectedDate);
     // if (selectedDate) {
     //   setDobError(false);
@@ -69,7 +90,7 @@ const PickUpDetails = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <CustomInputBox
         name={id}
         label={'Customer ID*'}
@@ -77,11 +98,11 @@ const PickUpDetails = () => {
         keyboardType="name-phone-pad"
         onChangeText={handleIdChange}
         setName={setId}
-      // Error={nameError}
-      // setError={setNameError}
-      // errorText={
-      //   'Please use only alphabetical letters and minimum length is 3 characters.'
-      // }
+        Error={idError}
+        setError={setIdError}
+        errorText={
+          'Id should be min 5 digit and max 13 digit.'
+        }
       />
       <CustomInputBox
         name={name}
@@ -114,11 +135,11 @@ const PickUpDetails = () => {
         keyboardType="name-phone-pad"
         onChangeText={handleNumberChange}
         setName={setNumber}
-        // Error={nameError}
-        // setError={setNameError}
-        // errorText={
-        //   'Please use only alphabetical letters and minimum length is 3 characters.'
-        // }
+        Error={numberError}
+        setError={setNumberError}
+        errorText={
+          'Mobile no. should be min 5 digit and max 13 digit.'
+        }
       />
       <DOBPicker
         label="Start Time*"
@@ -138,10 +159,10 @@ const PickUpDetails = () => {
       />
       <CustomButton
         title='Done'
-        // onPress={() => navigation.navigate('PickUpDetails')}
-        isButtonDisabled={!name}
+        onPress={() => navigation.jumpTo('Random')}
+        isButtonDisabled={!(name && id && startTime && endTime)}
       />
-    </View>
+    </ScrollView>
   )
 }
 

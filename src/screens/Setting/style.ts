@@ -3,7 +3,14 @@ import { vh, vw } from "../../utils/Dimensions";
 import Colors  from "../../utils/colors";
 import sizes from "../../utils/sizes";
 
-export const getStyles = (theme:any)=>{
+interface Theme {
+    backgroundColor: string;
+    textColor: string;
+    tintColor: string;
+  }
+  
+
+export const getStyles = (theme:Theme)=>{
     return StyleSheet.create({
     container: {
         flex: 1,

@@ -1,10 +1,15 @@
 import { StyleSheet } from "react-native";
 
-export const getStyles = (theme: any) => {
+interface Theme {
+  backgroundColor: string;
+  textColor: string;
+}
+
+export const getStyles = (theme: Theme) => {
     return StyleSheet.create({
     container: {
       flex: 1,
-      padding: 20,
+      paddingHorizontal: 20,
       backgroundColor: theme.backgroundColor
     },
     modalContainer: {

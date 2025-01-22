@@ -4,18 +4,20 @@ const styles = StyleSheet.create({
     container: { 
         flex: 1, 
         backgroundColor: 'black',
-        alignItems: 'center'
+        alignItems: 'center',
+        padding: 20
     },
     viewContainer: { 
         flexDirection: 'row',
-        marginRight: 30
+        marginRight: 25,
+        alignItems: 'center'
     },
     leftContainer: {
         // marginRight: 16,
     },
     left: { 
-        width: vw(30), 
-        height: vh(30), 
+        width: vw(25), 
+        height: vh(25), 
         tintColor: 'white' 
     },
     text: { fontSize: 24, fontWeight: 'bold', color:'white', textAlign: 'center', width: '90%' },

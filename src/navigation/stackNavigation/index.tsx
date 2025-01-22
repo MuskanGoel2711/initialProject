@@ -18,6 +18,7 @@ import { useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { toggleTheme, setTheme } from '../../redux/config/ThemeSlice';
 import SignUp from '../../screens/SignUp';
+import Random from '../../screens/random';
 
 
 type RootStackParamList = {
@@ -25,12 +26,16 @@ type RootStackParamList = {
   Tutorial: undefined;
   Login: undefined;
   HomeScreen: undefined;
-  OtpScreen: undefined;
   SignUp: undefined;
   Setting: undefined;
   AddShipment: undefined;
   ForgotPassword: undefined;
   VerifyOtp: undefined;
+  SignInGoogle: undefined;
+  PhoneSignUp: undefined;
+  FaceBookLogin: undefined;
+  OtpScreen: undefined;
+  Random: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -69,6 +74,11 @@ const NativeStack: React.FC = () => {
         <Stack.Screen name="AddShipment" component={AddShipment} options={{ gestureEnabled: false }} />
         <Stack.Screen name="Setting" component={Setting} options={{ gestureEnabled: false }} />
         <Stack.Screen name="VerifyOtp" component={VerifyOtp} options={{ gestureEnabled: false }} />
+        <Stack.Screen name="SignInGoogle" component={SignInGoogle} options={{ gestureEnabled: false }} />
+        <Stack.Screen name="PhoneSignUp" component={PhoneSignUp} options={{ gestureEnabled: false }} />
+        <Stack.Screen name="FaceBookLogin" component={FaceBookLogin} options={{ gestureEnabled: false }} />
+        <Stack.Screen name="OtpScreen" component={OtpScreen} options={{ gestureEnabled: false }} />
+        <Stack.Screen name="Random" component={Random} options={{ gestureEnabled: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

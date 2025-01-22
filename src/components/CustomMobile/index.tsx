@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import CountryPicker, {Country} from 'react-native-country-picker-modal';
 import {TextInput} from 'react-native-paper';
-import {Styles} from './style';
+import {styles} from './style';
 import {validatePhoneNumber} from '../../utils/validations';
 
 interface CustomMobileInputBoxProps {
@@ -39,8 +39,6 @@ const CustomMobileInputBox = ({
   setError,
   errorText,
 }: CustomMobileInputBoxProps) => {
-  const theme = useColorScheme();
-  const styles = Styles(theme);
   const handlePhoneNumberChange = (text: string) => {
     setPhoneNumber(text);
     if (text === '') {
@@ -84,7 +82,7 @@ const CustomMobileInputBox = ({
           style={styles.phoneInputMobile}
           label={label}
           keyboardType="phone-pad"
-          textColor={theme === 'dark' ? '#FFF' : '#000'}
+          textColor={'black'}
           maxLength={13}
           value={phoneNumber}
           onChangeText={handlePhoneNumberChange}
@@ -94,7 +92,7 @@ const CustomMobileInputBox = ({
           }}
           theme={{
             colors: {
-              primary: 'gray',
+              primary: error ? 'red' : 'gray',
               placeholder: 'grey',
               background: 'transparent',
               disabled: 'transparent',

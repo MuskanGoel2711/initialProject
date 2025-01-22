@@ -6,18 +6,30 @@ import { images } from '../../../../assets';
 import CustomInputBox from '../../../../components/CustomInput';
 import { getStyles } from './style';
 import { useThemeColors } from '../../../../utils/theme/theme';
+import { validateName } from '../../../../utils/validations';
+import { MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
 
-const GeneralDetails = ({ navigation }) => {
-  const [selectedOption, setSelectedOption] = useState(null);
+interface OptionButtonProps{
+  label: string,
+  isSelected: boolean,
+  onPress: () => void,
+}
+
+interface GeneralDetailsProps{
+  navigation: MaterialTopTabBarProps;
+}
+
+const GeneralDetails: React.FC<GeneralDetailsProps> = ({ navigation }) => {
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [firstNameError, setFirstNameError] = useState('');
-  const [lastNameError, setLastNameError] = useState('');
+  const [firstNameError, setFirstNameError] = useState<boolean>(false);
+  const [lastNameError, setLastNameError] = useState<boolean>(false);
 
   const theme = useThemeColors();
   const styles = getStyles(theme);
 
-  const OptionButton = ({ label, isSelected, onPress }) => (
+  const OptionButton: React.FC<OptionButtonProps> = ({ label, isSelected, onPress }) => (
     <TouchableOpacity style={styles.optionContainer} onPress={onPress}>
       <CustomImage
         imageStyle={isSelected ? styles.image : [styles.image,{tintColor: theme.tintColor}]}
@@ -28,7 +40,7 @@ const GeneralDetails = ({ navigation }) => {
     </TouchableOpacity>
   );
 
-  const handleFirstNameChange = (text) => {
+  const handleFirstNameChange = (text: string) => {
     setFirstName(text);
     if (text === '') {
       setFirstNameError(false);
@@ -39,7 +51,7 @@ const GeneralDetails = ({ navigation }) => {
     }
   };
 
-  const handleLastNameChange = (text) => {
+  const handleLastNameChange = (text: string) => {
     setLastName(text);
     if (text === '') {
       setLastNameError(false);
@@ -50,7 +62,7 @@ const GeneralDetails = ({ navigation }) => {
     }
   };
 
-  const handleOptionSelect = (option) => {
+  const handleOptionSelect = (option: string) => {
     setSelectedOption(option);
   };
 
@@ -105,7 +117,7 @@ const GeneralDetails = ({ navigation }) => {
       </View>
       <CustomButton
         title='Next'
-        onPress={() => navigation.navigate('Shipment1Details')}
+        onPress={() => navigation.jumpTo('Shipment1Details')}
         isButtonDisabled={!selectedOption}
       />
     </View>

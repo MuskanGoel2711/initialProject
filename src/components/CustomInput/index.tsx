@@ -1,30 +1,30 @@
 import React from 'react';
 import {
-  View,
-  TouchableOpacity,
   Image,
   Text,
   ImageSourcePropType,
   useColorScheme,
+  KeyboardTypeOptions,
 } from 'react-native';
 import { TextInput } from 'react-native-paper';
-import { Styles } from './style';
+import { getStyles } from './style';
+import { useThemeColors } from '../../utils/theme/theme';
 
 interface CustomInputProps {
-  name?: any;
+  name?: string;
   setName?: (text: string) => void;
   Icon?: ImageSourcePropType;
   Error?: boolean;
   label: string;
   setError?: (hasError: boolean) => void;
-  onChangeText?: any;
-  onFocus?: any;
-  onBlur?: any;
-  errorText?: any;
-  maxLength?: any;
-  keyboardType?: any;
-  selectTextOnFocus?: any;
-  editable?: any;
+  onChangeText?: (text: string) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  errorText?: string;
+  maxLength?: number;
+  keyboardType?: KeyboardTypeOptions;
+  selectTextOnFocus?: boolean;
+  editable?: boolean;
 }
 
 const CustomInputBox = ({
@@ -39,19 +39,19 @@ const CustomInputBox = ({
   selectTextOnFocus,
   editable
 }: CustomInputProps) => {
-  const theme = useColorScheme();
-  const styles = Styles(theme);
+  const theme = useThemeColors();
+  const styles = getStyles(theme);
   return (
     <>
       <TextInput
-        style={[styles.phoneInput, Error ? styles.errorContainer : null]}
+        style={[styles.phoneInput,  { borderColor: Error ? 'red' : 'grey' }]}
         label={label}
         keyboardType={keyboardType}
         value={name}
         editable={editable}
         selectTextOnFocus={selectTextOnFocus}
         maxLength={maxLength}
-        textColor={theme === 'dark' ? '#FFF' : '#000'}
+        textColor={'black'}
         onChangeText={onChangeText}
         mode="outlined"
         underlineStyle={{
@@ -59,7 +59,7 @@ const CustomInputBox = ({
         }}
         theme={{
           colors: {
-            primary: 'gray',
+            primary: Error ? 'red' : 'gray',
             placeholder: 'grey',
             background: 'transparent',
             disabled: 'transparent',

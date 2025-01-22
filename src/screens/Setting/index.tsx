@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, Modal, I18nManager } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Modal, I18nManager, Alert } from 'react-native'
 import React, { useState } from 'react';
 import { Switch } from 'react-native-switch';
 import CustomImage from '../../components/CustomArrow/index';
@@ -13,10 +13,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getStyles } from './style';
 import { toggleTheme } from '../../redux/config/ThemeSlice';
 import CustomButton from '../../components/CustomButton';
+import { logout } from '../../redux/config/AuthSlice';
+import { CommonActions } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-const Setting = ({ navigation }) => {
+type RootStackParamList = {
+    Setting: undefined;
+};
+
+type SettingScreenProps = NativeStackScreenProps<RootStackParamList, 'Setting'>;
+
+const Setting: React.FC<SettingScreenProps> = ({ navigation }) => {
     const dispatch = useDispatch();
-    const currentTheme = useSelector((state) => state.ThemeSlice.themeMode)
+    const currentTheme = useSelector((state:any) => state.ThemeSlice.themeMode)
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedLanguage, setSelectedLanguage] = useState('English');
     const insets = useSafeAreaInsets();
@@ -41,9 +50,16 @@ const Setting = ({ navigation }) => {
         dispatch(toggleTheme(newTheme));
     };
 
-    const handleLogOut = () => {
-        
-    }
+    const handleLogout = async () => {
+        Alert.alert('Logout Successfully')
+        dispatch(logout());
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: 'Login' }],
+          })
+        );
+      };
 
     const languages = [
         { code: 'en', label: 'English' },
@@ -53,7 +69,7 @@ const Setting = ({ navigation }) => {
         { code: 'hn', label: 'Hindi' },
     ];
 
-    const handleLanguageSelect = async (language) => {
+    const handleLanguageSelect = async (language: any) => {
         setSelectedLanguage(language.label);
         await AsyncStorage.setItem('settings.lang', language.code);
         i18n.changeLanguage(language.code);
@@ -96,7 +112,7 @@ const Setting = ({ navigation }) => {
             </View>
             <CustomButton 
                 title={strings.Logout()}
-                onPress={handleLogOut}
+                onPress={handleLogout}
             />
             <Modal
                 animationType="slide"

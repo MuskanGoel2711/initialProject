@@ -7,8 +7,19 @@ import CustomButton from '../../components/CustomButton';
 import {getStyles} from './style';
 import { useThemeColors } from '../../utils/theme/theme';
 import strings from '../../utils/strings';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-const HomeScreen = ({ navigation }) => {
+type RootStackParamList = {
+  HomeScreen: undefined;
+  Setting: undefined;
+  AddShipment: undefined;
+};
+
+type HomeScreenProps = NativeStackScreenProps<RootStackParamList, 'HomeScreen'>;
+
+const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
+  const insets = useSafeAreaInsets();
   const theme = useThemeColors();
   const styles = getStyles(theme);
   
@@ -22,7 +33,7 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate('AddShipment')
   }
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,{paddingTop: insets.top + 10}]}>
       <View style={styles.topHeader}>
         <CustomImage imageStyle={styles.image} source={images.back} onPress={onBack} />
         <Text style={styles.text}>{strings.HomeScreen()}</Text>

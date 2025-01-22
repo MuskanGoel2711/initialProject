@@ -6,11 +6,13 @@ import {
   Image,
   Keyboard,
   TouchableWithoutFeedback,
-  useColorScheme,
   ScrollView,
   SafeAreaView,
   Platform
 } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/config/AuthSlice';
+import { CommonActions } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { getStyles } from './style';
 import CustomInputBox from '../../components/CustomInput';
@@ -20,15 +22,25 @@ import { validateEmail, validatePassword } from '../../utils/validations';
 import { images } from '../../assets/index';
 import { useThemeColors } from '../../utils/theme/theme';
 import strings from '../../utils/strings';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-interface LoginProps {
-  onClose?: any;
-  navigation: any;
-}
+type RootStackParamList = {
+  Login: undefined;
+  ForgotPassword: undefined;
+  SignUp: undefined;
+  PhoneSignUp: undefined;
+  SignInGoogle: undefined;
+  FaceBookLogin: undefined;
+};
 
-const Login = ({ navigation }: LoginProps) => {
+type LoginProps = NativeStackScreenProps<RootStackParamList, 'Login'>;
+
+const Login:React.FC<LoginProps> = ({ navigation }) => {
+  const insets = useSafeAreaInsets();
   const theme = useThemeColors();
   const styles = getStyles(theme);
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [error, setError] = useState(false);
@@ -39,7 +51,7 @@ const Login = ({ navigation }: LoginProps) => {
 
   const loginOptions = [
     ...(Platform.OS === 'ios'
-      ? [{ icon: images.google, label: strings.ContinueApple(), onPress: () => { } }]
+      ? [{ icon: images.apple, label: strings.ContinueApple(), onPress: () => { } }]
       : []),
     { icon: 'phone-portrait-outline', label: strings.ContinuePhoneNumber(), onPress: () => navigation.navigate('PhoneSignUp'), style: { backgroundColor: 'white' }, textStyle: { color: 'black' } },
     { icon: images.google, label: strings.ContinueGoogle(), onPress: () => navigation.navigate('SignInGoogle'), style: { backgroundColor: 'white' }, textStyle: { color: 'black' } },
@@ -73,7 +85,13 @@ const Login = ({ navigation }: LoginProps) => {
 
   const handleNext = () => {
     if (!error) {
-      navigation.navigate('HomeScreen');
+      dispatch(login())
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'HomeScreen' }],
+        })
+      );
     }
   };
 
@@ -81,7 +99,7 @@ const Login = ({ navigation }: LoginProps) => {
   return (
     <>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <SafeAreaView style={styles.mainContainer}>
+        <ScrollView style={[styles.mainContainer, { paddingTop: insets.top }]}>
           <ScrollView style={{ flex: 1 }}>
             <StatusBar
               backgroundColor={'transparent'}
@@ -159,7 +177,7 @@ const Login = ({ navigation }: LoginProps) => {
               />
             ))}
           </ScrollView>
-        </SafeAreaView>
+        </ScrollView>
       </TouchableWithoutFeedback>
     </>
   );

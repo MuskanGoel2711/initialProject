@@ -1,8 +1,10 @@
 import {StyleSheet} from 'react-native';
 import {vw, vh} from '../../utils/Dimensions';
 
-export const Styles = (theme: any) =>
-  StyleSheet.create({
+interface Theme {}
+
+export const getStyles = (theme: Theme) => {
+  return StyleSheet.create({
     inputContainer: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -40,4 +42,4 @@ export const Styles = (theme: any) =>
       marginTop: vw(4),
       textAlign: 'left',
     },
-  });
+  })};

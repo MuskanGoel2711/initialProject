@@ -17,7 +17,8 @@ const images = {
     google: require(`${fixedPath}/google.png`),
     facebook:  require(`${fixedPath}/facebook.png`),
     downArrow:  require(`${fixedPath}/down-arrow.png`),
-    close: require(`${fixedPath}/remove.png`)
+    close: require(`${fixedPath}/remove.png`),
+    apple: require(`${fixedPath}/apple-logo.png`),
 }
 
 export {images};

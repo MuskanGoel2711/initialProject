@@ -4,11 +4,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const STORE_LANGUAGE_KEY = 'settings.lang';
 
-const languageDetectorPlugin = {
+const languageDetectorPlugin: any = {
     type: 'languageDetector',
     async: true,
-    init: () => { },
-    detect: async (callback) => {
+    init: (): void => { },
+    detect: async (callback: (language: string) => void): Promise<void> => {
         try {
             const savedLanguage = await AsyncStorage.getItem(STORE_LANGUAGE_KEY);
             const language = savedLanguage || 'en'; 
@@ -18,7 +18,7 @@ const languageDetectorPlugin = {
             callback('en');
         }
     },
-    cacheUserLanguage: async (language) => {
+    cacheUserLanguage: async (language: string): Promise<void> => {
         await AsyncStorage.setItem(STORE_LANGUAGE_KEY, language);
     },
 };
@@ -45,6 +45,7 @@ i18n.use(initReactI18next).use(languageDetectorPlugin).init({
     interpolation: {
         escapeValue: false,
     },
-});
+})
+.catch((error) => console.error('i18n initialization error:', error));
 
 export default i18n;

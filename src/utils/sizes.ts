@@ -7,7 +7,8 @@ const sizes = {
     errorText: 12,
     otpInput: 18,
     modalText: 18,
-    textFlatList: 15
+    textFlatList: 15,
+    labelTopTabBar: 12
 }
 
 export default sizes;

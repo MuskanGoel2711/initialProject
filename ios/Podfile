@@ -16,12 +16,20 @@ end
 
 target 'initialProject' do
   config = use_native_modules!
+  use_frameworks! :linkage => :static
+  $RNFirebaseAsStaticFramework = true
+
+  pod 'FBSDKLoginKit'
 
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
+  use_react_native!(
+  :path => config[:reactNativePath],
+  :hermes_enabled => true
+)
 
   target 'initialProjectTests' do
     inherit! :complete

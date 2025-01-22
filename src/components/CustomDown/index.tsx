@@ -1,12 +1,12 @@
 import React from "react";
-import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity, Image, ImageSourcePropType } from "react-native";
 import { TextInput } from "react-native-paper";
 
 interface CustomInputProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
-  source?: any;
+  source?: ImageSourcePropType;
   onPress?: () => void;
 }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Modal, TouchableOpacity} from 'react-native';
+import { View, Text, Modal, TouchableOpacity } from 'react-native';
 import { images } from '../../assets/index';
 import { getStyles } from './style';
 import CustomButton from '../../components/CustomButton/index';
@@ -8,10 +8,22 @@ import strings from '../../utils/strings'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import CustomImage from '../../components/CustomArrow/index';
 import { useThemeColors } from '../../utils/theme/theme';
+import { CommonActions } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/config/AuthSlice';
 
-const OtpScreen = ({ navigation }) => {
+interface OtpScreenProps {
+    navigation: {
+        goBack: () => void;
+        dispatch: (action: any) => void;
+    };
+}
+
+const VerifyOtp: React.FC<OtpScreenProps> = ({ navigation }) => {
+    const theme = useThemeColors();
+    const styles = getStyles(theme);
+    const dispatch = useDispatch();
     const insets = useSafeAreaInsets();
-    // const colorScheme = useColorScheme();
     const [predefinedCode] = useState('1234');
     const [attemptsLeft, setAttemptsLeft] = useState(3);
     const [enteredCode, setEnteredCode] = useState('');
@@ -21,24 +33,21 @@ const OtpScreen = ({ navigation }) => {
     const [timer, setTimer] = useState(0);
     const [showModal, setShowModal] = useState(false);
 
-    const theme = useThemeColors();
-    const styles = getStyles(theme);
-
     useEffect(() => {
-        let timerInterval;
+        let timerInterval: NodeJS.Timeout;
         if (timer > 0) {
             timerInterval = setInterval(() => {
                 setTimer((prevTimer) => prevTimer - 1);
             }, 1000);
         } else if (timer === 0) {
-            setIsButtonDisabled(true); 
+            setIsButtonDisabled(true);
             setResendEnabled(true);
         }
 
-        return () => clearInterval(timerInterval); 
+        return () => clearInterval(timerInterval);
     }, [timer])
 
-    const handleCodeChange = (code) => {
+    const handleCodeChange = (code: any) => {
         setEnteredCode(code);
         setIsButtonDisabled(code.length !== 4 || timer > 0);
     };
@@ -48,7 +57,13 @@ const OtpScreen = ({ navigation }) => {
             setShowModal(true);
             setTimeout(() => {
                 setShowModal(false);
-                navigation.replace('HomeScreen');
+                dispatch(login())
+                navigation.dispatch(
+                    CommonActions.reset({
+                        index: 0,
+                        routes: [{ name: 'HomeScreen' }],
+                    })
+                );
             }, 1000);
         } else {
             setAttemptsLeft((prevAttempts) => {
@@ -69,7 +84,7 @@ const OtpScreen = ({ navigation }) => {
     const handleResendCode = () => {
         setAttemptsLeft(3);
         setErrorMessage('');
-        setEnteredCode(''); 
+        setEnteredCode('');
         setTimer(30);
         setResendEnabled(false);
         setIsButtonDisabled(true);
@@ -83,7 +98,7 @@ const OtpScreen = ({ navigation }) => {
 
     return (
         <View style={[styles.container, { paddingTop: insets.top }]}>
-            <CustomImage style={styles.leftIcon} onPress={goBack} imageStyle={styles.leftArrow} source={images.leftArrow}/>
+            <CustomImage style={styles.leftIcon} onPress={goBack} imageStyle={styles.leftArrow} source={images.back} />
             <Text style={styles.title}>{strings.oTPVerification()}</Text>
             <Text style={styles.subtitle}>{strings.sentMobileNumber()}</Text>
             <Text style={styles.subtitle1}>{strings.number()}</Text>
@@ -103,8 +118,6 @@ const OtpScreen = ({ navigation }) => {
                         pinCodeTextStyle: styles.pinCodeText,
 
                     }}
-                    // containerStyle={styles.otpContainer}
-                    // pinCodeContainerStyle={styles.otpContainer}
                     placeholderTextStyle={[
                         styles.otpInput,
                         attemptsLeft < 3 ? { borderColor: 'red' } : null,
@@ -118,7 +131,7 @@ const OtpScreen = ({ navigation }) => {
                     </View>
                 )}
             </View>
-            <CustomButton style={buttonStyle} onPress={handleConfirmCode} textStyle={styles.buttonText} title={strings.verifyOTP()} disabled={isButtonDisabled}/>
+            <CustomButton style={buttonStyle} onPress={handleConfirmCode} textStyle={styles.buttonText} title={strings.verifyOTP()} isButtonDisabled={isButtonDisabled} />
             <View style={styles.signUpView}>
                 <Text style={styles.resend}>{strings.didNotReceive()}</Text>
                 <TouchableOpacity style={[
@@ -129,9 +142,9 @@ const OtpScreen = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
             {resendEnabled ? "" :
-            <View style={styles.timerView}>
-                <Text style={styles.timerText}>00:{timer < 10 ? `0${timer}` : timer}</Text>
-            </View>}
+                <View style={styles.timerView}>
+                    <Text style={styles.timerText}>00:{timer < 10 ? `0${timer}` : timer}</Text>
+                </View>}
             <Modal
                 animationType="fade"
                 visible={showModal}
@@ -149,4 +162,4 @@ const OtpScreen = ({ navigation }) => {
     );
 };
 
-export default OtpScreen;
+export default VerifyOtp;

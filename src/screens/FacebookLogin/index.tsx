@@ -1,16 +1,23 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
-import string from '../../utils/enum';
+import strings from '../../utils/strings';
 import { useDispatch } from 'react-redux';
 import { CommonActions } from '@react-navigation/native';
 import { login } from '../../redux/config/AuthSlice';
 import {images} from '../../assets/index';
 import styles from './style';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-const FaceBookLogin = ({ navigation }) => {
+type RootStackParamList = {
+    FaceBookLogin: undefined;
+};
+
+type FacebookLoginScreenProps = NativeStackScreenProps<RootStackParamList, 'FaceBookLogin'>;
+
+const FaceBookLogin: React.FC<FacebookLoginScreenProps> = ({ navigation }) => {
     const dispatch = useDispatch();
     const insets = useSafeAreaInsets();
     async function onFacebookButtonPress() {
@@ -47,15 +54,15 @@ const FaceBookLogin = ({ navigation }) => {
         <View style={[styles.container,{paddingTop: insets.top}]}>
             <View style={styles.viewContainer}>
                 <TouchableOpacity onPress={() => navigation.goBack()} style={styles.leftContainer}>
-                    <Image source={images.left} style={styles.left} resizeMode='contain'/>
+                    <Image source={images.back} style={styles.left} resizeMode='contain'/>
                 </TouchableOpacity>
-                <Text style={styles.text}>{string.signIn}</Text>
+                <Text style={styles.text}>{strings.SignIn()}</Text>
             </View>
-            <View style={{ flex: 0.7, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={styles.viewCont}>
                 <Image source={images.facebook} style={styles.googleImage} resizeMode='contain'/>
                 <TouchableOpacity style={styles.buttonContainer} onPress={onFacebookButtonPress}>
                     <Image source={images.facebook} style={styles.googleLogo} resizeMode='contain'/>
-                    <Text style={styles.buttonText}>Sign in with FaceBook</Text>
+                    <Text style={styles.buttonText}>{strings.ContinueFacebook()}</Text>
                 </TouchableOpacity>
             </View>
         </View>

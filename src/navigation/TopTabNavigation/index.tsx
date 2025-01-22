@@ -5,6 +5,7 @@ import GeneralDetails from './screens/GeneralDetails';
 import Shipment1Details from './screens/Shipment1Details';
 import PickUpDetails from './screens/PickUpDetails';
 import { useThemeColors } from '../../utils/theme/theme';
+import sizes from '../../utils/sizes';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -13,7 +14,8 @@ const TopTabs = () => {
     return (
         <Tab.Navigator
             screenOptions={{
-                tabBarLabelStyle: { fontSize: 13 },
+                swipeEnabled: false,
+                tabBarLabelStyle: { fontSize: sizes.labelTopTabBar },
                 tabBarIndicatorStyle: { backgroundColor:  theme.backgroundColor},
                 tabBarActiveTintColor: 'blue',
                 tabBarInactiveTintColor: 'black'

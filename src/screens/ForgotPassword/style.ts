@@ -2,7 +2,12 @@ import { StyleSheet } from 'react-native';
 import { vw, vh } from '../../utils/Dimensions';
 import sizes from '../../utils/sizes';
 
-export const getStyles = (theme: any) => {
+interface Theme {
+  backgroundColor: string;
+  textColor: string;
+}
+
+export const getStyles = (theme: Theme) => {
   return StyleSheet.create({
     mainContainer: {
       flex: 1,

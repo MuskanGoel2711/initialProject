@@ -9,18 +9,22 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import { getStyles } from './style';
-import { CountryCode } from 'react-native-country-picker-modal';
+import { Country, CountryCode } from 'react-native-country-picker-modal';
 import CustomMobileInputBox from '../../components/CustomMobile/index';
 import CustomButton from '../../components/CustomButton/index';
 import { images } from '../../assets/index';
 import CustomImage from '../../components/CustomArrow';
 import { useThemeColors } from '../../utils/theme/theme';
 import strings from '../../utils/strings';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-interface ForgotPasswordProps {
-  onClose?: any;
-  navigation: any;
-}
+type RootStackParamList = {
+  ForgotPassword: undefined;
+  VerifyOtp: undefined;
+};
+
+// Define props for the ForgotPassword component
+type ForgotPasswordProps = NativeStackScreenProps<RootStackParamList, 'ForgotPassword'>;
 
 const ForgotPassword = ({ navigation }: ForgotPasswordProps) => {
   const theme = useThemeColors();
@@ -32,7 +36,7 @@ const ForgotPassword = ({ navigation }: ForgotPasswordProps) => {
   const [isPickerVisible, setPickerVisible] = useState(false);
   const [error, setError] = useState(false);
 
-  const onSelect = (country: any) => {
+  const onSelect = (country: Country) => {
     setCountryCode(country.cca2);
     setCallingCode(`+${country.callingCode[0]}`);
     setPickerVisible(false);
@@ -44,7 +48,6 @@ const ForgotPassword = ({ navigation }: ForgotPasswordProps) => {
   const handleNext = () => {
     if (!error) {
       navigation.navigate('VerifyOtp');
-      // navigation.navigate('Home')
     }
   };
 

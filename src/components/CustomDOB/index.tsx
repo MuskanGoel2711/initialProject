@@ -11,12 +11,13 @@ import { format, parse } from 'date-fns';
 import { styles } from './style';
 
 interface DOBPickerProps {
-  label: string;
-  Icon: ImageSourcePropType;
+  label?: string;
+  Icon?: ImageSourcePropType;
   calendarIcon: ImageSourcePropType;
   onDateChange: (selectedDate: Date | undefined) => void;
   dateFormat?: string;
-  clearIcon?: any;
+  clearIcon?: ImageSourcePropType;
+  onClear?: () => void;
 }
 
 const DOBPicker = ({
@@ -25,6 +26,7 @@ const DOBPicker = ({
   calendarIcon,
   clearIcon,
   onDateChange,
+  onClear,
   dateFormat = 'dd/mm/yyyy h:mm',
 }: DOBPickerProps) => {
   const [dob, setDob] = useState('');
@@ -59,6 +61,9 @@ const DOBPicker = ({
   const clearDate = () => {
     setDob('');
     onDateChange(undefined); 
+    if (onClear) {
+      onClear(); 
+    }
   };
 
   return (
