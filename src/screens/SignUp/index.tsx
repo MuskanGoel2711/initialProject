@@ -10,7 +10,7 @@ import {
   ScrollView,
   Dimensions,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { getStyles } from './style';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Country, CountryCode } from 'react-native-country-picker-modal';
@@ -61,6 +61,12 @@ const SignUp = ({ navigation }: SignUpProps) => {
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+
+  const lastNameRef = useRef(null);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+  const confirmPasswordRef = useRef(null);
+  const phoneRef = useRef(null);
 
   const { height } = Dimensions.get('screen');
   const isSmallDevice = height <= 667;
@@ -165,125 +171,142 @@ const SignUp = ({ navigation }: SignUpProps) => {
       extraHeight={height * (isSmallDevice ? 0.38 : 0.41)}
       showsVerticalScrollIndicator={false} style={styles.mainContainer}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-          <View style={{ flex: 1 }}>
-            <StatusBar
-              backgroundColor={'transparent'}
-              barStyle={'dark-content'}
-              translucent={true}
+        <View style={{ flex: 1 }}>
+          <StatusBar
+            backgroundColor={'transparent'}
+            barStyle={'dark-content'}
+            translucent={true}
+          />
+          <View style={styles.subContainer}>
+            <View style={styles.contentHeader}>
+              <Text style={styles.headerText}>Create Account</Text>
+            </View>
+            <View style={styles.detailTextContainer}>
+              <Text style={styles.detailText}>
+                Please enter your details to sign up.
+              </Text>
+            </View>
+
+            <CustomInputBox
+              name={firstName}
+              label={strings.placeholderFirstName()}
+              maxLength={25}
+              keyboardType={'name-phone-pad'}
+              onChangeText={handleFirstNameChange}
+              setName={setFirstName}
+              Icon={images.user}
+              Error={firstNameError}
+              setError={setFirstNameError}
+              errorText={
+                'Please use only alphabetical letters and minimum length is 3 characters.'
+              }
+              returnKeyType="next"
+              onSubmitEditing={() => lastNameRef.current?.focus()}
             />
-            <View style={styles.subContainer}>
-              <View style={styles.contentHeader}>
-                <Text style={styles.headerText}>Create Account</Text>
-              </View>
-              <View style={styles.detailTextContainer}>
-                <Text style={styles.detailText}>
-                  Please enter your details to sign up.
-                </Text>
-              </View>
+            <CustomInputBox
+              name={lastName}
+              label={strings.placeholderLastName()}
+              maxLength={25}
+              keyboardType="name-phone-pad"
+              onChangeText={handleLastNameChange}
+              setName={setLastName}
+              Icon={images.user}
+              Error={lastNameError}
+              setError={setLastNameError}
+              errorText={
+                'Please use only alphabetical letters and minimum length is 3 characters.'
+              }
+              ref={lastNameRef}
+              returnKeyType="next"
+              onSubmitEditing={() => emailRef.current?.focus()}
+            />
+            <DOBPicker
+              label="Date of Birth"
+              Icon={images.birthday}
+              calendarIcon={images.calendar}
+              onDateChange={handleDateChange}
 
-              <CustomInputBox
-                name={firstName}
-                label={strings.placeholderFirstName()}
-                maxLength={25}
-                keyboardType={'name-phone-pad'}
-                onChangeText={handleFirstNameChange}
-                setName={setFirstName}
-                Icon={images.user}
-                Error={firstNameError}
-                setError={setFirstNameError}
-                errorText={
-                  'Please use only alphabetical letters and minimum length is 3 characters.'
-                }
-              />
-              <CustomInputBox
-                name={lastName}
-                label={strings.placeholderLastName()}
-                maxLength={25}
-                keyboardType="name-phone-pad"
-                onChangeText={handleLastNameChange}
-                setName={setLastName}
-                Icon={images.user}
-                Error={lastNameError}
-                setError={setLastNameError}
-                errorText={
-                  'Please use only alphabetical letters and minimum length is 3 characters.'
-                }
-              />
-              <DOBPicker
-                label="Date of Birth"
-                Icon={images.birthday}
-                calendarIcon={images.calendar}
-                onDateChange={handleDateChange}
-              />
-              <CustomInputBox
-                name={email}
-                label={strings.placeholderEmail()}
-                maxLength={50}
-                keyboardType={'email-address'}
-                onChangeText={handleEmailChange}
-                setName={setEmail}
-                Icon={images.email}
-                Error={emailError}
-                setError={setEmailError}
-                errorText={'Please enter valid email'}
-              />
-              <CustomPasswordInputBox
-                name={password}
-                label={strings.placeholderPassword()}
-                Icon={images.lock}
-                isPasswordVisible={isPasswordVisible}
-                togglePasswordVisibility={togglePasswordVisibility}
-                Error={passwordError}
-                onChangeText={handlePasswordChange}
-                maxLength={50}
-                keyboardType="default"
-                errorText="Please enter at least one uppercase, lowercase, digit, special character and 8 characters long"
-              />
-              <CustomPasswordInputBox
-                name={confirmPassword}
-                label={strings.confirmPassword()}
-                Icon={images.lock}
-                isPasswordVisible={isConfirmPasswordVisible}
-                togglePasswordVisibility={toggleConfirmPasswordVisibility}
-                Error={confirmPasswordError}
-                onChangeText={handleConfirmPasswordChange}
-                maxLength={50}
-                keyboardType="default"
-                errorText="Passwords do not match"
-              />
-              <CustomMobileInputBox
-                label={strings.placeholderPhone()}
-                countryCode={countryCode}
-                callingCode={callingCode}
-                phoneNumber={phoneNumber}
-                setPhoneNumber={setPhoneNumber}
-                onSelect={onSelect}
-                setPickerVisible={setPickerVisible}
-                Icon={images.telephone}
-                error={error}
-                setError={setError}
-                errorText={'Mobile no. should be min 5 digit and max 13 digit.'}
-              />
+            />
+            <CustomInputBox
+              name={email}
+              label={strings.placeholderEmail()}
+              maxLength={50}
+              keyboardType={'email-address'}
+              onChangeText={handleEmailChange}
+              setName={setEmail}
+              Icon={images.email}
+              Error={emailError}
+              setError={setEmailError}
+              errorText={'Please enter valid email'}
+              ref={emailRef}
+              returnKeyType="next"
+              onSubmitEditing={() => passwordRef.current?.focus()}
+            />
+            <CustomPasswordInputBox
+              name={password}
+              label={strings.placeholderPassword()}
+              Icon={images.lock}
+              isPasswordVisible={isPasswordVisible}
+              togglePasswordVisibility={togglePasswordVisibility}
+              Error={passwordError}
+              onChangeText={handlePasswordChange}
+              maxLength={50}
+              keyboardType="default"
+              errorText="Please enter at least one uppercase, lowercase, digit, special character and 8 characters long"
+              ref={passwordRef}
+              returnKeyType="next"
+              onSubmitEditing={() => confirmPasswordRef.current?.focus()}
+            />
+            <CustomPasswordInputBox
+              name={confirmPassword}
+              label={strings.confirmPassword()}
+              Icon={images.lock}
+              isPasswordVisible={isConfirmPasswordVisible}
+              togglePasswordVisibility={toggleConfirmPasswordVisibility}
+              Error={confirmPasswordError}
+              onChangeText={handleConfirmPasswordChange}
+              maxLength={50}
+              keyboardType="default"
+              errorText="Passwords do not match"
+              ref={confirmPasswordRef}
+              returnKeyType="next"
+              onSubmitEditing={() => phoneRef.current?.focus()}
+            />
+            <CustomMobileInputBox
+              label={strings.placeholderPhone()}
+              countryCode={countryCode}
+              callingCode={callingCode}
+              phoneNumber={phoneNumber}
+              setPhoneNumber={setPhoneNumber}
+              onSelect={onSelect}
+              setPickerVisible={setPickerVisible}
+              Icon={images.telephone}
+              error={error}
+              setError={setError}
+              errorText={'Mobile no. should be min 5 digit and max 13 digit.'}
+              ref={phoneRef}
+              returnKeyType="done"
+            />
 
-              <CustomButton
-                title={strings.buttonSignUp()}
-                onPress={handleNext}
-                isButtonDisabled={isButtonDisabled}
-              />
-            </View>
-            <View style={styles.loginContainer}>
-              <Text style={styles.accountText}>{strings.alreadyHaveAccount()}</Text>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.reset({
-                    index: 0,
-                    routes: [{ name: 'Login' }],
-                  })
-                }>
-                <Text style={styles.loginText}>{strings.buttonLogin()}</Text>
-              </TouchableOpacity>
-            </View>
+            <CustomButton
+              title={strings.buttonSignUp()}
+              onPress={handleNext}
+              isButtonDisabled={isButtonDisabled}
+            />
           </View>
+          <View style={styles.loginContainer}>
+            <Text style={styles.accountText}>{strings.alreadyHaveAccount()}</Text>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: 'Login' }],
+                })
+              }>
+              <Text style={styles.loginText}>{strings.buttonLogin()}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </TouchableWithoutFeedback>
     </KeyboardAwareScrollView>
   );

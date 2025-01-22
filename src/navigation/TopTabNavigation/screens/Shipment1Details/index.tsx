@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Modal, FlatList, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import CustomInputBox from '../../../../components/CustomInput';
 import { images } from '../../../../assets';
 import DOBPicker from '../../../../components/CustomDOB/index';
@@ -27,6 +27,10 @@ const Shipment1Details: React.FC<Shipment1DetailsProps> = ({ navigation }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [options] = useState<string[]>(['High', 'Medium', 'Low']);
   const [startTime, setStartTime] = useState('');
+
+  const dobPickerRef = useRef(null);
+  const priorityRef = useRef(null);
+  const nextButtonRef = useRef(null);
 
   const theme = useThemeColors();
   const styles = getStyles(theme);
@@ -108,6 +112,8 @@ const Shipment1Details: React.FC<Shipment1DetailsProps> = ({ navigation }) => {
         errorText={
           'Number should be min 5 digit and max 13 digit.'
         }
+        returnKeyType="next"
+          onSubmitEditing={() => dobPickerRef.current?.focus()}
       />
       <DOBPicker
         label="shipment1 Date*"
@@ -115,6 +121,8 @@ const Shipment1Details: React.FC<Shipment1DetailsProps> = ({ navigation }) => {
         onDateChange={handleDateChange}
         clearIcon={images.close}
         onClear={() => setStartTime('')}
+        ref={dobPickerRef}
+          onSubmitEditing={() => priorityRef.current?.focus()}
       />
       <CustomDown
         value={inputValue}
@@ -122,6 +130,7 @@ const Shipment1Details: React.FC<Shipment1DetailsProps> = ({ navigation }) => {
         placeholder="Priority"
         source={images.downArrow}
         onPress={() => setIsModalVisible(true)}
+        ref={priorityRef}
       />
       <CustomInputBox
         name={value}
@@ -129,6 +138,7 @@ const Shipment1Details: React.FC<Shipment1DetailsProps> = ({ navigation }) => {
         editable={false}
         selectTextOnFocus={false}
         onChangeText={setValue}
+        returnKeyType="done"
       />
       <CustomInputBox
         name={cost}

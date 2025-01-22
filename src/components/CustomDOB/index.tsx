@@ -18,6 +18,9 @@ interface DOBPickerProps {
   dateFormat?: string;
   clearIcon?: ImageSourcePropType;
   onClear?: () => void;
+  returnKeyType?: 'done' | 'next'; 
+  onSubmitEditing?: () => void;
+  ref?: any;
 }
 
 const DOBPicker = ({
@@ -28,6 +31,9 @@ const DOBPicker = ({
   onDateChange,
   onClear,
   dateFormat = 'dd/mm/yyyy h:mm',
+  returnKeyType,
+  onSubmitEditing,
+  ref
 }: DOBPickerProps) => {
   const [dob, setDob] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -77,6 +83,9 @@ const DOBPicker = ({
         selectTextOnFocus={false}
         keyboardType="numeric"
         mode="outlined"
+        returnKeyType={returnKeyType} 
+        onSubmitEditing={onSubmitEditing} 
+        ref={ref}
         underlineStyle={{
           display: 'none',
         }}

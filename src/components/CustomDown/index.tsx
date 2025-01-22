@@ -8,9 +8,13 @@ interface CustomInputProps {
   placeholder?: string;
   source?: ImageSourcePropType;
   onPress?: () => void;
+  returnKeyType?: 'done' | 'next'; 
+  onSubmitEditing?: () => void;
+  ref?: any
 }
 
-const CustomDown: React.FC<CustomInputProps> = ({ value, onChange, placeholder, source, onPress }) => {
+const CustomDown: React.FC<CustomInputProps> = ({ value, onChange, placeholder, source, onPress,returnKeyType,
+  onSubmitEditing,ref }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <TextInput
@@ -23,6 +27,9 @@ const CustomDown: React.FC<CustomInputProps> = ({ value, onChange, placeholder, 
         mode="outlined"
         outlineColor="#ccc"
         activeOutlineColor="#6200ee"
+        returnKeyType={returnKeyType} 
+        onSubmitEditing={onSubmitEditing} 
+        ref={ref}
         theme={{
           roundness: 4,
         }}

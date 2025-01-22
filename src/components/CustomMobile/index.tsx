@@ -7,10 +7,10 @@ import {
   ImageSourcePropType,
   useColorScheme,
 } from 'react-native';
-import CountryPicker, {Country} from 'react-native-country-picker-modal';
-import {TextInput} from 'react-native-paper';
-import {styles} from './style';
-import {validatePhoneNumber} from '../../utils/validations';
+import CountryPicker, { Country } from 'react-native-country-picker-modal';
+import { TextInput } from 'react-native-paper';
+import { styles } from './style';
+import { validatePhoneNumber } from '../../utils/validations';
 
 interface CustomMobileInputBoxProps {
   countryCode?: any;
@@ -24,6 +24,9 @@ interface CustomMobileInputBoxProps {
   error: boolean;
   setError: (hasError: boolean) => void;
   errorText?: string;
+  returnKeyType?: 'done' | 'next';
+  onSubmitEditing?: () => void;
+  ref?: any
 }
 
 const CustomMobileInputBox = ({
@@ -38,6 +41,9 @@ const CustomMobileInputBox = ({
   error,
   setError,
   errorText,
+  returnKeyType,
+  onSubmitEditing,
+  ref
 }: CustomMobileInputBoxProps) => {
   const handlePhoneNumberChange = (text: string) => {
     setPhoneNumber(text);
@@ -56,7 +62,7 @@ const CustomMobileInputBox = ({
         <TouchableOpacity activeOpacity={1} style={styles.telephoneButton}>
           <Image
             source={Icon}
-            style={[styles.iconStyle, {tintColor: error ? 'red' : 'grey'}]}
+            style={[styles.iconStyle, { tintColor: error ? 'red' : 'grey' }]}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -90,6 +96,9 @@ const CustomMobileInputBox = ({
           underlineStyle={{
             display: 'none',
           }}
+          returnKeyType={returnKeyType}
+          onSubmitEditing={onSubmitEditing}
+          ref={ref}
           theme={{
             colors: {
               primary: error ? 'red' : 'gray',

@@ -23,6 +23,9 @@ interface CustomPasswordInputProps {
   maxLength?: number;
   keyboardType: KeyboardTypeOptions;
   onChangeText: (text: string) => void;
+  returnKeyType?: 'done' | 'next';
+  onSubmitEditing?: () => void;
+  ref?: any;
 }
 
 const CustomPasswordInputBox = ({
@@ -36,6 +39,9 @@ const CustomPasswordInputBox = ({
   maxLength,
   keyboardType,
   onChangeText,
+  ref,
+  returnKeyType,
+  onSubmitEditing,
 }: CustomPasswordInputProps) => {
   return (
     <View>
@@ -60,6 +66,9 @@ const CustomPasswordInputBox = ({
             disabled: 'transparent',
           },
         }}
+        returnKeyType={returnKeyType}
+        onSubmitEditing={onSubmitEditing}
+        ref={ref}
         right={
           <TextInput.Icon
             icon={() => (

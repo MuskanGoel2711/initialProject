@@ -25,6 +25,9 @@ interface CustomInputProps {
   keyboardType?: KeyboardTypeOptions;
   selectTextOnFocus?: boolean;
   editable?: any;
+  returnKeyType?: 'done' | 'next'; 
+  onSubmitEditing?: () => void;
+  ref?: any
 }
 
 const CustomInputBox = ({
@@ -37,17 +40,13 @@ const CustomInputBox = ({
   maxLength,
   keyboardType,
   selectTextOnFocus,
-  editable
+  editable,
+  returnKeyType,
+  onSubmitEditing,
+  ref
 }: CustomInputProps) => {
   const theme = useThemeColors();
   const styles = getStyles(theme);
-
-
-
-  // Determine colors based on theme
-  const isDarkMode = theme.mode === 'dark'; // Assuming your theme has a mode property
-  const placeholderColor = isDarkMode ? 'white' : 'grey';
-  const backgroundColor = isDarkMode ? 'black' : 'transparent';
 
   return (
     <>
@@ -65,14 +64,14 @@ const CustomInputBox = ({
         underlineStyle={{
           display: 'none',
         }}
+        ref={ref}
+        returnKeyType={returnKeyType} 
+        onSubmitEditing={onSubmitEditing}
         theme={{
           colors: {
             primary: Error ? 'red' : 'gray',
-            // placeholder: 'grey',
-            // background: 'transparent',
-            // disabled: 'transparent',
-            placeholder: placeholderColor, // Set placeholder color based on theme
-            background: backgroundColor, // Set background color based on theme
+            placeholder: 'grey',
+            background: 'transparent',
             disabled: 'transparent',
           },
         }}

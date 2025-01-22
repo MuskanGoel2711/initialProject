@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import CustomInputBox from '../../../../components/CustomInput';
 import { validateEmail, validateName, validatePhoneNumber } from '../../../../utils/validations';
 import DOBPicker from '../../../../components/CustomDOB';
@@ -30,6 +30,10 @@ const PickUpDetails: React.FC<PickUpDetailsProps> = ({ navigation }) => {
   const styles = getStyles(theme);
   const { height } = Dimensions.get('screen');
   const isSmallDevice = height <= 667;
+
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const numberRef = useRef(null);
 
 
   const handleIdChange = (text: string) => {
@@ -111,8 +115,11 @@ const PickUpDetails: React.FC<PickUpDetailsProps> = ({ navigation }) => {
           errorText={
             'Id should be min 5 digit and max 13 digit.'
           }
+          returnKeyType="next"
+          onSubmitEditing={() => nameRef.current?.focus()}
         />
         <CustomInputBox
+          ref={nameRef}
           name={name}
           label={'Name*'}
           maxLength={25}
@@ -124,8 +131,11 @@ const PickUpDetails: React.FC<PickUpDetailsProps> = ({ navigation }) => {
           errorText={
             'Please use only alphabetical letters and minimum length is 3 characters.'
           }
+          returnKeyType="next"
+          onSubmitEditing={() => emailRef.current?.focus()}
         />
         <CustomInputBox
+          ref={emailRef}
           name={email}
           label={'Email ID'}
           maxLength={50}
@@ -135,8 +145,11 @@ const PickUpDetails: React.FC<PickUpDetailsProps> = ({ navigation }) => {
           Error={emailError}
           setError={setEmailError}
           errorText={'Please enter valid email'}
+          returnKeyType="next"
+          onSubmitEditing={() => numberRef.current?.focus()}
         />
         <CustomInputBox
+          ref={numberRef}
           name={number}
           label={'Contact Number'}
           maxLength={25}
@@ -148,6 +161,7 @@ const PickUpDetails: React.FC<PickUpDetailsProps> = ({ navigation }) => {
           errorText={
             'Mobile no. should be min 5 digit and max 13 digit.'
           }
+          returnKeyType="done"
         />
         <DOBPicker
           label="Start Time*"
