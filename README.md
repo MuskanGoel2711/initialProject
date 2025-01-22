@@ -1,79 +1,37 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+### Initial Project
+This project contains the "Initial Project," which features onboarding screens and a robust architecture. The project is built with Redux for state management, supports multiple languages, and includes theming capabilities. It also makes use of the Material Design-inspired Paper library for UI components.
+### Features
+## Onboarding Screens:
+Splash Screen - The initial screen displayed when the app launches.
+Tutorial Screen - A walkthrough to guide users on how to use the app.
+Login Screen - Allows users to log into the app.
+Signup Screen - Enables new users to create an account.
+OTP Screen - Facilitates OTP-based authentication for secure access.
+Forgot Password Screen - Allows users to reset their password.
+Home Screen - Displays the primary interface after successful login.
+Form Creation Screen - A dedicated screen for creating and submitting forms.
 
-# Getting Started
+### Custom Components:
+Input Field: A reusable component for text input.
+Button: Customizable button component.
+Password Input Field: A secure input field for passwords with toggle visibility.
+Mobile Input Field: Specialized input for mobile numbers.
+Custom Arrow: to go back in the application
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+### State Management:
+Utilizes Redux for managing global application state, including:
+User authentication
+Multi-language support
+Theme toggling (light/dark)
 
-## Step 1: Start the Metro Server
+### Multi-Language Support:
+Implements internationalization (i18n) to support multiple languages.
+Easily extendable to include additional languages.
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
-
-To start Metro, run the following command from the _root_ of your React Native project:
-
-```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
-```
-
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
-
-```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### For iOS
-
-```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+### UI Library:
+Uses the Paper library for Material Design-inspired components and styling.
+Uses stack and material top bar navigation
+Uses date time picker library
+Uses firebase for authentication
+Uses i18next for multilingual languages
+Uses switch library
