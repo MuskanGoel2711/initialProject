@@ -24,7 +24,7 @@ interface CustomInputProps {
   maxLength?: number;
   keyboardType?: KeyboardTypeOptions;
   selectTextOnFocus?: boolean;
-  editable?: boolean;
+  editable?: any;
 }
 
 const CustomInputBox = ({
@@ -41,10 +41,18 @@ const CustomInputBox = ({
 }: CustomInputProps) => {
   const theme = useThemeColors();
   const styles = getStyles(theme);
+
+
+
+  // Determine colors based on theme
+  const isDarkMode = theme.mode === 'dark'; // Assuming your theme has a mode property
+  const placeholderColor = isDarkMode ? 'white' : 'grey';
+  const backgroundColor = isDarkMode ? 'black' : 'transparent';
+
   return (
     <>
       <TextInput
-        style={[styles.phoneInput,  { borderColor: Error ? 'red' : 'grey' }]}
+        style={[styles.phoneInput, { borderColor: Error ? 'red' : 'grey' }]}
         label={label}
         keyboardType={keyboardType}
         value={name}
@@ -60,8 +68,11 @@ const CustomInputBox = ({
         theme={{
           colors: {
             primary: Error ? 'red' : 'gray',
-            placeholder: 'grey',
-            background: 'transparent',
+            // placeholder: 'grey',
+            // background: 'transparent',
+            // disabled: 'transparent',
+            placeholder: placeholderColor, // Set placeholder color based on theme
+            background: backgroundColor, // Set background color based on theme
             disabled: 'transparent',
           },
         }}

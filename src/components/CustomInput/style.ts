@@ -5,21 +5,12 @@ interface Theme {}
 
 export const getStyles = (theme: Theme) => {
   return StyleSheet.create({
-    inputContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginTop: vh(16),
-      borderWidth: 1,
-      borderRadius: 10,
-      borderColor: '#ccc',
-      width: '100%',
-      backgroundColor: 'white'
-    },
     iconButton: {
       paddingHorizontal: vw(14),
       borderColor: '#ccc',
       borderRightWidth: 1,
       marginRight: vw(4),
+      borderWidth: 1
     },
     iconStyle: {
       width: vw(20),
@@ -35,6 +26,7 @@ export const getStyles = (theme: Theme) => {
     },
     errorContainer: {
       borderColor: 'red',
+      borderWidth: 1
     },
     errorText: {
       color: 'red',

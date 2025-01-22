@@ -14,6 +14,7 @@ export const getStyles = (theme: Theme) => {
     mainContainer: {
       flex: 1,
       backgroundColor: theme.backgroundColor,
+      // backgroundColor: 'white'
     },
     subContainer: {
       paddingVertical: vh(35),

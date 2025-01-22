@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Modal, FlatList, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Modal, FlatList, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import React, { useState } from 'react'
 import CustomInputBox from '../../../../components/CustomInput';
 import { images } from '../../../../assets';
@@ -9,6 +9,7 @@ import { getStyles } from './style';
 import { useThemeColors } from '../../../../utils/theme/theme';
 import { validateName, validatePhoneNumber } from '../../../../utils/validations';
 import { MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 interface Shipment1DetailsProps {
   navigation: MaterialTopTabBarProps;
@@ -29,6 +30,9 @@ const Shipment1Details: React.FC<Shipment1DetailsProps> = ({ navigation }) => {
 
   const theme = useThemeColors();
   const styles = getStyles(theme);
+
+  const { height } = Dimensions.get('screen');
+    const isSmallDevice = height <= 667;
 
   const handleId = (text: string) => {
     setId(text);
@@ -87,7 +91,11 @@ const Shipment1Details: React.FC<Shipment1DetailsProps> = ({ navigation }) => {
   )
 
   return (
-    <ScrollView style={styles.container}>
+    <KeyboardAwareScrollView
+            bounces={false}
+            extraHeight={height * (isSmallDevice ? 0.38 : 0.41)}
+            showsVerticalScrollIndicator={false} style={styles.container}>
+    <View>
       <CustomInputBox
         name={id}
         label={'Shipment1 Number*'}
@@ -163,7 +171,8 @@ const Shipment1Details: React.FC<Shipment1DetailsProps> = ({ navigation }) => {
           </View>
         </TouchableOpacity>
       </Modal>
-    </ScrollView>
+    </View>
+    </KeyboardAwareScrollView>
   )
 }
 

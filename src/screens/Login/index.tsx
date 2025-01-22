@@ -8,7 +8,8 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
   SafeAreaView,
-  Platform
+  Platform,
+  Dimensions
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/config/AuthSlice';
@@ -24,6 +25,7 @@ import { useThemeColors } from '../../utils/theme/theme';
 import strings from '../../utils/strings';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 type RootStackParamList = {
   Login: undefined;
@@ -48,6 +50,9 @@ const Login:React.FC<LoginProps> = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const { height } = Dimensions.get('screen');
+  const isSmallDevice = height <= 667;
 
   const loginOptions = [
     ...(Platform.OS === 'ios'
@@ -97,9 +102,11 @@ const Login:React.FC<LoginProps> = ({ navigation }) => {
 
   const isButtonDisabled = emailError || !validateEmail(email) || passwordError || !validatePassword(password);
   return (
-    <>
+    <KeyboardAwareScrollView
+      bounces={false}
+      extraHeight={height * (isSmallDevice ? 0.38 : 0.41)}
+      showsVerticalScrollIndicator={false} style={[styles.mainContainer, { paddingTop: insets.top }]}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <ScrollView style={[styles.mainContainer, { paddingTop: insets.top }]}>
           <ScrollView style={{ flex: 1 }}>
             <StatusBar
               backgroundColor={'transparent'}
@@ -177,9 +184,8 @@ const Login:React.FC<LoginProps> = ({ navigation }) => {
               />
             ))}
           </ScrollView>
-        </ScrollView>
       </TouchableWithoutFeedback>
-    </>
+      </KeyboardAwareScrollView>
   );
 };
 

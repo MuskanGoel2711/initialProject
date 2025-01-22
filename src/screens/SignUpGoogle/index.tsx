@@ -27,24 +27,22 @@ const SignInGoogle: React.FC<SignInGoogleProps> = ({ navigation }) => {
     const insets = useSafeAreaInsets();
 
     useEffect(() => {
-        console.log('useeffectrun-->')
-        const b = GoogleSignin.configure({
+        GoogleSignin.configure({
             webClientId: '354543572787-tgpd4dsmtf2c95ao5rrgm41lfvfkijjm.apps.googleusercontent.com',
             offlineAccess: false
             // scopes: ['profile', 'email']
         });
-        console.log('--->',b)
     }, []);
 
     const handleSignup = async () => {
         try {
             const a = await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-            console.log('hasplayservices-->',a)
+            console.log('hasplayservices-->', a)
 
             const response = await GoogleSignin.signIn();
 
             console.log("12345678-->", response);
-            
+
             const idToken = response?.data?.idToken;
             console.log("id Token", idToken)
 

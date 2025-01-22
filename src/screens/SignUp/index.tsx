@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   useColorScheme,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import React, { useState } from 'react';
 import { getStyles } from './style';
@@ -27,6 +28,7 @@ import DOBPicker from '../../components/CustomDOB';
 import { useThemeColors } from '../../utils/theme/theme';
 import strings from '../../utils/strings';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 type RootStackParamList = {
   SignUp: undefined;
@@ -59,6 +61,9 @@ const SignUp = ({ navigation }: SignUpProps) => {
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+
+  const { height } = Dimensions.get('screen');
+  const isSmallDevice = height <= 667;
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
@@ -155,10 +160,12 @@ const SignUp = ({ navigation }: SignUpProps) => {
     !validateEmail(email) ||
     !validatePassword(password);
   return (
-    <>
+    <KeyboardAwareScrollView
+      bounces={false}
+      extraHeight={height * (isSmallDevice ? 0.38 : 0.41)}
+      showsVerticalScrollIndicator={false} style={styles.mainContainer}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <SafeAreaView style={styles.mainContainer}>
-          <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+          <View style={{ flex: 1 }}>
             <StatusBar
               backgroundColor={'transparent'}
               barStyle={'dark-content'}
@@ -276,10 +283,9 @@ const SignUp = ({ navigation }: SignUpProps) => {
                 <Text style={styles.loginText}>{strings.buttonLogin()}</Text>
               </TouchableOpacity>
             </View>
-          </ScrollView>
-        </SafeAreaView>
+          </View>
       </TouchableWithoutFeedback>
-    </>
+    </KeyboardAwareScrollView>
   );
 };
 

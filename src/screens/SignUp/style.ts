@@ -21,7 +21,7 @@ export const getStyles = (theme: Theme) => {
     },
     contentHeader: {},
     headerText: {
-      fontSize: sizes.headerText,
+      fontSize: sizes.header,
       fontWeight: 'bold',
       color: theme.textColor,
     },

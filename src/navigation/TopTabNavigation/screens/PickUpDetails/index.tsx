@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native'
 import React, { useState } from 'react'
 import CustomInputBox from '../../../../components/CustomInput';
 import { validateEmail, validateName, validatePhoneNumber } from '../../../../utils/validations';
@@ -8,6 +8,7 @@ import { getStyles } from './style';
 import { useThemeColors } from '../../../../utils/theme/theme';
 import CustomButton from '../../../../components/CustomButton';
 import { MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 interface PickUpDetailsProps {
   navigation: MaterialTopTabBarProps;
@@ -27,6 +28,9 @@ const PickUpDetails: React.FC<PickUpDetailsProps> = ({ navigation }) => {
 
   const theme = useThemeColors();
   const styles = getStyles(theme);
+  const { height } = Dimensions.get('screen');
+  const isSmallDevice = height <= 667;
+
 
   const handleIdChange = (text: string) => {
     setId(text);
@@ -90,79 +94,84 @@ const PickUpDetails: React.FC<PickUpDetailsProps> = ({ navigation }) => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <CustomInputBox
-        name={id}
-        label={'Customer ID*'}
-        maxLength={25}
-        keyboardType="name-phone-pad"
-        onChangeText={handleIdChange}
-        setName={setId}
-        Error={idError}
-        setError={setIdError}
-        errorText={
-          'Id should be min 5 digit and max 13 digit.'
-        }
-      />
-      <CustomInputBox
-        name={name}
-        label={'Name*'}
-        maxLength={25}
-        // keyboardType="name-phone-pad"
-        onChangeText={handleNameChange}
-        setName={setName}
-        Error={nameError}
-        setError={setNameError}
-        errorText={
-          'Please use only alphabetical letters and minimum length is 3 characters.'
-        }
-      />
-      <CustomInputBox
-        name={email}
-        label={'Email ID'}
-        maxLength={50}
-        keyboardType={'email-address'}
-        onChangeText={handleEmailChange}
-        setName={setEmail}
-        Error={emailError}
-        setError={setEmailError}
-        errorText={'Please enter valid email'}
-      />
-      <CustomInputBox
-        name={number}
-        label={'Contact Number'}
-        maxLength={25}
-        keyboardType="name-phone-pad"
-        onChangeText={handleNumberChange}
-        setName={setNumber}
-        Error={numberError}
-        setError={setNumberError}
-        errorText={
-          'Mobile no. should be min 5 digit and max 13 digit.'
-        }
-      />
-      <DOBPicker
-        label="Start Time*"
-        calendarIcon={images.calendar}
-        clearIcon={images.close}
-        onDateChange={handleStartChange}
-        onClear={() => setStartTime('')}
-        dateFormat='hh:mm'
-      />
-      <DOBPicker
-        label="End Time*"
-        calendarIcon={images.calendar}
-        clearIcon={images.close}
-        onDateChange={handleEndChange}
-        onClear={() => setStartTime('')}
-        dateFormat='hh:mm'
-      />
-      <CustomButton
-        title='Done'
-        onPress={() => navigation.jumpTo('Random')}
-        isButtonDisabled={!(name && id && startTime && endTime)}
-      />
-    </ScrollView>
+    <KeyboardAwareScrollView
+      bounces={false}
+      extraHeight={height * (isSmallDevice ? 0.38 : 0.41)}
+      showsVerticalScrollIndicator={false} style={styles.container}>
+      <View>
+        <CustomInputBox
+          name={id}
+          label={'Customer ID*'}
+          maxLength={25}
+          keyboardType="name-phone-pad"
+          onChangeText={handleIdChange}
+          setName={setId}
+          Error={idError}
+          setError={setIdError}
+          errorText={
+            'Id should be min 5 digit and max 13 digit.'
+          }
+        />
+        <CustomInputBox
+          name={name}
+          label={'Name*'}
+          maxLength={25}
+          // keyboardType="name-phone-pad"
+          onChangeText={handleNameChange}
+          setName={setName}
+          Error={nameError}
+          setError={setNameError}
+          errorText={
+            'Please use only alphabetical letters and minimum length is 3 characters.'
+          }
+        />
+        <CustomInputBox
+          name={email}
+          label={'Email ID'}
+          maxLength={50}
+          keyboardType={'email-address'}
+          onChangeText={handleEmailChange}
+          setName={setEmail}
+          Error={emailError}
+          setError={setEmailError}
+          errorText={'Please enter valid email'}
+        />
+        <CustomInputBox
+          name={number}
+          label={'Contact Number'}
+          maxLength={25}
+          keyboardType="name-phone-pad"
+          onChangeText={handleNumberChange}
+          setName={setNumber}
+          Error={numberError}
+          setError={setNumberError}
+          errorText={
+            'Mobile no. should be min 5 digit and max 13 digit.'
+          }
+        />
+        <DOBPicker
+          label="Start Time*"
+          calendarIcon={images.calendar}
+          clearIcon={images.close}
+          onDateChange={handleStartChange}
+          onClear={() => setStartTime('')}
+          dateFormat='hh:mm'
+        />
+        <DOBPicker
+          label="End Time*"
+          calendarIcon={images.calendar}
+          clearIcon={images.close}
+          onDateChange={handleEndChange}
+          onClear={() => setStartTime('')}
+          dateFormat='hh:mm'
+        />
+        <CustomButton
+          title='Done'
+          onPress={() => navigation.jumpTo('Random')}
+          isButtonDisabled={!(name && id && startTime && endTime)}
+        />
+      </View>
+    </KeyboardAwareScrollView>
   )
 }
 
