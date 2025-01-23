@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -9,8 +9,9 @@ import {
 } from 'react-native';
 import CountryPicker, { Country } from 'react-native-country-picker-modal';
 import { TextInput } from 'react-native-paper';
-import { styles } from './style';
+import { getStyles } from './style';
 import { validatePhoneNumber } from '../../utils/validations';
+import { useThemeColors } from '../../utils/theme/theme';
 
 interface CustomMobileInputBoxProps {
   countryCode?: any;
@@ -26,7 +27,7 @@ interface CustomMobileInputBoxProps {
   errorText?: string;
   returnKeyType?: 'done' | 'next';
   onSubmitEditing?: () => void;
-  ref?: any
+  forwardRef?: any
 }
 
 const CustomMobileInputBox = ({
@@ -43,8 +44,10 @@ const CustomMobileInputBox = ({
   errorText,
   returnKeyType,
   onSubmitEditing,
-  ref
+  forwardRef
 }: CustomMobileInputBoxProps) => {
+  const theme = useThemeColors();
+  const styles = getStyles(theme);
   const handlePhoneNumberChange = (text: string) => {
     setPhoneNumber(text);
     if (text === '') {
@@ -88,7 +91,7 @@ const CustomMobileInputBox = ({
           style={styles.phoneInputMobile}
           label={label}
           keyboardType="phone-pad"
-          textColor={'black'}
+          textColor={theme.textColor}
           maxLength={13}
           value={phoneNumber}
           onChangeText={handlePhoneNumberChange}
@@ -98,7 +101,7 @@ const CustomMobileInputBox = ({
           }}
           returnKeyType={returnKeyType}
           onSubmitEditing={onSubmitEditing}
-          ref={ref}
+          ref={forwardRef}
           theme={{
             colors: {
               primary: error ? 'red' : 'gray',

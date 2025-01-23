@@ -9,7 +9,8 @@ import {
   ScrollView,
   SafeAreaView,
   Platform,
-  Dimensions
+  Dimensions,
+  TextInput
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/config/AuthSlice';
@@ -51,7 +52,7 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
   const [passwordError, setPasswordError] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const passwordInputRef = useRef(null);
+  const passwordInputRef = useRef<TextInput>(null);
 
   const { height } = Dimensions.get('screen');
   const isSmallDevice = height <= 667;
@@ -142,7 +143,7 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
               }}
             />
             <CustomPasswordInputBox
-              ref={passwordInputRef}
+              forwardRef={passwordInputRef}
               name={password}
               label={strings.placeholderPassword()}
               Icon={images.lock}

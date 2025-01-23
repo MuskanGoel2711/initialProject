@@ -1,6 +1,8 @@
 import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Image, ImageSourcePropType } from "react-native";
 import { TextInput } from "react-native-paper";
+import { getStyles } from "./style";
+import { useThemeColors } from "../../utils/theme/theme";
 
 interface CustomInputProps {
   value: string;
@@ -8,13 +10,15 @@ interface CustomInputProps {
   placeholder?: string;
   source?: ImageSourcePropType;
   onPress?: () => void;
-  returnKeyType?: 'done' | 'next'; 
+  returnKeyType?: 'done' | 'next';
   onSubmitEditing?: () => void;
-  ref?: any
+  forwardRef?: any
 }
 
-const CustomDown: React.FC<CustomInputProps> = ({ value, onChange, placeholder, source, onPress,returnKeyType,
-  onSubmitEditing,ref }) => {
+const CustomDown: React.FC<CustomInputProps> = ({ value, onChange, placeholder, source, onPress, returnKeyType,
+  onSubmitEditing, forwardRef }) => {
+  const theme = useThemeColors();
+  const styles = getStyles(theme);
   return (
     <TouchableOpacity onPress={onPress}>
       <TextInput
@@ -23,23 +27,25 @@ const CustomDown: React.FC<CustomInputProps> = ({ value, onChange, placeholder, 
         onChangeText={onChange}
         editable={false}
         selectTextOnFocus={false}
+        textColor={theme.textColor}
         label={placeholder}
         mode="outlined"
         outlineColor="#ccc"
         activeOutlineColor="#6200ee"
-        returnKeyType={returnKeyType} 
-        onSubmitEditing={onSubmitEditing} 
-        ref={ref}
+        returnKeyType={returnKeyType}
+        onSubmitEditing={onSubmitEditing}
+        ref={forwardRef}
         theme={{
           roundness: 4,
         }}
+        placeholderTextColor={theme.textColor}
         right={
           <TextInput.Icon
             icon={() => (
               <TouchableOpacity onPress={onPress}>
                 <Image
                   source={source}
-                  style={styles.icon}
+                  style={[styles.icon, { tintColor: 'grey' }]}
                 />
               </TouchableOpacity>
             )}
@@ -49,16 +55,5 @@ const CustomDown: React.FC<CustomInputProps> = ({ value, onChange, placeholder, 
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  input: {
-    fontSize: 16,
-    marginTop: 23,
-  },
-  icon: {
-    width: 30,
-    height: 30
-  },
-});
 
 export default CustomDown;

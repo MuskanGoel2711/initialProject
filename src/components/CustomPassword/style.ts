@@ -1,7 +1,12 @@
 import { StyleSheet } from 'react-native';
 import { vw, vh } from '../../utils/Dimensions';
 
-export const styles = StyleSheet.create({
+interface Theme {
+  backgroundColor: string;
+}
+
+export const getStyles = (theme: Theme) => {
+  return StyleSheet.create({
   iconButton: {
     paddingHorizontal: vw(14),
     borderColor: '#ccc',
@@ -17,7 +22,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     marginTop: 23,
     fontSize: 15,
-    backgroundColor: 'white',
+    backgroundColor: theme.backgroundColor,
     overflow: 'hidden',
   },
   eyeImg: {
@@ -35,4 +40,4 @@ export const styles = StyleSheet.create({
     marginTop: vw(4),
     textAlign: 'left',
   },
-});
+})};

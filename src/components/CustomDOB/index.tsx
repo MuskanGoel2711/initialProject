@@ -8,7 +8,8 @@ import {
 import { TextInput } from 'react-native-paper';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { format, parse } from 'date-fns';
-import { styles } from './style';
+import { getStyles } from './style';
+import { useThemeColors } from '../../utils/theme/theme';
 
 interface DOBPickerProps {
   label?: string;
@@ -20,7 +21,7 @@ interface DOBPickerProps {
   onClear?: () => void;
   returnKeyType?: 'done' | 'next'; 
   onSubmitEditing?: () => void;
-  ref?: any;
+  forwardRef?: any;
 }
 
 const DOBPicker = ({
@@ -33,10 +34,13 @@ const DOBPicker = ({
   dateFormat = 'dd/mm/yyyy h:mm',
   returnKeyType,
   onSubmitEditing,
-  ref
+  forwardRef
 }: DOBPickerProps) => {
   const [dob, setDob] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const theme = useThemeColors();
+  const styles = getStyles(theme);
 
   const showDatePicker = () => {
     console.log("date", isDatePickerVisible)
@@ -80,22 +84,24 @@ const DOBPicker = ({
         value={dob}
         onChangeText={handleDateInput}
         editable={false}
+        textColor={theme.textColor}
         selectTextOnFocus={false}
         keyboardType="numeric"
         mode="outlined"
         returnKeyType={returnKeyType} 
         onSubmitEditing={onSubmitEditing} 
-        ref={ref}
+        ref={forwardRef}
         underlineStyle={{
           display: 'none',
         }}
+        placeholderTextColor={theme.textColor}
         right={
           <TextInput.Icon
             icon={() => (
               <TouchableOpacity onPress={dob ? clearDate : showDatePicker}>
                 <Image
                   source={dob ? clearIcon : calendarIcon}
-                  style={styles.calendarImg}
+                  style={[styles.calendarImg]}
                 />
               </TouchableOpacity>
             )}

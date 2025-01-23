@@ -58,12 +58,15 @@ const SignInGoogle: React.FC<SignInGoogleProps> = ({ navigation }) => {
                     routes: [{ name: 'HomeScreen' }],
                 })
             );
-        } catch (error: any) {
-            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        } catch (error) {
+            if ((error as Error).message) {
+                console.error('Error during Google Sign-In:', error);
+            }
+            if ((error as { code?: string }).code === statusCodes.SIGN_IN_CANCELLED) {
                 console.log('User cancelled the login flow');
-            } else if (error.code === statusCodes.IN_PROGRESS) {
-                console.log('Sign in operation is in progress');
-            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+            } else if ((error as { code?: string }).code === statusCodes.IN_PROGRESS) {
+                console.log('Sign-in operation is in progress');
+            } else if ((error as { code?: string }).code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
                 console.log('Google Play Services not available');
             } else {
                 console.error('Error during Google Sign-In:', error);

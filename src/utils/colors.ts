@@ -12,7 +12,8 @@ export const lightThemeColors = {
     textColor: '#000000',
     tintColor: '#000000',
     borderColor: '#000000',
-    shadowColor: "#000000"
+    shadowColor: "#000000",
+    placeholderTextColor: 'black'
 }
 
 export const darkThemeColors = {
@@ -20,7 +21,8 @@ export const darkThemeColors = {
     textColor: '#FFFFFF',
     tintColor: '#FFFFFF',
     borderColor: '#FFFFFF',
-    shadowColor: "'#FFFFFF"
+    shadowColor: "'#FFFFFF",
+    placeholderTextColor: 'white'
 }
 
 export default Colors;

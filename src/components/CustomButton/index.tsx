@@ -1,6 +1,8 @@
 import React from 'react';
 import {TouchableOpacity, Text, StyleSheet, useColorScheme, Image, View, ImageSourcePropType, ViewStyle, StyleProp, TextStyle} from 'react-native';
 import {vh} from '../../utils/Dimensions';
+import {Styles} from './style';
+import { useThemeColors } from '../../utils/theme/theme';
 
 interface CustomButtonProps {
   title: string;
@@ -8,7 +10,7 @@ interface CustomButtonProps {
   isButtonDisabled?: boolean;
   iconSource?: ImageSourcePropType;
   style?: StyleProp<ViewStyle>;
-  key?: any;
+  key?: string | number;
   textStyle?: StyleProp<TextStyle>
 }
 
@@ -19,9 +21,9 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   iconSource,
   style,
   key,
-  textStyle
+  textStyle,
 }) => {
-  const theme = useColorScheme();
+  const theme = useThemeColors();
   const styles = Styles(theme);
   return (
     <TouchableOpacity
@@ -47,53 +49,5 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     </TouchableOpacity>
   );
 };
-
-const Styles = (theme: any) =>
-  StyleSheet.create({
-    disabledButton: {
-      backgroundColor: 'white',
-      shadowColor: theme.shadowColor,
-      shadowOffset: {width: 0, height: 2},
-      shadowOpacity: 0.8,
-      shadowRadius: 3,
-      elevation: 5,
-    },
-    submitButton: {
-      backgroundColor: '#3260a8',
-      alignItems: 'center',
-      justifyContent: 'center',
-      alignSelf: 'center',
-      width: '85%',
-      marginTop: vh(44),
-      paddingVertical: vh(16),
-      borderRadius: 10,
-      shadowColor: theme.textColor,
-      shadowOffset: {width: 0, height: 2},
-      shadowOpacity: 0.8,
-      shadowRadius: 3,
-      elevation: 5,
-    },
-    submitButtonText: {
-      color: 'white',
-      fontSize: 16,
-      fontWeight: 'bold',
-    },
-    disabledButtonText: {
-      color: '#E2E2E2',
-    },
-    contentContainer: {
-      // alignItems: 'center',
-      // justifyContent: 'center',
-    },
-    rowContainer: {
-      flexDirection: 'row', 
-      alignItems: 'center',
-    },
-    iconStyle: {
-      width: 24,
-      height: 24,
-      marginRight: 8, 
-    },
-  });
 
 export default CustomButton;

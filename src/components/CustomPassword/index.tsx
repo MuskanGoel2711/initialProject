@@ -9,8 +9,9 @@ import {
   KeyboardTypeOptions,
 } from 'react-native';
 import { TextInput } from 'react-native-paper';
-import { styles } from './style';
+import { getStyles} from './style';
 import { images } from '../../assets/index';
+import { useThemeColors } from '../../utils/theme/theme';
 
 interface CustomPasswordInputProps {
   name: string;
@@ -21,11 +22,11 @@ interface CustomPasswordInputProps {
   Error?: boolean;
   errorText?: string;
   maxLength?: number;
-  keyboardType: KeyboardTypeOptions;
+  keyboardType?: KeyboardTypeOptions;
   onChangeText: (text: string) => void;
   returnKeyType?: 'done' | 'next';
   onSubmitEditing?: () => void;
-  ref?: any;
+  forwardRef?: any;
 }
 
 const CustomPasswordInputBox = ({
@@ -39,10 +40,12 @@ const CustomPasswordInputBox = ({
   maxLength,
   keyboardType,
   onChangeText,
-  ref,
+  forwardRef,
   returnKeyType,
   onSubmitEditing,
 }: CustomPasswordInputProps) => {
+  const theme = useThemeColors();
+  const styles = getStyles(theme);
   return (
     <View>
       <TextInput
@@ -52,7 +55,7 @@ const CustomPasswordInputBox = ({
         value={name}
         maxLength={maxLength}
         secureTextEntry={!isPasswordVisible}
-        textColor={'black'}
+        textColor={theme.textColor}
         onChangeText={onChangeText}
         mode="outlined"
         underlineStyle={{
@@ -61,14 +64,11 @@ const CustomPasswordInputBox = ({
         theme={{
           colors: {
             primary: Error ? 'red' : 'gray',
-            placeholder: 'grey',
-            background: 'transparent',
-            disabled: 'transparent',
           },
         }}
         returnKeyType={returnKeyType}
         onSubmitEditing={onSubmitEditing}
-        ref={ref}
+        ref={forwardRef}
         right={
           <TextInput.Icon
             icon={() => (

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Modal, FlatList, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Modal, FlatList, TouchableOpacity, ScrollView, Dimensions, TextInput } from 'react-native';
 import React, { useRef, useState } from 'react'
 import CustomInputBox from '../../../../components/CustomInput';
 import { images } from '../../../../assets';
@@ -28,9 +28,9 @@ const Shipment1Details: React.FC<Shipment1DetailsProps> = ({ navigation }) => {
   const [options] = useState<string[]>(['High', 'Medium', 'Low']);
   const [startTime, setStartTime] = useState('');
 
-  const dobPickerRef = useRef(null);
-  const priorityRef = useRef(null);
-  const nextButtonRef = useRef(null);
+  const dobPickerRef = useRef<TextInput>(null);
+  const priorityRef = useRef<TextInput>(null);
+  const nextButtonRef = useRef<TextInput>(null);
 
   const theme = useThemeColors();
   const styles = getStyles(theme);
@@ -121,7 +121,7 @@ const Shipment1Details: React.FC<Shipment1DetailsProps> = ({ navigation }) => {
         onDateChange={handleDateChange}
         clearIcon={images.close}
         onClear={() => setStartTime('')}
-        ref={dobPickerRef}
+        forwardRef={dobPickerRef}
           onSubmitEditing={() => priorityRef.current?.focus()}
       />
       <CustomDown
@@ -130,7 +130,7 @@ const Shipment1Details: React.FC<Shipment1DetailsProps> = ({ navigation }) => {
         placeholder="Priority"
         source={images.downArrow}
         onPress={() => setIsModalVisible(true)}
-        ref={priorityRef}
+        forwardRef={priorityRef}
       />
       <CustomInputBox
         name={value}

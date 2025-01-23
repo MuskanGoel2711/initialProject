@@ -1,7 +1,13 @@
 import { StyleSheet } from 'react-native';
 import { vw, vh } from '../../utils/Dimensions';
 
-export const styles = StyleSheet.create({
+interface Theme {
+  backgroundColor: string;
+  textColor: string;
+}
+
+export const getStyles = (theme: Theme) => {
+  return StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -11,7 +17,7 @@ export const styles = StyleSheet.create({
     borderColor: '#ccc',
     width: '100%',
     padding: 1,
-    backgroundColor: 'white'
+    backgroundColor: theme.backgroundColor
   },
   flagContainer: {},
   telephoneButton: {
@@ -32,14 +38,14 @@ export const styles = StyleSheet.create({
   },
   countryCodeText: {
     fontSize: 16,
-    color: 'black',
+    color: theme.textColor,
   },
   phoneInputMobile: {
-    width: '65%',
+    width: '60%',
     borderEndEndRadius: 10,
     borderTopEndRadius: 10,
     fontSize: 15,
-    backgroundColor: 'white',
+    backgroundColor: theme.backgroundColor,
     overflow: 'hidden',
   },
   errorContainer: {
@@ -51,4 +57,4 @@ export const styles = StyleSheet.create({
     marginTop: vh(4),
     textAlign: 'left',
   },
-});
+})};

@@ -1,34 +1,31 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React, { useCallback, useRef, useState } from 'react';
 import {
+  Dimensions,
+  Keyboard,
   StatusBar,
   Text,
+  TextInput,
   TouchableOpacity,
-  View,
-  Image,
-  Keyboard,
   TouchableWithoutFeedback,
-  useColorScheme,
-  ScrollView,
-  Dimensions,
+  View
 } from 'react-native';
-import React, { useRef, useState } from 'react';
-import { getStyles } from './style';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Country, CountryCode } from 'react-native-country-picker-modal';
-import CustomMobileInputBox from '../../components/CustomMobile';
-import CustomInputBox from '../../components/CustomInput';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { images } from '../../assets/index';
 import CustomButton from '../../components/CustomButton';
+import DOBPicker from '../../components/CustomDOB';
+import CustomInputBox from '../../components/CustomInput';
+import CustomMobileInputBox from '../../components/CustomMobile';
 import CustomPasswordInputBox from '../../components/CustomPassword';
+import strings from '../../utils/strings';
+import { useThemeColors } from '../../utils/theme/theme';
 import {
   validateEmail,
   validateName,
   validatePassword,
 } from '../../utils/validations';
-import { images } from '../../assets/index';
-import DOBPicker from '../../components/CustomDOB';
-import { useThemeColors } from '../../utils/theme/theme';
-import strings from '../../utils/strings';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { getStyles } from './style';
 
 type RootStackParamList = {
   SignUp: undefined;
@@ -49,24 +46,24 @@ const SignUp = ({ navigation }: SignUpProps) => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [isPickerVisible, setPickerVisible] = useState(false);
   const [error, setError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [firstNameError, setFirstNameError] = useState(false);
   const [lastNameError, setLastNameError] = useState(false);
-  const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
 
-  const lastNameRef = useRef(null);
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
-  const confirmPasswordRef = useRef(null);
-  const phoneRef = useRef(null);
+  const lastNameRef = useRef<TextInput>(null);
+  const emailRef = useRef<TextInput>(null);
+  const passwordRef = useRef<TextInput>(null);
+  const confirmPasswordRef = useRef<TextInput>(null);
+  const phoneRef = useRef<TextInput>(null);
 
   const { height } = Dimensions.get('screen');
   const isSmallDevice = height <= 667;
@@ -79,7 +76,7 @@ const SignUp = ({ navigation }: SignUpProps) => {
     setSelectedDate(date);
   };
 
-  const handlePasswordChange = (text: string) => {
+  const handlePasswordChange = useCallback((text: string) => {
     setPassword(text);
     if (text.length === 0) {
       setPasswordError(false);
@@ -88,8 +85,8 @@ const SignUp = ({ navigation }: SignUpProps) => {
     } else {
       setPasswordError(true);
     }
-  };
-  const handleConfirmPasswordChange = (text: string) => {
+  }, [password]);
+  const handleConfirmPasswordChange = useCallback((text: string) => {
     setConfirmPassword(text);
     if (text.length === 0) {
       setConfirmPasswordError(false);
@@ -98,7 +95,7 @@ const SignUp = ({ navigation }: SignUpProps) => {
     } else {
       setConfirmPasswordError(false);
     }
-  };
+  }, [confirmPassword]);
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
@@ -155,16 +152,24 @@ const SignUp = ({ navigation }: SignUpProps) => {
     }
   };
 
+  const handleFirstNameSubmit = () => lastNameRef.current?.focus();
+  const handleLastNameSubmit = () => emailRef.current?.focus();
+  const handleEmailSubmit = () => passwordRef.current?.focus();
+  const handlePasswordSubmit = () => confirmPasswordRef.current?.focus();
+  const handleConfirmPasswordSubmit = () => phoneRef.current?.focus();
+
   const isButtonDisabled =
     phoneNumber.length < 5 ||
     firstNameError ||
     lastNameError ||
     emailError ||
     passwordError ||
+    confirmPasswordError ||
     !validateName(firstName) ||
     !validateName(lastName) ||
     !validateEmail(email) ||
-    !validatePassword(password);
+    !validatePassword(password) ||
+    confirmPassword !== password;
   return (
     <KeyboardAwareScrollView
       bounces={false}
@@ -201,7 +206,7 @@ const SignUp = ({ navigation }: SignUpProps) => {
                 'Please use only alphabetical letters and minimum length is 3 characters.'
               }
               returnKeyType="next"
-              onSubmitEditing={() => lastNameRef.current?.focus()}
+              // onSubmitEditing={handleFirstNameSubmit}
             />
             <CustomInputBox
               name={lastName}
@@ -216,9 +221,9 @@ const SignUp = ({ navigation }: SignUpProps) => {
               errorText={
                 'Please use only alphabetical letters and minimum length is 3 characters.'
               }
-              ref={lastNameRef}
+              forwardRef={lastNameRef}
               returnKeyType="next"
-              onSubmitEditing={() => emailRef.current?.focus()}
+              // onSubmitEditing={handleLastNameSubmit}
             />
             <DOBPicker
               label="Date of Birth"
@@ -238,11 +243,12 @@ const SignUp = ({ navigation }: SignUpProps) => {
               Error={emailError}
               setError={setEmailError}
               errorText={'Please enter valid email'}
-              ref={emailRef}
+              forwardRef={emailRef}
               returnKeyType="next"
-              onSubmitEditing={() => passwordRef.current?.focus()}
+              // onSubmitEditing={handleEmailSubmit}
             />
             <CustomPasswordInputBox
+              forwardRef={passwordRef}
               name={password}
               label={strings.placeholderPassword()}
               Icon={images.lock}
@@ -251,13 +257,13 @@ const SignUp = ({ navigation }: SignUpProps) => {
               Error={passwordError}
               onChangeText={handlePasswordChange}
               maxLength={50}
-              keyboardType="default"
+              // keyboardType="default"
               errorText="Please enter at least one uppercase, lowercase, digit, special character and 8 characters long"
-              ref={passwordRef}
               returnKeyType="next"
-              onSubmitEditing={() => confirmPasswordRef.current?.focus()}
+              // onSubmitEditing={handlePasswordSubmit}
             />
             <CustomPasswordInputBox
+              forwardRef={confirmPasswordRef}
               name={confirmPassword}
               label={strings.confirmPassword()}
               Icon={images.lock}
@@ -266,13 +272,13 @@ const SignUp = ({ navigation }: SignUpProps) => {
               Error={confirmPasswordError}
               onChangeText={handleConfirmPasswordChange}
               maxLength={50}
-              keyboardType="default"
+              // keyboardType="default"
               errorText="Passwords do not match"
-              ref={confirmPasswordRef}
               returnKeyType="next"
-              onSubmitEditing={() => phoneRef.current?.focus()}
+              // onSubmitEditing={handleConfirmPasswordSubmit}
             />
             <CustomMobileInputBox
+              forwardRef={phoneRef}
               label={strings.placeholderPhone()}
               countryCode={countryCode}
               callingCode={callingCode}
@@ -284,7 +290,6 @@ const SignUp = ({ navigation }: SignUpProps) => {
               error={error}
               setError={setError}
               errorText={'Mobile no. should be min 5 digit and max 13 digit.'}
-              ref={phoneRef}
               returnKeyType="done"
             />
 

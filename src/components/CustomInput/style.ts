@@ -1,7 +1,9 @@
 import {StyleSheet} from 'react-native';
 import {vw, vh} from '../../utils/Dimensions';
 
-interface Theme {}
+interface Theme {
+  backgroundColor: string;
+}
 
 export const getStyles = (theme: Theme) => {
   return StyleSheet.create({
@@ -21,8 +23,8 @@ export const getStyles = (theme: Theme) => {
       width: '100%',
       marginTop: 23,
       fontSize: 15,
-      backgroundColor: 'white',
-      overflow: 'hidden',
+      backgroundColor: theme.backgroundColor,
+      overflow: 'hidden'
     },
     errorContainer: {
       borderColor: 'red',

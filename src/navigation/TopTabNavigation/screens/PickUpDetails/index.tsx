@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Dimensions, TextInput } from 'react-native'
 import React, { useRef, useState } from 'react'
 import CustomInputBox from '../../../../components/CustomInput';
 import { validateEmail, validateName, validatePhoneNumber } from '../../../../utils/validations';
@@ -31,9 +31,9 @@ const PickUpDetails: React.FC<PickUpDetailsProps> = ({ navigation }) => {
   const { height } = Dimensions.get('screen');
   const isSmallDevice = height <= 667;
 
-  const nameRef = useRef(null);
-  const emailRef = useRef(null);
-  const numberRef = useRef(null);
+  const nameRef = useRef<TextInput>(null);
+  const emailRef = useRef<TextInput>(null);
+  const numberRef = useRef<TextInput>(null);
 
 
   const handleIdChange = (text: string) => {
@@ -119,7 +119,7 @@ const PickUpDetails: React.FC<PickUpDetailsProps> = ({ navigation }) => {
           onSubmitEditing={() => nameRef.current?.focus()}
         />
         <CustomInputBox
-          ref={nameRef}
+          forwardRef={nameRef}
           name={name}
           label={'Name*'}
           maxLength={25}
@@ -135,7 +135,7 @@ const PickUpDetails: React.FC<PickUpDetailsProps> = ({ navigation }) => {
           onSubmitEditing={() => emailRef.current?.focus()}
         />
         <CustomInputBox
-          ref={emailRef}
+          forwardRef={emailRef}
           name={email}
           label={'Email ID'}
           maxLength={50}
@@ -149,7 +149,7 @@ const PickUpDetails: React.FC<PickUpDetailsProps> = ({ navigation }) => {
           onSubmitEditing={() => numberRef.current?.focus()}
         />
         <CustomInputBox
-          ref={numberRef}
+          forwardRef={numberRef}
           name={number}
           label={'Contact Number'}
           maxLength={25}

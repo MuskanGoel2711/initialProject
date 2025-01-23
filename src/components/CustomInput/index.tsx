@@ -24,10 +24,10 @@ interface CustomInputProps {
   maxLength?: number;
   keyboardType?: KeyboardTypeOptions;
   selectTextOnFocus?: boolean;
-  editable?: any;
+  editable?: boolean;
   returnKeyType?: 'done' | 'next'; 
   onSubmitEditing?: () => void;
-  ref?: any
+  forwardRef?: any;
 }
 
 const CustomInputBox = ({
@@ -43,7 +43,7 @@ const CustomInputBox = ({
   editable,
   returnKeyType,
   onSubmitEditing,
-  ref
+  forwardRef
 }: CustomInputProps) => {
   const theme = useThemeColors();
   const styles = getStyles(theme);
@@ -57,14 +57,15 @@ const CustomInputBox = ({
         value={name}
         editable={editable}
         selectTextOnFocus={selectTextOnFocus}
+        placeholderTextColor={theme.placeholderTextColor}
         maxLength={maxLength}
-        textColor={'black'}
+        textColor={theme.textColor}
         onChangeText={onChangeText}
         mode="outlined"
         underlineStyle={{
           display: 'none',
         }}
-        ref={ref}
+        ref={forwardRef}
         returnKeyType={returnKeyType} 
         onSubmitEditing={onSubmitEditing}
         theme={{
