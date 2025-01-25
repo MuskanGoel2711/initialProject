@@ -1,11 +1,11 @@
 import { StyleSheet } from "react-native";
-import { vh, vw } from '../../utils/Dimensions'
 import Colors from "../../utils/colors";
 import sizes from "../../utils/sizes";
 
 interface Theme {
     backgroundColor: string;
     textColor: string;
+    tintColor: string
 }
 
 export const getStyles = (theme: Theme) => {
@@ -19,8 +19,9 @@ export const getStyles = (theme: Theme) => {
             paddingVertical: 20
         },
         leftArrow: {
-            width: 45,
-            height: 45,
+            width: 30,
+            height: 30,
+            tintColor: theme.tintColor
         },
         title: {
             fontSize: sizes.header,
@@ -75,7 +76,7 @@ export const getStyles = (theme: Theme) => {
             borderRadius: 15,
             marginBottom: 40,
             elevation: 2,
-            shadowColor: '#000',
+            shadowColor: Colors.shadowColor,
             shadowOffset: { width: 0, height: 4 },
             shadowOpacity: 0.3,
             shadowRadius: 5,
@@ -88,7 +89,7 @@ export const getStyles = (theme: Theme) => {
             borderRadius: 15,
             marginBottom: 40,
             elevation: 2,
-            shadowColor: '#000',
+            shadowColor: Colors.shadowColor,
             shadowOffset: { width: 0, height: 4 },
             shadowOpacity: 0.3,
             shadowRadius: 5,
@@ -135,7 +136,7 @@ export const getStyles = (theme: Theme) => {
             padding: 20,
             alignItems: 'center',
             justifyContent: 'flex-end',
-            shadowColor: '#000',
+            shadowColor: Colors.shadowColor,
             shadowOffset: { width: 0, height: 2 },
             shadowOpacity: 0.25,
             shadowRadius: 4,

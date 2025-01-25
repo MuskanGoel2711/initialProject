@@ -1,17 +1,17 @@
-import React, { forwardRef } from 'react';
+import React, { Ref } from 'react';
 import {
-  View,
-  TouchableOpacity,
   Image,
-  Text,
   ImageSourcePropType,
-  useColorScheme,
+  Text,
+  TouchableOpacity,
+  View,
+  TextInput as RNTextInput
 } from 'react-native';
 import CountryPicker, { Country } from 'react-native-country-picker-modal';
 import { TextInput } from 'react-native-paper';
-import { getStyles } from './style';
-import { validatePhoneNumber } from '../../utils/validations';
 import { useThemeColors } from '../../utils/theme/theme';
+import { validatePhoneNumber } from '../../utils/validations';
+import { getStyles } from './style';
 
 interface CustomMobileInputBoxProps {
   countryCode?: any;
@@ -27,7 +27,7 @@ interface CustomMobileInputBoxProps {
   errorText?: string;
   returnKeyType?: 'done' | 'next';
   onSubmitEditing?: () => void;
-  forwardRef?: any
+  forwardRef?: Ref<RNTextInput>;
 }
 
 const CustomMobileInputBox = ({

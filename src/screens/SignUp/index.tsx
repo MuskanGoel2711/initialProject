@@ -15,9 +15,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { images } from '../../assets/index';
 import CustomButton from '../../components/CustomButton';
 import DOBPicker from '../../components/CustomDOB';
-import CustomInputBox from '../../components/CustomInput';
+import CustomInput from '../../components/CustomInput';
 import CustomMobileInputBox from '../../components/CustomMobile';
-import CustomPasswordInputBox from '../../components/CustomPassword';
 import strings from '../../utils/strings';
 import { useThemeColors } from '../../utils/theme/theme';
 import {
@@ -26,14 +25,9 @@ import {
   validatePassword,
 } from '../../utils/validations';
 import { getStyles } from './style';
+import { RootStackParamListSignUp } from '../../utils/types';
 
-type RootStackParamList = {
-  SignUp: undefined;
-  VerifyOtp: undefined;
-  Login: undefined;
-};
-
-type SignUpProps = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
+type SignUpProps = NativeStackScreenProps<RootStackParamListSignUp, 'SignUp'>;
 
 const SignUp = ({ navigation }: SignUpProps) => {
   const theme = useThemeColors();
@@ -192,38 +186,34 @@ const SignUp = ({ navigation }: SignUpProps) => {
               </Text>
             </View>
 
-            <CustomInputBox
+            <CustomInput
               name={firstName}
               label={strings.placeholderFirstName()}
               maxLength={25}
               keyboardType={'name-phone-pad'}
               onChangeText={handleFirstNameChange}
-              setName={setFirstName}
               Icon={images.user}
               Error={firstNameError}
-              setError={setFirstNameError}
               errorText={
                 'Please use only alphabetical letters and minimum length is 3 characters.'
               }
               returnKeyType="next"
-              // onSubmitEditing={handleFirstNameSubmit}
+              onSubmitEditing={handleFirstNameSubmit}
             />
-            <CustomInputBox
+            <CustomInput
               name={lastName}
               label={strings.placeholderLastName()}
               maxLength={25}
               keyboardType="name-phone-pad"
               onChangeText={handleLastNameChange}
-              setName={setLastName}
               Icon={images.user}
               Error={lastNameError}
-              setError={setLastNameError}
               errorText={
                 'Please use only alphabetical letters and minimum length is 3 characters.'
               }
               forwardRef={lastNameRef}
               returnKeyType="next"
-              // onSubmitEditing={handleLastNameSubmit}
+              onSubmitEditing={handleLastNameSubmit}
             />
             <DOBPicker
               label="Date of Birth"
@@ -232,50 +222,48 @@ const SignUp = ({ navigation }: SignUpProps) => {
               onDateChange={handleDateChange}
 
             />
-            <CustomInputBox
+            <CustomInput
               name={email}
               label={strings.placeholderEmail()}
               maxLength={50}
               keyboardType={'email-address'}
               onChangeText={handleEmailChange}
-              setName={setEmail}
               Icon={images.email}
               Error={emailError}
-              setError={setEmailError}
               errorText={'Please enter valid email'}
               forwardRef={emailRef}
               returnKeyType="next"
-              // onSubmitEditing={handleEmailSubmit}
+              onSubmitEditing={handleEmailSubmit}
             />
-            <CustomPasswordInputBox
+            <CustomInput
               forwardRef={passwordRef}
               name={password}
               label={strings.placeholderPassword()}
               Icon={images.lock}
+              isPassword
               isPasswordVisible={isPasswordVisible}
               togglePasswordVisibility={togglePasswordVisibility}
               Error={passwordError}
               onChangeText={handlePasswordChange}
               maxLength={50}
-              // keyboardType="default"
               errorText="Please enter at least one uppercase, lowercase, digit, special character and 8 characters long"
               returnKeyType="next"
-              // onSubmitEditing={handlePasswordSubmit}
+              onSubmitEditing={handlePasswordSubmit}
             />
-            <CustomPasswordInputBox
+            <CustomInput
               forwardRef={confirmPasswordRef}
               name={confirmPassword}
               label={strings.confirmPassword()}
               Icon={images.lock}
+              isPassword
               isPasswordVisible={isConfirmPasswordVisible}
               togglePasswordVisibility={toggleConfirmPasswordVisibility}
               Error={confirmPasswordError}
               onChangeText={handleConfirmPasswordChange}
               maxLength={50}
-              // keyboardType="default"
               errorText="Passwords do not match"
               returnKeyType="next"
-              // onSubmitEditing={handleConfirmPasswordSubmit}
+              onSubmitEditing={handleConfirmPasswordSubmit}
             />
             <CustomMobileInputBox
               forwardRef={phoneRef}

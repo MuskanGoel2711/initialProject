@@ -1,30 +1,25 @@
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React, { useState } from 'react';
 import {
+  Keyboard,
+  SafeAreaView,
+  ScrollView,
   StatusBar,
   Text,
-  View,
-  Keyboard,
   TouchableWithoutFeedback,
-  ScrollView,
-  SafeAreaView,
+  View,
 } from 'react-native';
-import React, { useState } from 'react';
-import { getStyles } from './style';
 import { Country, CountryCode } from 'react-native-country-picker-modal';
-import CustomMobileInputBox from '../../components/CustomMobile/index';
-import CustomButton from '../../components/CustomButton/index';
 import { images } from '../../assets/index';
 import CustomImage from '../../components/CustomArrow';
-import { useThemeColors } from '../../utils/theme/theme';
+import CustomButton from '../../components/CustomButton/index';
+import CustomMobileInputBox from '../../components/CustomMobile/index';
 import strings from '../../utils/strings';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useThemeColors } from '../../utils/theme/theme';
+import { RootStackParamListForgotPassword } from '../../utils/types';
+import { getStyles } from './style';
 
-type RootStackParamList = {
-  ForgotPassword: undefined;
-  VerifyOtp: undefined;
-};
-
-// Define props for the ForgotPassword component
-type ForgotPasswordProps = NativeStackScreenProps<RootStackParamList, 'ForgotPassword'>;
+type ForgotPasswordProps = NativeStackScreenProps<RootStackParamListForgotPassword, 'ForgotPassword'>;
 
 const ForgotPassword = ({ navigation }: ForgotPasswordProps) => {
   const theme = useThemeColors();

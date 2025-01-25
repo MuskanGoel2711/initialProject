@@ -42,7 +42,8 @@
                 "didNotReceive": "Vous n'avez pas reçu le code ?",
                 "successfully": "Avec succès",
                 "successfullyVerified": "Votre numéro de mobile a été vérifié avec succès.",
-                "buttonResend": "Renvoyer"
+                "buttonResend": "Renvoyer",
+                "finish": "Terminer"
             }
         }
     }

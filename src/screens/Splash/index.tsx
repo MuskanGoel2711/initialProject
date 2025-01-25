@@ -1,19 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { View, Image } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../redux/store';
-import styles from './style';
+import React, { useEffect } from 'react';
+import { Image, View } from 'react-native';
+import { useSelector } from 'react-redux';
 import { images } from '../../assets/index';
-
-type RootStackParamList = {
-    Tutorial: undefined;
-    HomeScreen: undefined;
-    Login: undefined;
-};
+import { RootState } from '../../redux/store';
+import { RootStackParamListSplash } from '../../utils/types';
+import styles from './style';
 
 type SplashScreenProps = {
-    navigation: NativeStackNavigationProp<RootStackParamList, 'Tutorial'>;
+    navigation: NativeStackNavigationProp<RootStackParamListSplash, 'Tutorial'>;
 };
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {

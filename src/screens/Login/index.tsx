@@ -1,43 +1,34 @@
+import { CommonActions } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React, { useEffect, useRef, useState } from 'react';
 import {
+  Dimensions,
+  Keyboard,
+  Platform,
+  ScrollView,
   StatusBar,
   Text,
+  TextInput,
   TouchableOpacity,
-  View,
-  Image,
-  Keyboard,
   TouchableWithoutFeedback,
-  ScrollView,
-  SafeAreaView,
-  Platform,
-  Dimensions,
-  TextInput
+  View
 } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { login } from '../../redux/config/AuthSlice';
-import { CommonActions } from '@react-navigation/native';
-import React, { useRef, useState } from 'react';
-import { getStyles } from './style';
-import CustomInputBox from '../../components/CustomInput';
-import CustomButton from '../../components/CustomButton';
-import CustomPasswordInputBox from '../../components/CustomPassword';
-import { validateEmail, validatePassword } from '../../utils/validations';
-import { images } from '../../assets/index';
-import { useThemeColors } from '../../utils/theme/theme';
-import strings from '../../utils/strings';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useDispatch } from 'react-redux';
+import { images } from '../../assets/index';
+import CustomButton from '../../components/CustomButton';
+import CustomInput from '../../components/CustomInput';
+import { login } from '../../redux/config/AuthSlice';
+import { facebookLogin } from '../../utils/socialLoginFunctions/facebookAuth';
+import { configureGoogleSignIn, handleGoogleSignIn } from '../../utils/socialLoginFunctions/googleAuth';
+import strings from '../../utils/strings';
+import { useThemeColors } from '../../utils/theme/theme';
+import { RootStackParamListLogin } from '../../utils/types';
+import { validateEmail, validatePassword } from '../../utils/validations';
+import { getStyles } from './style';
 
-type RootStackParamList = {
-  Login: undefined;
-  ForgotPassword: undefined;
-  SignUp: undefined;
-  PhoneSignUp: undefined;
-  SignInGoogle: undefined;
-  FaceBookLogin: undefined;
-};
-
-type LoginProps = NativeStackScreenProps<RootStackParamList, 'Login'>;
+type LoginProps = NativeStackScreenProps<RootStackParamListLogin, 'Login'>;
 
 const Login: React.FC<LoginProps> = ({ navigation }) => {
   const insets = useSafeAreaInsets();
@@ -57,13 +48,54 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
   const { height } = Dimensions.get('screen');
   const isSmallDevice = height <= 667;
 
+  useEffect(() => {
+    configureGoogleSignIn();
+  }, []);
+
   const loginOptions = [
     ...(Platform.OS === 'ios'
       ? [{ icon: images.apple, label: strings.ContinueApple(), onPress: () => { } }]
       : []),
-    { icon: 'phone-portrait-outline', label: strings.ContinuePhoneNumber(), onPress: () => navigation.navigate('PhoneSignUp'), style: { backgroundColor: 'white' }, textStyle: { color: 'black' } },
-    { icon: images.google, label: strings.ContinueGoogle(), onPress: () => navigation.navigate('SignInGoogle'), style: { backgroundColor: 'white' }, textStyle: { color: 'black' } },
-    { icon: images.facebook, label: strings.ContinueFacebook(), onPress: () => navigation.navigate('FaceBookLogin'), style: { backgroundColor: '#3260a8' }, },
+    { icon: 'phone-portrait-outline', label: strings.ContinuePhoneNumber(), 
+      onPress: () => navigation.navigate('PhoneSignUp'), 
+      style: { backgroundColor: 'white' }, 
+      textStyle: { color: 'black' } 
+    },
+    { icon: images.google, label: strings.ContinueGoogle(), 
+      onPress: async () => {
+        try {
+          const userCredential = await handleGoogleSignIn(); 
+          dispatch(login());
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{ name: 'HomeScreen' }],
+            })
+          );
+        } catch (err) {
+          console.log("error", err);
+        }
+      }, 
+      style: { backgroundColor: 'white' }, 
+      textStyle: { color: 'black' } 
+    },
+    { icon: images.facebook, label: strings.ContinueFacebook(), 
+      onPress: async () => {
+        try {
+          const userCredential = await facebookLogin(); 
+          dispatch(login()); 
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{ name: 'HomeScreen' }],
+            })
+          );
+        } catch (err) {
+          console.log("error", err);
+        }
+      }, 
+      style: { backgroundColor: '#3260a8' }, 
+    },
   ];
 
   const togglePasswordVisibility = () => {
@@ -126,27 +158,28 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
               </Text>
             </View>
 
-            <CustomInputBox
+            <CustomInput
               name={email}
               label={strings.placeholderEmail()}
               maxLength={50}
               keyboardType={'email-address'}
               onChangeText={handleEmailChange}
-              setName={setEmail}
+              // setName={setEmail}
               Icon={images.email}
               Error={emailError}
-              setError={setEmailError}
+              // setError={setEmailError}
               errorText={'Please enter valid email'}
               returnKeyType="next"
               onSubmitEditing={() => {
                 passwordInputRef.current?.focus();
               }}
             />
-            <CustomPasswordInputBox
+            <CustomInput
               forwardRef={passwordInputRef}
               name={password}
               label={strings.placeholderPassword()}
               Icon={images.lock}
+              isPassword
               isPasswordVisible={isPasswordVisible}
               togglePasswordVisibility={togglePasswordVisibility}
               Error={passwordError}

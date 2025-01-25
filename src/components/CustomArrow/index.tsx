@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Image, StyleProp, ViewStyle, ImageStyle, ImageSourcePropType } from 'react-native';
+import { Image, ImageSourcePropType, ImageStyle, StyleProp, TouchableOpacity, ViewStyle } from 'react-native';
 
 interface CustomImageProps {
     onPress?: () => void;

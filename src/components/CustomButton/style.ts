@@ -1,5 +1,7 @@
 import { StyleSheet } from "react-native";
-import { vh, vw } from '../../utils/Dimensions';
+import { vh , vw} from '../../utils/Dimensions';
+import Colors from "../../utils/colors";
+import sizes from "../../utils/sizes";
 
 interface Theme {
     shadowColor: string;
@@ -9,7 +11,7 @@ interface Theme {
 export const Styles = (theme: Theme) =>
     StyleSheet.create({
         disabledButton: {
-            backgroundColor: 'white',
+            backgroundColor: Colors.PRIMARY_WHITE,
             shadowColor: theme.shadowColor,
             shadowOffset: { width: 0, height: 2 },
             shadowOpacity: 0.8,
@@ -17,7 +19,7 @@ export const Styles = (theme: Theme) =>
             elevation: 5,
         },
         submitButton: {
-            backgroundColor: '#3260a8',
+            backgroundColor: Colors.submitButton,
             alignItems: 'center',
             justifyContent: 'center',
             alignSelf: 'center',
@@ -32,12 +34,12 @@ export const Styles = (theme: Theme) =>
             elevation: 5,
         },
         submitButtonText: {
-            color: 'white',
-            fontSize: 16,
+            color: Colors.PRIMARY_WHITE,
+            fontSize: sizes.buttonText,
             fontWeight: 'bold',
         },
         disabledButtonText: {
-            color: '#E2E2E2',
+            color: Colors.disabledButtonText,
         },
         contentContainer: {
             // alignItems: 'center',
@@ -48,8 +50,8 @@ export const Styles = (theme: Theme) =>
             alignItems: 'center',
         },
         iconStyle: {
-            width: 24,
-            height: 24,
+            width: vw(24),
+            height: vh(24),
             marginRight: 8,
         },
     });

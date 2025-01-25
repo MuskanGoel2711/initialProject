@@ -1,14 +1,14 @@
-import { View, Text, StyleSheet, ScrollView, Dimensions, TextInput } from 'react-native'
-import React, { useRef, useState } from 'react'
-import CustomInputBox from '../../../../components/CustomInput';
-import { validateEmail, validateName, validatePhoneNumber } from '../../../../utils/validations';
-import DOBPicker from '../../../../components/CustomDOB';
-import { images } from '../../../../assets';
-import { getStyles } from './style';
-import { useThemeColors } from '../../../../utils/theme/theme';
-import CustomButton from '../../../../components/CustomButton';
 import { MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
+import React, { useRef, useState } from 'react';
+import { Dimensions, TextInput, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { images } from '../../../../assets';
+import CustomButton from '../../../../components/CustomButton';
+import DOBPicker from '../../../../components/CustomDOB';
+import CustomInput from '../../../../components/CustomInput';
+import { useThemeColors } from '../../../../utils/theme/theme';
+import { validateEmail, validateName, validatePhoneNumber } from '../../../../utils/validations';
+import { getStyles } from './style';
 
 interface PickUpDetailsProps {
   navigation: MaterialTopTabBarProps;
@@ -82,19 +82,9 @@ const PickUpDetails: React.FC<PickUpDetailsProps> = ({ navigation }) => {
 
   const handleStartChange = (selectedDate: any) => {
     setStartTime(selectedDate);
-    // if (selectedDate) {
-    //   setDobError(false);
-    // } else {
-    //   setDobError(true);
-    // }
   };
   const handleEndChange = (selectedDate: any) => {
     setEndTime(selectedDate);
-    // if (selectedDate) {
-    //   setDobError(false);
-    // } else {
-    //   setDobError(true);
-    // }
   };
 
   return (
@@ -103,61 +93,53 @@ const PickUpDetails: React.FC<PickUpDetailsProps> = ({ navigation }) => {
       extraHeight={height * (isSmallDevice ? 0.38 : 0.41)}
       showsVerticalScrollIndicator={false} style={styles.container}>
       <View>
-        <CustomInputBox
+        <CustomInput
           name={id}
           label={'Customer ID*'}
           maxLength={25}
           keyboardType="name-phone-pad"
           onChangeText={handleIdChange}
-          setName={setId}
           Error={idError}
-          setError={setIdError}
           errorText={
             'Id should be min 5 digit and max 13 digit.'
           }
           returnKeyType="next"
           onSubmitEditing={() => nameRef.current?.focus()}
         />
-        <CustomInputBox
+        <CustomInput
           forwardRef={nameRef}
           name={name}
           label={'Name*'}
           maxLength={25}
           // keyboardType="name-phone-pad"
           onChangeText={handleNameChange}
-          setName={setName}
           Error={nameError}
-          setError={setNameError}
           errorText={
             'Please use only alphabetical letters and minimum length is 3 characters.'
           }
           returnKeyType="next"
           onSubmitEditing={() => emailRef.current?.focus()}
         />
-        <CustomInputBox
+        <CustomInput
           forwardRef={emailRef}
           name={email}
           label={'Email ID'}
           maxLength={50}
           keyboardType={'email-address'}
           onChangeText={handleEmailChange}
-          setName={setEmail}
           Error={emailError}
-          setError={setEmailError}
           errorText={'Please enter valid email'}
           returnKeyType="next"
           onSubmitEditing={() => numberRef.current?.focus()}
         />
-        <CustomInputBox
+        <CustomInput
           forwardRef={numberRef}
           name={number}
           label={'Contact Number'}
           maxLength={25}
           keyboardType="name-phone-pad"
           onChangeText={handleNumberChange}
-          setName={setNumber}
           Error={numberError}
-          setError={setNumberError}
           errorText={
             'Mobile no. should be min 5 digit and max 13 digit.'
           }

@@ -1,5 +1,7 @@
-import {StyleSheet} from 'react-native';
-import {vw, vh} from '../../utils/Dimensions';
+import { StyleSheet } from 'react-native';
+import { vh, vw } from '../../utils/Dimensions';
+import Colors from '../../utils/colors';
+import sizes from '../../utils/sizes';
 
 interface Theme {
   backgroundColor: string;
@@ -9,7 +11,7 @@ export const getStyles = (theme: Theme) => {
   return StyleSheet.create({
     iconButton: {
       paddingHorizontal: vw(14),
-      borderColor: '#ccc',
+      borderColor: Colors.borderColor,
       borderRightWidth: 1,
       marginRight: vw(4),
       borderWidth: 1
@@ -22,18 +24,24 @@ export const getStyles = (theme: Theme) => {
     phoneInput: {
       width: '100%',
       marginTop: 23,
-      fontSize: 15,
+      fontSize: sizes.inputText,
       backgroundColor: theme.backgroundColor,
       overflow: 'hidden'
     },
+    eyeImg: {
+      width: vw(24),
+      height: vw(24),
+      resizeMode: 'contain',
+      marginTop: vh(7),
+    },
     errorContainer: {
-      borderColor: 'red',
-      borderWidth: 1
+      borderColor: Colors.RED,
     },
     errorText: {
-      color: 'red',
-      fontSize: 14,
+      color: Colors.RED,
+      fontSize: sizes.errorText,
       marginTop: vw(4),
       textAlign: 'left',
     },
-  })};
+  })
+};

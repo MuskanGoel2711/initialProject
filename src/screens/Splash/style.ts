@@ -1,5 +1,4 @@
-import { StyleSheet, ViewStyle, ImageStyle } from 'react-native';
-import {vh,vw} from '../../utils/Dimensions';
+import { ImageStyle, StyleSheet, ViewStyle } from 'react-native';
 import Colors from '../../utils/colors';
 
 const styles = StyleSheet.create<{

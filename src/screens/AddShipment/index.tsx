@@ -1,20 +1,16 @@
-import { View, Text, StyleSheet } from 'react-native';
-import React from 'react';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import CustomImage from '../../components/CustomArrow';
-import { images } from '../../assets/index'
-import { vw, vh } from '../../utils/Dimensions';
-import TopTabs from '../../navigation/TopTabNavigation/index';
-import { useThemeColors } from '../../utils/theme/theme';
-import { getStyles } from './style';
-import strings from '../../utils/strings';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React from 'react';
+import { StatusBar, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { images } from '../../assets/index';
+import CustomImage from '../../components/CustomArrow';
+import TopTabs from '../../navigation/TopTabNavigation/index';
+import strings from '../../utils/strings';
+import { useThemeColors } from '../../utils/theme/theme';
+import { RootStackParamListAddShipment } from '../../utils/types';
+import { getStyles } from './style';
 
-type RootStackParamList = {
-    AddShipment: undefined;
-};
-
-type AddShipmentScreenProps = NativeStackScreenProps<RootStackParamList, 'AddShipment'>;
+type AddShipmentScreenProps = NativeStackScreenProps<RootStackParamListAddShipment, 'AddShipment'>;
 
 const AddShipment: React.FC<AddShipmentScreenProps> = ({ navigation }) => {
     const insets = useSafeAreaInsets();
@@ -25,7 +21,12 @@ const AddShipment: React.FC<AddShipmentScreenProps> = ({ navigation }) => {
         navigation.goBack();
     }
     return (
-        <View style={[styles.container, { paddingTop: insets.top + 10 }]}>
+        <View style={[styles.container, { paddingTop: insets.top + 20 }]}>
+            <StatusBar
+                backgroundColor={'transparent'}
+                barStyle={'dark-content'}
+                translucent={true}
+            />
             <View style={styles.topHeader}>
                 <CustomImage source={images.back} onPress={onBack} imageStyle={styles.icon} />
                 <Text style={styles.text}>{strings.AddShipment()}</Text>

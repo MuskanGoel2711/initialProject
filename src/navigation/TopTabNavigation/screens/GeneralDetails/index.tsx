@@ -1,21 +1,21 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
-import CustomButton from '../../../../components/CustomButton';
-import CustomImage from '../../../../components/CustomArrow';
+import { MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
+import React, { useState } from 'react';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { images } from '../../../../assets';
-import CustomInputBox from '../../../../components/CustomInput';
-import { getStyles } from './style';
+import CustomImage from '../../../../components/CustomArrow';
+import CustomButton from '../../../../components/CustomButton';
+import CustomInput from '../../../../components/CustomInput';
 import { useThemeColors } from '../../../../utils/theme/theme';
 import { validateName } from '../../../../utils/validations';
-import { MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
+import { getStyles } from './style';
 
-interface OptionButtonProps{
+interface OptionButtonProps {
   label: string,
   isSelected: boolean,
   onPress: () => void,
 }
 
-interface GeneralDetailsProps{
+interface GeneralDetailsProps {
   navigation: MaterialTopTabBarProps;
 }
 
@@ -32,7 +32,7 @@ const GeneralDetails: React.FC<GeneralDetailsProps> = ({ navigation }) => {
   const OptionButton: React.FC<OptionButtonProps> = ({ label, isSelected, onPress }) => (
     <TouchableOpacity style={styles.optionContainer} onPress={onPress}>
       <CustomImage
-        imageStyle={isSelected ? styles.image : [styles.image,{tintColor: theme.tintColor}]}
+        imageStyle={isSelected ? styles.image : [styles.image, { tintColor: theme.tintColor }]}
         source={isSelected ? images.checkBox : images.checkEmpty}
         onPress={onPress}
       />
@@ -67,8 +67,7 @@ const GeneralDetails: React.FC<GeneralDetailsProps> = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View>
+    <ScrollView style={styles.container}>
         <Text style={styles.header}>shipment1 Type*</Text>
         <View>
           <OptionButton
@@ -84,43 +83,36 @@ const GeneralDetails: React.FC<GeneralDetailsProps> = ({ navigation }) => {
         </View>
         {selectedOption === 'pickup' && (
           <View style={styles.inputsContainer}>
-            <CustomInputBox
+            <CustomInput
               name={firstName}
               label={'First Name'}
               maxLength={25}
               keyboardType={'name-phone-pad'}
               onChangeText={handleFirstNameChange}
-              setName={setFirstName}
-              // Icon={images.user}
               Error={firstNameError}
-              setError={setFirstNameError}
               errorText={
                 'Please use only alphabetical letters and minimum length is 3 characters.'
               }
             />
-            <CustomInputBox
+            <CustomInput
               name={lastName}
               label={'Last Name'}
               maxLength={25}
               keyboardType="name-phone-pad"
               onChangeText={handleLastNameChange}
-              setName={setLastName}
-              // Icon={Icons.user}
               Error={lastNameError}
-              setError={setLastNameError}
               errorText={
                 'Please use only alphabetical letters and minimum length is 3 characters.'
               }
             />
           </View>
         )}
-      </View>
-      <CustomButton
-        title='Next'
-        onPress={() => navigation.jumpTo('Shipment1Details')}
-        isButtonDisabled={!selectedOption}
-      />
-    </View>
+        <CustomButton
+          title='Next'
+          onPress={() => navigation.jumpTo('Shipment1Details')}
+          isButtonDisabled={!selectedOption}
+        />
+    </ScrollView>
   )
 }
 

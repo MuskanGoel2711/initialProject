@@ -42,7 +42,8 @@
                 "didNotReceive": "کوڈ موصول نہیں ہوا؟",
                 "successfully": "کامیابی کے ساتھ",
                 "successfullyVerified": "آپ کا موبائل نمبر کامیابی کے ساتھ تصدیق ہوگیا ہے۔",
-                "buttonResend": "دوبارہ بھیجیں"
+                "buttonResend": "دوبارہ بھیجیں",
+                "finish": "ختم کریں"
             }
         }
     }

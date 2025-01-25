@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Modal, TouchableOpacity } from 'react-native';
-import { images } from '../../assets/index';
-import { getStyles } from './style';
-import CustomButton from '../../components/CustomButton/index';
-import { OtpInput } from 'react-native-otp-entry';
-import strings from '../../utils/strings'
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import CustomImage from '../../components/CustomArrow/index';
-import { useThemeColors } from '../../utils/theme/theme';
 import { CommonActions } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { Modal, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { OtpInput } from 'react-native-otp-entry';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useDispatch } from 'react-redux';
+import { images } from '../../assets/index';
+import CustomImage from '../../components/CustomArrow/index';
+import CustomButton from '../../components/CustomButton/index';
 import { login } from '../../redux/config/AuthSlice';
+import strings from '../../utils/strings';
+import { useThemeColors } from '../../utils/theme/theme';
+import { getStyles } from './style';
 
 interface OtpScreenProps {
     navigation: {
         goBack: () => void;
-        dispatch: (action: any) => void;
+        dispatch: (action: CommonActions.Action) => void;
     };
 }
 
@@ -47,7 +47,7 @@ const VerifyOtp: React.FC<OtpScreenProps> = ({ navigation }) => {
         return () => clearInterval(timerInterval);
     }, [timer])
 
-    const handleCodeChange = (code: any) => {
+    const handleCodeChange = (code: string) => {
         setEnteredCode(code);
         setIsButtonDisabled(code.length !== 4 || timer > 0);
     };
@@ -97,7 +97,12 @@ const VerifyOtp: React.FC<OtpScreenProps> = ({ navigation }) => {
     const buttonStyle = isButtonDisabled ? styles.buttonDisabled : styles.buttonContainer;
 
     return (
-        <View style={[styles.container, { paddingTop: insets.top }]}>
+        <View style={[styles.container, { paddingTop: insets.top + 20 }]}>
+            <StatusBar
+                backgroundColor={'transparent'}
+                barStyle={'dark-content'}
+                translucent={true}
+            />
             <CustomImage style={styles.leftIcon} onPress={goBack} imageStyle={styles.leftArrow} source={images.back} />
             <Text style={styles.title}>{strings.oTPVerification()}</Text>
             <Text style={styles.subtitle}>{strings.sentMobileNumber()}</Text>
@@ -113,7 +118,7 @@ const VerifyOtp: React.FC<OtpScreenProps> = ({ navigation }) => {
                         containerStyle: styles.otpContainer,
                         pinCodeContainerStyle: [
                             styles.otpInput,
-                            errorMessage ? { borderColor: 'red' } : null,
+                            errorMessage ? { borderColor: 'red' } : {},
                         ],
                         pinCodeTextStyle: styles.pinCodeText,
 

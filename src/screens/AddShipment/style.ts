@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
-import { vw, vh } from '../../utils/Dimensions'
+import Colors from "../../utils/colors";
+import { vh, vw } from '../../utils/Dimensions';
 import sizes from "../../utils/sizes";
 
 interface Theme {
@@ -12,7 +13,7 @@ export const getStyles = (theme: Theme) => {
     return StyleSheet.create({
         container: {
             flex: 1,
-            backgroundColor: theme.backgroundColor
+            backgroundColor: '#3260a8'
         },
         topHeader: {
             flexDirection: 'row',
@@ -24,14 +25,14 @@ export const getStyles = (theme: Theme) => {
         icon: {
             width: vw(23),
             height: vh(23),
-            tintColor: theme.tintColor
+            tintColor: Colors.PRIMARY_WHITE
         },
         text: {
-            width: '100%',
             textAlign: 'center',
-            fontSize: sizes.description,
-            color: theme.textColor,
-            fontFamily: "Roboto-Bold"
+            fontSize: sizes.headerText,
+            color: Colors.PRIMARY_WHITE,
+            fontFamily: "Roboto-Bold",
+            paddingLeft: 30
         },
         tabsContainer: {
             flex: 1,

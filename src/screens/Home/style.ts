@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { vw, vh } from "../../utils/Dimensions";
+import { vh, vw } from "../../utils/Dimensions";
 import Colors from "../../utils/colors";
 import sizes from "../../utils/sizes";
 

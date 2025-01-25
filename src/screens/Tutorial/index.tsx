@@ -1,36 +1,26 @@
-import React, { useState, useRef } from 'react';
-import {
-    View,
-    Text,
-    Image,
-    FlatList,
-    Dimensions,
-    TouchableOpacity,
-} from 'react-native';
-import { useDispatch } from 'react-redux';
-import { CommonActions } from '@react-navigation/native'; 
-import { markTutorial } from '../../redux/config/AuthSlice';
-import styles from './style';
-import tutorialData from '../../assets/tutorialData';
-import strings from '../../utils/strings'
-import Colors from '../../utils/colors';
+import { CommonActions } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React, { useRef, useState } from 'react';
+import {
+    Dimensions,
+    FlatList,
+    Text,
+    TouchableOpacity,
+    View
+} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import { useDispatch } from 'react-redux';
+import tutorialData from '../../assets/tutorialData';
+import CustomFlatList from '../../components/CustomFlatList';
+import { markTutorial } from '../../redux/config/AuthSlice';
+import Colors from '../../utils/colors';
+import strings from '../../utils/strings';
+import { RootStackParamListTutorial, TutorialItem } from '../../utils/types';
+import styles from './style';
 
 const { width } = Dimensions.get('window');
 
-type TutorialItem = {
-    key: string;
-    image: string;
-    title: string;
-    description: string;
-};
-
-type RootStackParamList = {
-    Tutorial: undefined;
-    Login: undefined
-};
-
-type TutorialScreenProps = NativeStackScreenProps<RootStackParamList, 'Tutorial'>;
+type TutorialScreenProps = NativeStackScreenProps<RootStackParamListTutorial, 'Tutorial'>;
 
 const Tutorial: React.FC<TutorialScreenProps> = ({ navigation }) => {
     const dispatch = useDispatch();
@@ -40,7 +30,7 @@ const Tutorial: React.FC<TutorialScreenProps> = ({ navigation }) => {
     const handleNext = () => {
         const nextIndex = currentIndex + 1;
         if (nextIndex < tutorialData.length) {
-            flatListRef.current?.scrollToIndex({ index: nextIndex });
+            flatListRef.current?.scrollToIndex({ index: nextIndex, animated: true  });
             setCurrentIndex(nextIndex);
         } else {
             dispatch(markTutorial());
@@ -65,7 +55,7 @@ const Tutorial: React.FC<TutorialScreenProps> = ({ navigation }) => {
 
     const renderItem = ({ item }: { item: TutorialItem }) => (
         <View style={styles.slide}>
-            <Image style={styles.image} source={{ uri: item.image }} />
+            <FastImage style={styles.image} source={{ uri: item.image }} />
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.description}>{item.description}</Text>
         </View>
@@ -73,12 +63,9 @@ const Tutorial: React.FC<TutorialScreenProps> = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <FlatList
+            <CustomFlatList
                 ref={flatListRef}
                 data={tutorialData}
-                horizontal
-                pagingEnabled
-                showsHorizontalScrollIndicator={false}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.key}
                 onMomentumScrollEnd={(event) => {

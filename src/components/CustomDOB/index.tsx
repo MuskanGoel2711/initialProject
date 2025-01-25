@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import { format, parse } from 'date-fns';
+import React, { useState, Ref } from 'react';
 import {
-  View,
-  TouchableOpacity,
   Image,
   ImageSourcePropType,
+  TouchableOpacity,
+  TextInput as RNTextInput,
 } from 'react-native';
-import { TextInput } from 'react-native-paper';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { format, parse } from 'date-fns';
-import { getStyles } from './style';
+import { TextInput } from 'react-native-paper';
 import { useThemeColors } from '../../utils/theme/theme';
+import { getStyles } from './style';
 
 interface DOBPickerProps {
   label?: string;
@@ -21,7 +21,7 @@ interface DOBPickerProps {
   onClear?: () => void;
   returnKeyType?: 'done' | 'next'; 
   onSubmitEditing?: () => void;
-  forwardRef?: any;
+  forwardRef?: Ref<RNTextInput>;
 }
 
 const DOBPicker = ({
@@ -77,7 +77,7 @@ const DOBPicker = ({
   };
 
   return (
-    <TouchableOpacity onPress={showDatePicker}>
+    <TouchableOpacity onPress={dob ? clearDate : showDatePicker}>
       <TextInput
         style={styles.phoneInput}
         label={label}

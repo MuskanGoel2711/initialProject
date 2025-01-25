@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { vh, vw } from "../../utils/Dimensions";
-import Colors  from "../../utils/colors";
+import Colors from "../../utils/colors";
 import sizes from "../../utils/sizes";
 
 interface Theme {

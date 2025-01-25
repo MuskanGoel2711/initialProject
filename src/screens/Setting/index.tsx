@@ -1,31 +1,39 @@
-import { View, Text, StyleSheet, TouchableOpacity, Modal, I18nManager, Alert } from 'react-native'
-import React, { useState } from 'react';
-import { Switch } from 'react-native-switch';
-import CustomImage from '../../components/CustomArrow/index';
-import { images } from '../../assets/index';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import strings from '../../utils/strings';
-import i18n from '../../utils/localization/i18n';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import RNRestart from 'react-native-restart';
-import { useThemeColors } from '../../utils/theme/theme';
-import { useDispatch, useSelector } from 'react-redux';
-import { getStyles } from './style';
-import { toggleTheme } from '../../redux/config/ThemeSlice';
-import CustomButton from '../../components/CustomButton';
-import { logout } from '../../redux/config/AuthSlice';
 import { CommonActions } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React, { useState } from 'react';
+import { Alert, I18nManager, Modal, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import RNRestart from 'react-native-restart';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Switch } from 'react-native-switch';
+import { useDispatch, useSelector } from 'react-redux';
+import { images } from '../../assets/index';
+import CustomImage from '../../components/CustomArrow/index';
+import CustomButton from '../../components/CustomButton';
+import { logout } from '../../redux/config/AuthSlice';
+import { toggleTheme } from '../../redux/config/ThemeSlice';
+import i18n from '../../utils/localization/i18n';
+import strings from '../../utils/strings';
+import { useThemeColors } from '../../utils/theme/theme';
+import { RootStackParamListSetting } from '../../utils/types';
+import { getStyles } from './style';
 
-type RootStackParamList = {
-    Setting: undefined;
-};
+type SettingScreenProps = NativeStackScreenProps<RootStackParamListSetting, 'Setting'>;
 
-type SettingScreenProps = NativeStackScreenProps<RootStackParamList, 'Setting'>;
+interface RootState {
+    ThemeSlice: {
+        themeMode: 'light' | 'dark';
+    };
+}
+
+interface Language {
+    code: string;
+    label: string;
+}
 
 const Setting: React.FC<SettingScreenProps> = ({ navigation }) => {
     const dispatch = useDispatch();
-    const currentTheme = useSelector((state:any) => state.ThemeSlice.themeMode)
+    const currentTheme = useSelector((state:RootState) => state.ThemeSlice.themeMode)
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedLanguage, setSelectedLanguage] = useState('English');
     const insets = useSafeAreaInsets();
@@ -69,7 +77,7 @@ const Setting: React.FC<SettingScreenProps> = ({ navigation }) => {
         { code: 'hn', label: 'Hindi' },
     ];
 
-    const handleLanguageSelect = async (language: any) => {
+    const handleLanguageSelect = async (language: Language) => {
         setSelectedLanguage(language.label);
         await AsyncStorage.setItem('settings.lang', language.code);
         i18n.changeLanguage(language.code);
@@ -87,6 +95,11 @@ const Setting: React.FC<SettingScreenProps> = ({ navigation }) => {
 
     return (
         <View style={[styles.container, { paddingTop: insets.top + 12 }]}>
+            <StatusBar
+                backgroundColor={'transparent'}
+                barStyle={'dark-content'}
+                translucent={true}
+            />
             <View style={styles.topHeader}>
                 <CustomImage onPress={goBack} source={images.back} imageStyle={styles.leftArrow} />
                 <Text style={styles.text}>{strings.Settings()}</Text>

@@ -1,15 +1,15 @@
-import { View, Text, StyleSheet, Modal, FlatList, TouchableOpacity, ScrollView, Dimensions, TextInput } from 'react-native';
-import React, { useRef, useState } from 'react'
-import CustomInputBox from '../../../../components/CustomInput';
+import { MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
+import React, { useRef, useState } from 'react';
+import { Dimensions, FlatList, Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { images } from '../../../../assets';
+import CustomButton from '../../../../components/CustomButton';
 import DOBPicker from '../../../../components/CustomDOB/index';
 import CustomDown from '../../../../components/CustomDown';
-import CustomButton from '../../../../components/CustomButton';
-import { getStyles } from './style';
+import CustomInput from '../../../../components/CustomInput';
 import { useThemeColors } from '../../../../utils/theme/theme';
-import { validateName, validatePhoneNumber } from '../../../../utils/validations';
-import { MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { validatePhoneNumber } from '../../../../utils/validations';
+import { getStyles } from './style';
 
 interface Shipment1DetailsProps {
   navigation: MaterialTopTabBarProps;
@@ -100,15 +100,13 @@ const Shipment1Details: React.FC<Shipment1DetailsProps> = ({ navigation }) => {
             extraHeight={height * (isSmallDevice ? 0.38 : 0.41)}
             showsVerticalScrollIndicator={false} style={styles.container}>
     <View>
-      <CustomInputBox
+      <CustomInput
         name={id}
         label={'Shipment1 Number*'}
         maxLength={25}
         keyboardType="name-phone-pad"
         onChangeText={handleId}
-        setName={setId}
         Error={idError}
-        setError={setIdError}
         errorText={
           'Number should be min 5 digit and max 13 digit.'
         }
@@ -132,7 +130,7 @@ const Shipment1Details: React.FC<Shipment1DetailsProps> = ({ navigation }) => {
         onPress={() => setIsModalVisible(true)}
         forwardRef={priorityRef}
       />
-      <CustomInputBox
+      <CustomInput
         name={value}
         label={'Value ($)'}
         editable={false}
@@ -140,14 +138,14 @@ const Shipment1Details: React.FC<Shipment1DetailsProps> = ({ navigation }) => {
         onChangeText={setValue}
         returnKeyType="done"
       />
-      <CustomInputBox
+      <CustomInput
         name={cost}
         label={'Shipping Cost ($)'}
         editable={false}
         selectTextOnFocus={false}
         onChangeText={setCost}
       />
-      <CustomInputBox
+      <CustomInput
         name={serviceTime}
         label={'Service Time (in minutes)'}
         editable={false}

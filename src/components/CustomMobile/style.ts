@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { vw, vh } from '../../utils/Dimensions';
+import { vh, vw } from '../../utils/Dimensions';
+import Colors from '../../utils/colors';
+import sizes from '../../utils/sizes';
 
 interface Theme {
   backgroundColor: string;
@@ -9,27 +11,28 @@ interface Theme {
 export const getStyles = (theme: Theme) => {
   return StyleSheet.create({
   inputContainer: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: vh(16),
     borderWidth: 1,
     borderRadius: 10,
-    borderColor: '#ccc',
-    width: '100%',
-    padding: 1,
+    borderColor: Colors.borderColor,
+    // width: '100%',
+    // padding: 1,
     backgroundColor: theme.backgroundColor
   },
   flagContainer: {},
   telephoneButton: {
     paddingHorizontal: vw(14),
-    borderColor: '#ccc',
+    borderColor: Colors.borderColor,
     borderRightWidth: 1,
     marginRight: vw(4),
   },
   iconStyle: {
     width: vw(20),
     height: vw(20),
-    tintColor: 'grey',
+    tintColor: Colors.PRIMARY_GRAY,
     resizeMode: 'contain',
   },
   countryCodeButton: {
@@ -37,23 +40,24 @@ export const getStyles = (theme: Theme) => {
     alignItems: 'center',
   },
   countryCodeText: {
-    fontSize: 16,
+    fontSize: sizes.inputText,
     color: theme.textColor,
   },
   phoneInputMobile: {
-    width: '60%',
+    flex:1,
     borderEndEndRadius: 10,
     borderTopEndRadius: 10,
-    fontSize: 15,
+    fontSize: sizes.inputText,
     backgroundColor: theme.backgroundColor,
     overflow: 'hidden',
+    marginRight:2,
   },
   errorContainer: {
-    borderColor: 'red',
+    borderColor: Colors.RED,
   },
   errorText: {
-    color: 'red',
-    fontSize: 14,
+    color: Colors.RED,
+    fontSize: sizes.errorText,
     marginTop: vh(4),
     textAlign: 'left',
   },

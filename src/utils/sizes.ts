@@ -1,10 +1,10 @@
 const sizes = {
-    buttonText: 15,
+    buttonText: 16,
     header: 23,
     description: 16,
-    inputText: 16,
+    inputText: 15,
     headerText: 18,
-    errorText: 12,
+    errorText: 13,
     otpInput: 18,
     modalText: 18,
     textFlatList: 15,

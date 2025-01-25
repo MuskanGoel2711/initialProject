@@ -4,7 +4,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const STORE_LANGUAGE_KEY = 'settings.lang';
 
-const languageDetectorPlugin: any = {
+interface LanguageDetectorPlugin {
+    type: 'languageDetector';
+    async: boolean;
+    init: () => void;
+    detect: (callback: (language: string) => void) => Promise<void>;
+    cacheUserLanguage: (language: string) => Promise<void>;
+}
+
+const languageDetectorPlugin: LanguageDetectorPlugin = {
     type: 'languageDetector',
     async: true,
     init: (): void => { },

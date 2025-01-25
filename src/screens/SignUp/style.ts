@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {vw, vh} from '../../utils/Dimensions';
+import { StyleSheet } from 'react-native';
+import { vh, vw } from '../../utils/Dimensions';
 import Colors from '../../utils/colors';
 import sizes from '../../utils/sizes';
 
@@ -31,7 +31,7 @@ export const getStyles = (theme: Theme) => {
     },
     detailText: {
       fontSize: sizes.description,
-      color: 'gray',
+      color: Colors.PRIMARY_GRAY,
     },
     focusedInputContainer: {
       flexDirection: 'row',
@@ -39,12 +39,12 @@ export const getStyles = (theme: Theme) => {
       marginTop: vh(24),
       borderWidth: 1,
       borderRadius: 10,
-      borderColor: 'red',
+      borderColor: Colors.RED,
       width: '100%',
     },
     telephoneButton: {
       paddingHorizontal: vw(14),
-      borderColor: '#ccc',
+      borderColor: Colors.borderColor,
       borderRightWidth: 1,
       marginRight: vw(4),
     },
@@ -68,7 +68,7 @@ export const getStyles = (theme: Theme) => {
     consentText: {
       lineHeight: vh(19),
       fontSize: sizes.textFlatList,
-      color: 'gray',
+      color: Colors.PRIMARY_GRAY,
       marginLeft: vw(4),
     },
     uncheckedImg: {
@@ -91,7 +91,7 @@ export const getStyles = (theme: Theme) => {
     accountText: {
       fontSize: sizes.description,
       fontWeight: '400',
-      color: 'grey',
+      color: Colors.PRIMARY_GRAY,
     },
     loginText: {
       fontSize: sizes.buttonText,

@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import OtpScreen from '../OtpScreen/index';
-import { images } from '../../assets/index';
-import { vh, vw } from '../../utils/Dimensions';
-import string from '../../utils/strings';
-import { useDispatch } from 'react-redux';
 import { CommonActions } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React, { useState } from 'react';
+import { Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useDispatch } from 'react-redux';
+import { images } from '../../assets/index';
 import { login } from '../../redux/config/AuthSlice';
+import string from '../../utils/strings';
+import OtpScreen from '../OtpScreen/index';
 import styles from './style';
 
 type RootStackParamList = {
@@ -44,6 +43,11 @@ const PhoneSignUp: React.FC<PhoneSignUpProps> = ({ navigation }) => {
     }
     return (
         <View style={[styles.container, { paddingTop: insets.top }]}>
+            <StatusBar
+                backgroundColor={'transparent'}
+                barStyle={'dark-content'}
+                translucent={true}
+            />
             <View style={styles.viewContainer}>
                 <TouchableOpacity onPress={() => navigation.goBack()} style={styles.leftContainer}>
                     <Image source={images.back} style={styles.left} />

@@ -2,9 +2,15 @@ const Colors = {
     BLACK: '#000000',
     PRIMARY_WHITE: '#FFFFFF',
     AZURE: '#007AFF',
+    BLUE: 'blue',
     PRIMARY_buttonEnabled: '#2f71a3',
     PRIMARY_GRAY: 'gray',
-    RED: '#FF0000'
+    RED: '#FF0000',
+    submitButton: '#3260a8',
+    disabledButtonText: '#E2E2E2',
+    borderColor: '#ccc',
+    tabBarStyle: '#3260a8',
+    shadowColor: '#000'
 }
 
 export const lightThemeColors = {

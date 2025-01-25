@@ -6,6 +6,8 @@ import Shipment1Details from './screens/Shipment1Details';
 import PickUpDetails from './screens/PickUpDetails';
 import { useThemeColors } from '../../utils/theme/theme';
 import sizes from '../../utils/sizes';
+import { ScreenNames } from '../../utils/screenNames';
+import Colors from '../../utils/colors';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -15,15 +17,28 @@ const TopTabs = () => {
         <Tab.Navigator
             screenOptions={{
                 swipeEnabled: false,
-                tabBarLabelStyle: { fontSize: sizes.labelTopTabBar },
+                tabBarLabelStyle: { fontSize: sizes.labelTopTabBar, fontWeight: 'bold' },
                 tabBarIndicatorStyle: { backgroundColor:  theme.backgroundColor},
-                tabBarActiveTintColor: 'blue',
-                tabBarInactiveTintColor: 'black'
+                tabBarActiveTintColor: Colors.BLUE,
+                tabBarInactiveTintColor: Colors.PRIMARY_WHITE,
+                tabBarStyle: { backgroundColor: Colors.tabBarStyle },
             }}
         >
-            <Tab.Screen name="GeneralDetails" component={GeneralDetails} />
-            <Tab.Screen name="Shipment1Details" component={Shipment1Details} />
-            <Tab.Screen name="PickUpDetails" component={PickUpDetails} />
+            <Tab.Screen name={ScreenNames.GeneralDetails} component={GeneralDetails} listeners={({ navigation, route }) => ({
+                    tabPress: (e) => {
+                        e.preventDefault();
+                    },
+                })}/>
+            <Tab.Screen name={ScreenNames.Shipment1Details} component={Shipment1Details} listeners={({ navigation, route }) => ({
+                    tabPress: (e) => {
+                        e.preventDefault();
+                    },
+                })}/>
+            <Tab.Screen name={ScreenNames.PickUpDetails} component={PickUpDetails} listeners={({ navigation, route }) => ({
+                    tabPress: (e) => {
+                        e.preventDefault();
+                    },
+                })}/>
         </Tab.Navigator>
     );
 };

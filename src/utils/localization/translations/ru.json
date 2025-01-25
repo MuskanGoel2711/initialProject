@@ -42,7 +42,8 @@
                 "didNotReceive": "Не получили код?",
                 "successfully": "Успешно",
                 "successfullyVerified": "Ваш номер мобильного телефона успешно подтвержден.",
-                "buttonResend": "Отправить снова"
+                "buttonResend": "Отправить снова",
+                "finish": "Завершить"
             }
         }
     }

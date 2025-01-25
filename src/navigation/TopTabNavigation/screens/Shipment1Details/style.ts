@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import Colors from "../../../../utils/colors";
 
 interface Theme {
   backgroundColor: string;
@@ -19,7 +20,7 @@ export const getStyles = (theme: Theme) => {
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     modalContent: {
-      backgroundColor: '#fff',
+      backgroundColor: Colors.PRIMARY_WHITE,
       borderRadius: 10,
       padding: 20,
       // alignItems: 'center',
@@ -33,7 +34,7 @@ export const getStyles = (theme: Theme) => {
       padding: 15,
       width: '100%',
       borderBottomWidth: 1,
-      borderBottomColor: '#ccc',
+      borderBottomColor: Colors.borderColor,
     },
     optionText: {
       fontSize: 16,
@@ -46,7 +47,7 @@ export const getStyles = (theme: Theme) => {
       borderRadius: 5,
     },
     closeButtonText: {
-      color: '#fff',
+      color: Colors.PRIMARY_WHITE,
       fontSize: 16,
       textAlign: 'center'
     },

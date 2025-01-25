@@ -42,7 +42,8 @@
                 "didNotReceive": "कोड प्राप्त नहीं हुआ?",
                 "successfully": "सफलतापूर्वक",
                 "successfullyVerified": "आपका मोबाइल नंबर सफलतापूर्वक सत्यापित हो गया है।",
-                "buttonResend": "फिर से भेजें"
+                "buttonResend": "फिर से भेजें",
+                "finish": "समाप्त करें"
             }
         }
     }

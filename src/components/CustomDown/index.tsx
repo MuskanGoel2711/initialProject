@@ -1,8 +1,8 @@
-import React from "react";
-import { View, StyleSheet, Text, TouchableOpacity, Image, ImageSourcePropType } from "react-native";
+import React,{Ref} from "react";
+import { Image, ImageSourcePropType, TouchableOpacity, TextInput as RNTextInput, } from "react-native";
 import { TextInput } from "react-native-paper";
-import { getStyles } from "./style";
 import { useThemeColors } from "../../utils/theme/theme";
+import { getStyles } from "./style";
 
 interface CustomInputProps {
   value: string;
@@ -12,7 +12,7 @@ interface CustomInputProps {
   onPress?: () => void;
   returnKeyType?: 'done' | 'next';
   onSubmitEditing?: () => void;
-  forwardRef?: any
+  forwardRef?: Ref<RNTextInput>;
 }
 
 const CustomDown: React.FC<CustomInputProps> = ({ value, onChange, placeholder, source, onPress, returnKeyType,

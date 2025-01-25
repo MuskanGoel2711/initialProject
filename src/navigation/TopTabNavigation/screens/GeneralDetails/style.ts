@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import Colors from "../../../../utils/colors";
 
 interface Theme {
     backgroundColor: string;
@@ -11,7 +10,6 @@ export const getStyles = (theme: Theme) => {
         container: {
             flex: 1,
             padding: 20,
-            justifyContent: 'space-between',
             backgroundColor: theme.backgroundColor
         },
         header: {
@@ -25,7 +23,6 @@ export const getStyles = (theme: Theme) => {
         image: {
             width: 23,
             height: 23,
-            // tintColor: theme.tintColor
         },
         optionText: {
             marginLeft: 12,

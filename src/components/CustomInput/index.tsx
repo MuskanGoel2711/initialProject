@@ -1,81 +1,82 @@
-import React from 'react';
+import React, { Ref } from 'react';
 import {
   Image,
-  Text,
   ImageSourcePropType,
-  useColorScheme,
   KeyboardTypeOptions,
+  Text,
+  TouchableOpacity,
+  View,
+  TextInput as RNTextInput
 } from 'react-native';
 import { TextInput } from 'react-native-paper';
-import { getStyles } from './style';
 import { useThemeColors } from '../../utils/theme/theme';
+import { getStyles } from './style';
 
 interface CustomInputProps {
-  name?: string;
-  setName?: (text: string) => void;
-  Icon?: ImageSourcePropType;
-  Error?: boolean;
+  name: string;
   label: string;
-  setError?: (hasError: boolean) => void;
-  onChangeText?: (text: string) => void;
-  onFocus?: () => void;
-  onBlur?: () => void;
+  Icon?: ImageSourcePropType;
+  isPassword?: boolean;
+  isPasswordVisible?: boolean;
+  togglePasswordVisibility?: () => void;
+  Error?: boolean;
   errorText?: string;
   maxLength?: number;
   keyboardType?: KeyboardTypeOptions;
-  selectTextOnFocus?: boolean;
-  editable?: boolean;
-  returnKeyType?: 'done' | 'next'; 
+  onChangeText: (text: string) => void;
+  returnKeyType?: 'done' | 'next';
   onSubmitEditing?: () => void;
-  forwardRef?: any;
+  forwardRef?: Ref<RNTextInput>;
+  editable?: boolean;
+  selectTextOnFocus?: boolean;
 }
 
-const CustomInputBox = ({
+const CustomInput = ({
   name,
   label,
   Icon,
+  isPassword = false,
+  isPasswordVisible,
+  togglePasswordVisibility,
   Error,
-  onChangeText,
   errorText,
   maxLength,
   keyboardType,
-  selectTextOnFocus,
-  editable,
+  onChangeText,
+  forwardRef,
   returnKeyType,
   onSubmitEditing,
-  forwardRef
+  editable = true,
+  selectTextOnFocus = false,
 }: CustomInputProps) => {
   const theme = useThemeColors();
   const styles = getStyles(theme);
 
   return (
-    <>
+    <View>
       <TextInput
-        style={[styles.phoneInput, { borderColor: Error ? 'red' : 'grey' }]}
+        style={[styles.phoneInput, Error ? styles.errorContainer : null]}
         label={label}
         keyboardType={keyboardType}
         value={name}
-        editable={editable}
-        selectTextOnFocus={selectTextOnFocus}
-        placeholderTextColor={theme.placeholderTextColor}
         maxLength={maxLength}
+        secureTextEntry={isPassword && !isPasswordVisible}
         textColor={theme.textColor}
         onChangeText={onChangeText}
         mode="outlined"
-        underlineStyle={{
-          display: 'none',
-        }}
-        ref={forwardRef}
-        returnKeyType={returnKeyType} 
-        onSubmitEditing={onSubmitEditing}
+        underlineStyle={{ display: 'none' }}
         theme={{
           colors: {
             primary: Error ? 'red' : 'gray',
             placeholder: 'grey',
             background: 'transparent',
-            disabled: 'transparent',
           },
         }}
+        returnKeyType={returnKeyType}
+        onSubmitEditing={onSubmitEditing}
+        ref={forwardRef}
+        editable={editable}
+        selectTextOnFocus={selectTextOnFocus}
         left={
           Icon && (
             <TextInput.Icon
@@ -88,10 +89,28 @@ const CustomInputBox = ({
             />
           )
         }
+        right={
+          isPassword && (
+            <TextInput.Icon
+              icon={() => (
+                <TouchableOpacity onPress={togglePasswordVisibility}>
+                  <Image
+                    source={
+                      isPasswordVisible
+                        ? require('../../assets/images/eye_off.png')
+                        : require('../../assets/images/eye.png')
+                    }
+                    style={[styles.eyeImg, { tintColor: 'grey' }]}
+                  />
+                </TouchableOpacity>
+              )}
+            />
+          )
+        }
       />
       {Error && <Text style={styles.errorText}>{errorText}</Text>}
-    </>
+    </View>
   );
 };
 
-export default CustomInputBox;
+export default CustomInput;

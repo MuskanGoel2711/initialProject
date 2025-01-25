@@ -1,22 +1,16 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
-import CustomImage from '../../components/CustomArrow';
-import { images } from '../../assets';
-import { vh, vw } from '../../utils/Dimensions';
-import CustomButton from '../../components/CustomButton';
-import {getStyles} from './style';
-import { useThemeColors } from '../../utils/theme/theme';
-import strings from '../../utils/strings';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React from 'react';
+import { StatusBar, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { images } from '../../assets';
+import CustomImage from '../../components/CustomArrow';
+import CustomButton from '../../components/CustomButton';
+import strings from '../../utils/strings';
+import { useThemeColors } from '../../utils/theme/theme';
+import { RootStackParamListHome } from '../../utils/types';
+import { getStyles } from './style';
 
-type RootStackParamList = {
-  HomeScreen: undefined;
-  Setting: undefined;
-  AddShipment: undefined;
-};
-
-type HomeScreenProps = NativeStackScreenProps<RootStackParamList, 'HomeScreen'>;
+type HomeScreenProps = NativeStackScreenProps<RootStackParamListHome, 'HomeScreen'>;
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const insets = useSafeAreaInsets();
@@ -34,13 +28,18 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   }
   return (
     <View style={[styles.container,{paddingTop: insets.top + 10}]}>
+      <StatusBar
+                backgroundColor={'transparent'}
+                barStyle={'dark-content'}
+                translucent={true}
+            />
       <View style={styles.topHeader}>
         <CustomImage imageStyle={styles.image} source={images.back} onPress={onBack} />
         <Text style={styles.text}>{strings.HomeScreen()}</Text>
         <CustomImage imageStyle={styles.image} source={images.setting} onPress={onSetting} />
       </View>
       <View style={styles.mainContent}>
-        <CustomButton title={strings.AddPayment()} style={styles.buttonContainer} textStyle={styles.buttonText}
+        <CustomButton title={strings.AddShipment()} style={styles.buttonContainer} textStyle={styles.buttonText}
           onPress={addShipment}
         />
       </View>
