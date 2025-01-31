@@ -3,6 +3,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import {
   Dimensions,
   Keyboard,
+  SafeAreaView,
   StatusBar,
   Text,
   TextInput,
@@ -10,7 +11,6 @@ import {
   TouchableWithoutFeedback,
   View
 } from 'react-native';
-import { Country, CountryCode } from 'react-native-country-picker-modal';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { images } from '../../assets/index';
 import CustomButton from '../../components/CustomButton';
@@ -26,6 +26,14 @@ import {
 } from '../../utils/validations';
 import { getStyles } from './style';
 import { RootStackParamListSignUp } from '../../utils/types';
+import CustomStatus from '../../components/CustomStatus';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+type Country = {
+  name: string;
+  flag: string;
+  calling_code: string;
+};
 
 type SignUpProps = NativeStackScreenProps<RootStackParamListSignUp, 'SignUp'>;
 
@@ -34,7 +42,6 @@ const SignUp = ({ navigation }: SignUpProps) => {
   const styles = getStyles(theme);
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [countryCode, setCountryCode] = useState<CountryCode>('IN');
   const [callingCode, setCallingCode] = useState('+91');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -61,6 +68,8 @@ const SignUp = ({ navigation }: SignUpProps) => {
 
   const { height } = Dimensions.get('screen');
   const isSmallDevice = height <= 667;
+
+  const insets = useSafeAreaInsets();
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
@@ -100,10 +109,10 @@ const SignUp = ({ navigation }: SignUpProps) => {
   };
 
   const onSelect = (country: Country) => {
-    setCountryCode(country.cca2);
-    setCallingCode(`+${country.callingCode[0]}`);
+    setCallingCode(country.calling_code)
     setPickerVisible(false);
   };
+
   const handleEmailChange = (text: string) => {
     setEmail(text);
     if (text === '') {
@@ -168,14 +177,10 @@ const SignUp = ({ navigation }: SignUpProps) => {
     <KeyboardAwareScrollView
       bounces={false}
       extraHeight={height * (isSmallDevice ? 0.38 : 0.41)}
-      showsVerticalScrollIndicator={false} style={styles.mainContainer}>
+      showsVerticalScrollIndicator={false} style={[styles.mainContainer, { paddingTop: insets.top + 10 }]}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={{ flex: 1 }}>
-          <StatusBar
-            backgroundColor={'transparent'}
-            barStyle={'dark-content'}
-            translucent={true}
-          />
+        <SafeAreaView style={{ flex: 1 }}>
+          <CustomStatus />
           <View style={styles.subContainer}>
             <View style={styles.contentHeader}>
               <Text style={styles.headerText}>Create Account</Text>
@@ -268,7 +273,6 @@ const SignUp = ({ navigation }: SignUpProps) => {
             <CustomMobileInputBox
               forwardRef={phoneRef}
               label={strings.placeholderPhone()}
-              countryCode={countryCode}
               callingCode={callingCode}
               phoneNumber={phoneNumber}
               setPhoneNumber={setPhoneNumber}
@@ -299,7 +303,7 @@ const SignUp = ({ navigation }: SignUpProps) => {
               <Text style={styles.loginText}>{strings.buttonLogin()}</Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </SafeAreaView>
       </TouchableWithoutFeedback>
     </KeyboardAwareScrollView>
   );

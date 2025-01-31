@@ -9,6 +9,7 @@ import strings from '../../utils/strings';
 import { useThemeColors } from '../../utils/theme/theme';
 import { RootStackParamListAddShipment } from '../../utils/types';
 import { getStyles } from './style';
+import CustomStatus from '../../components/CustomStatus';
 
 type AddShipmentScreenProps = NativeStackScreenProps<RootStackParamListAddShipment, 'AddShipment'>;
 
@@ -22,11 +23,7 @@ const AddShipment: React.FC<AddShipmentScreenProps> = ({ navigation }) => {
     }
     return (
         <View style={[styles.container, { paddingTop: insets.top + 20 }]}>
-            <StatusBar
-                backgroundColor={'transparent'}
-                barStyle={'dark-content'}
-                translucent={true}
-            />
+            <CustomStatus />
             <View style={styles.topHeader}>
                 <CustomImage source={images.back} onPress={onBack} imageStyle={styles.icon} />
                 <Text style={styles.text}>{strings.AddShipment()}</Text>

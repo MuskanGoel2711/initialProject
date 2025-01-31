@@ -19,6 +19,7 @@ const images = {
     downArrow:  require(`${fixedPath}/down-arrow.png`),
     close: require(`${fixedPath}/remove.png`),
     apple: require(`${fixedPath}/apple-logo.png`),
+    noInternet: require(`${fixedPath}/noInternet.png`),
 }
 
 export {images};

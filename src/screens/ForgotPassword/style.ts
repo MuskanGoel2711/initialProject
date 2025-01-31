@@ -14,7 +14,6 @@ export const getStyles = (theme: Theme) => {
       backgroundColor: theme.backgroundColor,
     },
     subContainer: {
-      paddingVertical: vh(25),
       paddingHorizontal: vw(20),
     },
     backButton: {

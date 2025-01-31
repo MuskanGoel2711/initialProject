@@ -1,20 +1,29 @@
-import React, { Ref } from 'react';
+import React, { Ref, useState } from "react";
 import {
+  FlatList,
   Image,
   ImageSourcePropType,
+  Modal,
+  TextInput as RNTextInput,
+  SafeAreaView,
   Text,
   TouchableOpacity,
-  View,
-  TextInput as RNTextInput
-} from 'react-native';
-import CountryPicker, { Country } from 'react-native-country-picker-modal';
+  View
+} from "react-native";
 import { TextInput } from 'react-native-paper';
+import countries from "../../assets/countries/countries";
 import { useThemeColors } from '../../utils/theme/theme';
 import { validatePhoneNumber } from '../../utils/validations';
 import { getStyles } from './style';
+import strings from "../../utils/strings";
+
+type Country = {
+  name: string;
+  flag: string;
+  calling_code: string;
+};
 
 interface CustomMobileInputBoxProps {
-  countryCode?: any;
   callingCode?: string;
   label: string;
   phoneNumber: string;
@@ -31,8 +40,6 @@ interface CustomMobileInputBoxProps {
 }
 
 const CustomMobileInputBox = ({
-  countryCode,
-  callingCode,
   label,
   phoneNumber,
   setPhoneNumber,
@@ -48,6 +55,11 @@ const CustomMobileInputBox = ({
 }: CustomMobileInputBoxProps) => {
   const theme = useThemeColors();
   const styles = getStyles(theme);
+
+  const [selectedCountry, setSelectedCountry] = useState<Country>(countries[0]);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
   const handlePhoneNumberChange = (text: string) => {
     setPhoneNumber(text);
     if (text === '') {
@@ -58,10 +70,22 @@ const CustomMobileInputBox = ({
       setError(true);
     }
   };
+
+  const handleSelectCountry = (country: Country) => {
+    setSelectedCountry(country);
+    setIsModalVisible(false);
+    if (onSelect) {
+      onSelect(country);
+    }
+  };
+
+  const filteredCountries = countries.filter((country) =>
+    country.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
-    <>
-      <View
-        style={[styles.inputContainer, error ? styles.errorContainer : null]}>
+    <View style={styles.container}>
+      <View style={[styles.inputContainer, error ? styles.errorContainer : null]}>
         <TouchableOpacity activeOpacity={1} style={styles.telephoneButton}>
           <Image
             source={Icon}
@@ -69,23 +93,11 @@ const CustomMobileInputBox = ({
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.countryCodeButton}
-          activeOpacity={1}
-          onPress={() => setPickerVisible(setPickerVisible)}>
-          <CountryPicker
-            countryCode={countryCode}
-            withFlag={true}
-            withCallingCode={true}
-            withFilter={true}
-            onSelect={onSelect}
-            visible={false}
-            containerButtonStyle={styles.flagContainer}
-          />
-          <Text
-            onPress={() => setPickerVisible(setPickerVisible)}
-            style={styles.countryCodeText}>
-            {callingCode}
-          </Text>
+          style={styles.flagButton}
+          onPress={() => setIsModalVisible(true)}
+        >
+          <Text style={styles.flagText}>{selectedCountry.flag}</Text>
+          <Text style={styles.callingCodeText}>{selectedCountry.calling_code}</Text>
         </TouchableOpacity>
         <TextInput
           style={styles.phoneInputMobile}
@@ -113,7 +125,40 @@ const CustomMobileInputBox = ({
         />
       </View>
       {error && <Text style={styles.errorText}>{errorText}</Text>}
-    </>
+
+      <Modal visible={isModalVisible} animationType="slide">
+        <SafeAreaView style={styles.modalContainer}>
+          <View style={styles.modalContainer}>
+          <Text style={styles.searchTitle}>Select Country</Text>
+          <RNTextInput
+            style={styles.searchInput}
+            placeholder="Search country..."
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+          />
+          <FlatList
+            data={filteredCountries}
+            keyExtractor={(item) => item.name}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                style={styles.countryButton}
+                onPress={() => handleSelectCountry(item)}
+              >
+                <Text style={styles.countryText}>{item.flag}</Text>
+                <Text style={styles.countryName}>{item.name}</Text>
+              </TouchableOpacity>
+            )}
+          />
+          <TouchableOpacity
+            style={styles.closeButton}
+            onPress={() => setIsModalVisible(false)}
+          >
+            <Text style={styles.closeButtonText}>{strings.close()}</Text>
+          </TouchableOpacity>
+          </View>
+        </SafeAreaView>
+      </Modal>
+    </View>
   );
 };
 

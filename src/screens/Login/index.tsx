@@ -5,6 +5,7 @@ import {
   Dimensions,
   Keyboard,
   Platform,
+  SafeAreaView,
   ScrollView,
   StatusBar,
   Text,
@@ -27,6 +28,7 @@ import { useThemeColors } from '../../utils/theme/theme';
 import { RootStackParamListLogin } from '../../utils/types';
 import { validateEmail, validatePassword } from '../../utils/validations';
 import { getStyles } from './style';
+import CustomStatus from '../../components/CustomStatus';
 
 type LoginProps = NativeStackScreenProps<RootStackParamListLogin, 'Login'>;
 
@@ -140,14 +142,10 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
     <KeyboardAwareScrollView
       bounces={false}
       extraHeight={height * (isSmallDevice ? 0.38 : 0.41)}
-      showsVerticalScrollIndicator={false} style={[styles.mainContainer, { paddingTop: insets.top }]}>
+      showsVerticalScrollIndicator={false} style={[styles.mainContainer, { paddingTop: insets.top + 10 }]}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <ScrollView style={{ flex: 1 }}>
-          <StatusBar
-            backgroundColor={'transparent'}
-            barStyle={'dark-content'}
-            translucent={true}
-          />
+        <SafeAreaView style={{ flex: 1 }}>
+          <CustomStatus />
           <View style={styles.subContainer}>
             <View style={styles.contentHeader}>
               <Text style={styles.headerText}>{strings.SignIn()}</Text>
@@ -225,7 +223,7 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
               textStyle={option.textStyle}
             />
           ))}
-        </ScrollView>
+        </SafeAreaView>
       </TouchableWithoutFeedback>
     </KeyboardAwareScrollView>
   );

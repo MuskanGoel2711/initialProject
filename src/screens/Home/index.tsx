@@ -9,6 +9,8 @@ import strings from '../../utils/strings';
 import { useThemeColors } from '../../utils/theme/theme';
 import { RootStackParamListHome } from '../../utils/types';
 import { getStyles } from './style';
+import CustomStatus from '../../components/CustomStatus';
+import CustomHeader from '../../components/CustomHeader';
 
 type HomeScreenProps = NativeStackScreenProps<RootStackParamListHome, 'HomeScreen'>;
 
@@ -16,7 +18,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const insets = useSafeAreaInsets();
   const theme = useThemeColors();
   const styles = getStyles(theme);
-  
+
   const onBack = () => {
     navigation.goBack();
   }
@@ -27,17 +29,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     navigation.navigate('AddShipment')
   }
   return (
-    <View style={[styles.container,{paddingTop: insets.top + 10}]}>
-      <StatusBar
-                backgroundColor={'transparent'}
-                barStyle={'dark-content'}
-                translucent={true}
-            />
-      <View style={styles.topHeader}>
-        <CustomImage imageStyle={styles.image} source={images.back} onPress={onBack} />
-        <Text style={styles.text}>{strings.HomeScreen()}</Text>
-        <CustomImage imageStyle={styles.image} source={images.setting} onPress={onSetting} />
-      </View>
+    <View style={[styles.container, { paddingTop: insets.top + 10 }]}>
+      <CustomStatus />
+      <CustomHeader onBack={onBack} rightImage={images.setting} onSetting={onSetting} header={strings.HomeScreen()}/>
       <View style={styles.mainContent}>
         <CustomButton title={strings.AddShipment()} style={styles.buttonContainer} textStyle={styles.buttonText}
           onPress={addShipment}

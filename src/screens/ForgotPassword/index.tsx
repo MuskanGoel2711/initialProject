@@ -9,7 +9,6 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { Country, CountryCode } from 'react-native-country-picker-modal';
 import { images } from '../../assets/index';
 import CustomImage from '../../components/CustomArrow';
 import CustomButton from '../../components/CustomButton/index';
@@ -18,6 +17,14 @@ import strings from '../../utils/strings';
 import { useThemeColors } from '../../utils/theme/theme';
 import { RootStackParamListForgotPassword } from '../../utils/types';
 import { getStyles } from './style';
+import CustomStatus from '../../components/CustomStatus';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+type Country = {
+  name: string;
+  flag: string;
+  calling_code: string;
+};
 
 type ForgotPasswordProps = NativeStackScreenProps<RootStackParamListForgotPassword, 'ForgotPassword'>;
 
@@ -25,17 +32,20 @@ const ForgotPassword = ({ navigation }: ForgotPasswordProps) => {
   const theme = useThemeColors();
   const styles = getStyles(theme);
 
-  const [countryCode, setCountryCode] = useState<CountryCode>('IN');
+  const insets = useSafeAreaInsets();
+
   const [callingCode, setCallingCode] = useState('+91');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isPickerVisible, setPickerVisible] = useState(false);
   const [error, setError] = useState(false);
 
-  const onSelect = (country: Country) => {
-    setCountryCode(country.cca2);
-    setCallingCode(`+${country.callingCode[0]}`);
+  const onSelect = (country: any) => {
+    console.log('country', country)
+    // setCallingCode(`+${country.callingCode}`);
+    setCallingCode(country.calling_code)
     setPickerVisible(false);
   };
+  
   const handleBack = () => {
     navigation.goBack();
   };
@@ -50,13 +60,9 @@ const ForgotPassword = ({ navigation }: ForgotPasswordProps) => {
   return (
     <>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <SafeAreaView style={styles.mainContainer}>
+        <SafeAreaView style={[styles.mainContainer, { paddingTop: insets.top + 10 }]}>
           <ScrollView style={{ flex: 1 }}>
-            <StatusBar
-              backgroundColor={'transparent'}
-              barStyle={'dark-content'}
-              translucent={true}
-            />
+            <CustomStatus />
             <View style={styles.subContainer}>
               <CustomImage source={images.back} imageStyle={styles.Left} style={styles.backButton} onPress={handleBack} />
               <View style={styles.contentHeader}>
@@ -69,8 +75,6 @@ const ForgotPassword = ({ navigation }: ForgotPasswordProps) => {
               </View>
               <CustomMobileInputBox
                 label={strings.placeholderPhone()}
-                countryCode={countryCode}
-                callingCode={callingCode}
                 phoneNumber={phoneNumber}
                 setPhoneNumber={setPhoneNumber}
                 onSelect={onSelect}

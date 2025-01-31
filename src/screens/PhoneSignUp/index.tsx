@@ -10,6 +10,7 @@ import { login } from '../../redux/config/AuthSlice';
 import string from '../../utils/strings';
 import OtpScreen from '../OtpScreen/index';
 import styles from './style';
+import CustomStatus from '../../components/CustomStatus';
 
 type RootStackParamList = {
     PhoneSignUp: undefined;
@@ -43,11 +44,7 @@ const PhoneSignUp: React.FC<PhoneSignUpProps> = ({ navigation }) => {
     }
     return (
         <View style={[styles.container, { paddingTop: insets.top }]}>
-            <StatusBar
-                backgroundColor={'transparent'}
-                barStyle={'dark-content'}
-                translucent={true}
-            />
+            <CustomStatus />
             <View style={styles.viewContainer}>
                 <TouchableOpacity onPress={() => navigation.goBack()} style={styles.leftContainer}>
                     <Image source={images.back} style={styles.left} />

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StatusBar, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styles from './style';
+import CustomStatus from '../../components/CustomStatus';
 
 interface OtpScreenProps {
     confirm: () => void;
@@ -21,11 +22,7 @@ const OtpScreen: React.FC<OtpScreenProps> = (props) => {
 
     return (
         <View style={[styles.container, { paddingTop: insets.top }]}>
-            <StatusBar
-                backgroundColor={'transparent'}
-                barStyle={'dark-content'}
-                translucent={true}
-            />
+            <CustomStatus />
             <TextInput 
                 value={code} 
                 onChangeText={(text: string) => setCode(text)} 

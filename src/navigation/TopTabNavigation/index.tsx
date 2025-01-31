@@ -19,7 +19,7 @@ const TopTabs = () => {
                 swipeEnabled: false,
                 tabBarLabelStyle: { fontSize: sizes.labelTopTabBar, fontWeight: 'bold' },
                 tabBarIndicatorStyle: { backgroundColor:  theme.backgroundColor},
-                tabBarActiveTintColor: Colors.BLUE,
+                tabBarActiveTintColor: Colors.BLACK,
                 tabBarInactiveTintColor: Colors.PRIMARY_WHITE,
                 tabBarStyle: { backgroundColor: Colors.tabBarStyle },
             }}

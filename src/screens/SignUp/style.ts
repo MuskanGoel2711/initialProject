@@ -16,7 +16,6 @@ export const getStyles = (theme: Theme) => {
       backgroundColor: theme.backgroundColor,
     },
     subContainer: {
-      paddingVertical: vh(35),
       paddingHorizontal: vw(20),
     },
     contentHeader: {},
@@ -87,6 +86,7 @@ export const getStyles = (theme: Theme) => {
     loginContainer: {
       flexDirection: 'row',
       alignSelf: 'center',
+      marginTop: 23
     },
     accountText: {
       fontSize: sizes.description,

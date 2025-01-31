@@ -17,10 +17,7 @@ export const getStyles = (theme:Theme)=>{
         padding: 20,
         backgroundColor: theme.backgroundColor
     },
-    topHeader: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginRight: 23,
+    header: {
         marginBottom: 20
     },
     text: {

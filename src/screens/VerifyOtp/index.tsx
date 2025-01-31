@@ -1,12 +1,13 @@
 import { CommonActions } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { Modal, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { Modal, Text, TouchableOpacity, View } from 'react-native';
 import { OtpInput } from 'react-native-otp-entry';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useDispatch } from 'react-redux';
 import { images } from '../../assets/index';
 import CustomImage from '../../components/CustomArrow/index';
 import CustomButton from '../../components/CustomButton/index';
+import CustomStatus from '../../components/CustomStatus';
 import { login } from '../../redux/config/AuthSlice';
 import strings from '../../utils/strings';
 import { useThemeColors } from '../../utils/theme/theme';
@@ -98,11 +99,7 @@ const VerifyOtp: React.FC<OtpScreenProps> = ({ navigation }) => {
 
     return (
         <View style={[styles.container, { paddingTop: insets.top + 20 }]}>
-            <StatusBar
-                backgroundColor={'transparent'}
-                barStyle={'dark-content'}
-                translucent={true}
-            />
+            <CustomStatus />
             <CustomImage style={styles.leftIcon} onPress={goBack} imageStyle={styles.leftArrow} source={images.back} />
             <Text style={styles.title}>{strings.oTPVerification()}</Text>
             <Text style={styles.subtitle}>{strings.sentMobileNumber()}</Text>

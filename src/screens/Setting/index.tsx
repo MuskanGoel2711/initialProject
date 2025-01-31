@@ -17,6 +17,8 @@ import strings from '../../utils/strings';
 import { useThemeColors } from '../../utils/theme/theme';
 import { RootStackParamListSetting } from '../../utils/types';
 import { getStyles } from './style';
+import CustomStatus from '../../components/CustomStatus';
+import CustomHeader from '../../components/CustomHeader';
 
 type SettingScreenProps = NativeStackScreenProps<RootStackParamListSetting, 'Setting'>;
 
@@ -95,15 +97,8 @@ const Setting: React.FC<SettingScreenProps> = ({ navigation }) => {
 
     return (
         <View style={[styles.container, { paddingTop: insets.top + 12 }]}>
-            <StatusBar
-                backgroundColor={'transparent'}
-                barStyle={'dark-content'}
-                translucent={true}
-            />
-            <View style={styles.topHeader}>
-                <CustomImage onPress={goBack} source={images.back} imageStyle={styles.leftArrow} />
-                <Text style={styles.text}>{strings.Settings()}</Text>
-            </View>
+            <CustomStatus />
+            <CustomHeader onBack={goBack} header={strings.Settings()} style={styles.header}/>
             <TouchableOpacity onPress={openLanguageModal}>
                 <Text style={styles.option}>
                     {strings.Language()}

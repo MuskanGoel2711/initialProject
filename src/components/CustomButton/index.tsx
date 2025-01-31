@@ -35,7 +35,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
           styles.contentContainer,
           iconSource && styles.rowContainer,
         ]}>
-        {iconSource && <Image source={iconSource} style={styles.iconStyle} />}
+        {iconSource && <Image source={iconSource} style={styles.iconStyle} resizeMode='contain'/>}
         <Text
           style={[
             styles.submitButtonText,
