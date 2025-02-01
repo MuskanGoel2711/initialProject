@@ -1,37 +1,47 @@
-import React, {forwardRef} from 'react';
+import React, { forwardRef } from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
 
-type TutorialItem = {
-    key: string;
-    image: string;
-    title: string;
-    description: string;
+type CustomFlatListProps<T> = {
+    data: T[];
+    renderItem: ListRenderItem<T>;
+    keyExtractor: (item: T, index: number) => string;
+    onMomentumScrollEnd?: (event: { nativeEvent: { contentOffset: { x: number } } }) => void;
+    horizontal?: boolean;
+    pagingEnabled?: boolean;
+    showsHorizontalScrollIndicator?: boolean;
+    onEndReached?: () => void;
+    onEndReachedThreshold?: number;
+    ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null;
+    refreshControl?: React.ReactElement;
 };
 
-type CustomFlatListProps = {
-    data: TutorialItem[];
-    renderItem: ListRenderItem<TutorialItem>;
-    keyExtractor: (item: TutorialItem, index: number) => string;
-    onMomentumScrollEnd: (event: { nativeEvent: { contentOffset: { x: number } } }) => void;
-};
-
-const CustomFlatList= forwardRef<FlatList<TutorialItem>, CustomFlatListProps>(({
+const CustomFlatList = forwardRef<FlatList<any>, CustomFlatListProps<any>>(({
     data,
     renderItem,
     keyExtractor,
     onMomentumScrollEnd,
-    // getItemLayout
+    horizontal = true,
+    pagingEnabled = true,
+    showsHorizontalScrollIndicator = false,
+    onEndReached,
+    onEndReachedThreshold,
+    ListFooterComponent,
+    refreshControl
 }, ref) => {
     return (
         <FlatList
             ref={ref}
             data={data}
-            horizontal
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}
+            horizontal={horizontal}
+            pagingEnabled={pagingEnabled}
+            showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
             renderItem={renderItem}
             keyExtractor={keyExtractor}
             onMomentumScrollEnd={onMomentumScrollEnd}
+            onEndReached={onEndReached}
+            onEndReachedThreshold={onEndReachedThreshold}
+            refreshControl={refreshControl}
+            ListFooterComponent={ListFooterComponent}
         />
     );
 });
